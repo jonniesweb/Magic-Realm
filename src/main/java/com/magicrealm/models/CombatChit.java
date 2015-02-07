@@ -1,6 +1,6 @@
 package com.magicrealm.models;
 
-public class ActionChit {
+public class CombatChit {
 	
 	private enum action {move, fight, duck, berserk, magic};
 	private int effort;
