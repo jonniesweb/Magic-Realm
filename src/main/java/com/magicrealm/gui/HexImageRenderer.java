@@ -3,7 +3,6 @@ package com.magicrealm.gui;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -22,23 +21,37 @@ public final class HexImageRenderer extends ColorHexRender {
 	
 	
 	@Override
-	public void renderHexCell(HexEngine<Graphics2D> engine, Graphics2D g,
+	public void renderHexCell(HexEngine<Graphics2D> engine, Graphics2D graphic,
 			float x, float y, int col, int row) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+		graphic.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		
 		
 		GameTile tile = (GameTile) engine.getModel().getValueAt(col, row);
-		// ignore all null spaces on the gameboard
+		// ignore all empty spaces on the gameboard
 		if (tile == null)
 			return;
 		
 		String filename = getImage(tile);
-		log.info("get image: " + filename);
+		log.trace("get image: " + filename);
 		
 		try {
-			// draw image
+			// get image from file
 			BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(filename + "1.gif"));
-			g.drawImage(image, (int) x, (int) y, (int) engine.getCellWidth(), (int) engine.getCellHeight(), null);
+			
+			// create a blank image for the rotation
+			BufferedImage rotatedImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
+			
+			Graphics2D rotatedImageGraphics = (Graphics2D) rotatedImage.getGraphics();
+			double imageX = image.getWidth() / 2.0D;
+			double imageY = image.getHeight() / 2.0D;
+			int degrees = 60 * tile.getRotation();
+			AffineTransform transform = AffineTransform.getRotateInstance(Math.toRadians(degrees), imageX, imageY);
+			
+			// draw the image, applying the rotation
+			rotatedImageGraphics.drawImage(image, transform, null);
+			
+			// draw the image onto the gameboard
+			graphic.drawImage(rotatedImage, (int) x, (int) y, (int) engine.getCellWidth(), (int) engine.getCellHeight(), null);
 		} catch (IOException e) {
 			log.error("Unable to load image: " + filename, e);
 		}
