@@ -24,7 +24,8 @@ public class BoardView {
 		frame.setLayout(new BorderLayout());
 
 		final HexEngine<Graphics2D> engine = new HexEngine<Graphics2D>(200, 200, 0.25f, HexEngine.ORIENTATION_HORIZONTAL);
-		engine.setModel(new DefaultIntegerHexModel(16, 16, -1));
+		MagicRealmHexEngineModel model = new DefaultMagicRealmHexEngineModel(5, 5);
+		engine.setModel(model);
 		
 		engine.setRenderer(new HexImageRenderer());
 		
