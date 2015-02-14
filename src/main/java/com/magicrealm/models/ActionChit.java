@@ -1,11 +1,19 @@
 package com.magicrealm.models;
 
-public class ActionChit {
+public class ActionChit extends Belonging {
 	
-	private enum action {move, fight, duck, berserk, magic};
-	private int effort;
+	public static enum ACTION {MOVE, FIGHT, DUCK, BERSERK, MAGIC};
+	private ACTION action;
+	private int extraEffort;
 	private int time;
-	private int strength;
-	private int magicRitual;
+	private Weight strength;
+//	private int magicRitual;
+	
+	public ActionChit(ACTION a, int e, int t, Weight s) {
+		action = a;
+		extraEffort = e;
+		time = t;
+		strength = s;
+	}
 
 }

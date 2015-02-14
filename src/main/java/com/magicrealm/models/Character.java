@@ -4,26 +4,29 @@ import java.awt.Image;
 
 import com.magicrealm.utils.ProbabilityCalculator;
 
-public class Character {
+public abstract class Character {
 	
-	private String name;
-	private Image picture;
-	private String description;
-	public enum vulnerability {light, medium, heavy};
-	private boolean attentionChit;
-	private int fame;
-	private int notoriety;
-	private ActionChit actionChit;
-	private int gold;
-	private Dwelling startingLocation;
-	private boolean isHidden;
+	protected String name;
+	protected Image picture;
+	protected String description;
+	protected Weight vulnerability;
+	protected boolean attentionChit;
+	protected int fame;
+	protected int notoriety;
+	protected ActionChit[] actionChits;
+	protected int gold;
+	protected Dwelling startingLocation;
+	protected boolean hidden;
+	protected boolean blocked;
+	protected Weapon activeWeapon;
+	protected Armor activeSuit;
+	protected Armor activeHelmet;
+	protected Armor activeBreastplate;
+	protected Armor activeShield;
 //	private Person tradingRelationships;
 //	private int discoveries;
 	
-	public Character() {
-		
-	}
-	
+	//activities
 	public void attemptHide() {
 		if(ProbabilityCalculator.calculateHide())
 			this.hide();
@@ -41,7 +44,15 @@ public class Character {
 		}
 	}
 	
+	public void move() {
+		
+	}
+	
+	public void block() {
+		blocked = true;
+	}
+	
 	private void hide() {
-		isHidden = true;
+		hidden = true;
 	}
 }
