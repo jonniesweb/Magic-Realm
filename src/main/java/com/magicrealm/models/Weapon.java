@@ -1,20 +1,40 @@
 package com.magicrealm.models;
 
-public class Weapon extends Belonging {
+public abstract class Weapon extends Belonging {
 	
-	private enum attack {striking, missle};
-	private Weight weight;
-	private int sharpness;
-	private int length;
-	private boolean alerted;
-	private int price;
+	public enum Attack {STRIKING, MISSLE}
+	protected String name;
+	protected Weight weight;
+	protected Weight harm;
+	protected Attack attack;
+	protected int sharpness; //number of stars
+	protected int length;
+	protected int speed; //the integer on the weapon, if 0 the speed is the chit speed
+	protected boolean alerted;
+	protected int price;
+	
+	public Weapon(String name, Attack attack, int length, int price, Weight weight) {
+		this.attack = attack;
+		this.price = price;
+		this.weight = weight;
+		this.harm = weight;
+		this.length = length;
+		this.name = name;
+		sleep();
+	}
 	
 	public void alert() {
+		setAlertStats();
 		this.alerted = true;
 	}
 	
 	public void sleep() {
+		setSleepStats();
 		this.alerted = false;
 	}
+	
+	public abstract void setAlertStats();
+	
+	public abstract void setSleepStats();
 
 }

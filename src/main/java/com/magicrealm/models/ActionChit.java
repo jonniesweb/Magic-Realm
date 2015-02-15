@@ -9,7 +9,7 @@ public class ActionChit extends Belonging {
 	private Weight strength;
 //	private int magicRitual;
 	
-	public ActionChit(ACTION a, int e, int t, Weight s) {
+	public ActionChit(Weight s, ACTION a, int t, int e) {
 		action = a;
 		extraEffort = e;
 		time = t;
