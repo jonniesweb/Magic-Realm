@@ -20,6 +20,8 @@ public abstract class Weapon extends Belonging {
 		this.harm = weight;
 		this.length = length;
 		this.name = name;
+		this.sharpness = 0;
+		this.speed = 0;
 		sleep();
 	}
 	
