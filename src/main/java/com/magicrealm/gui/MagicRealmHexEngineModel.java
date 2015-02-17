@@ -3,6 +3,7 @@ package com.magicrealm.gui;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
+import com.magicrealm.models.tiles.GameTile;
 
 public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 	

@@ -13,6 +13,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.renders.swing.ColorHexRender;
+import com.magicrealm.models.tiles.GameTile;
 
 
 public final class HexImageRenderer extends ColorHexRender {

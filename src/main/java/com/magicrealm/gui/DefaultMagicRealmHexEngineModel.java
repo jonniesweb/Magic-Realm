@@ -1,6 +1,7 @@
 package com.magicrealm.gui;
 
-import com.magicrealm.gui.GameTile.TileType;
+import com.magicrealm.models.tiles.GameTile;
+import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class DefaultMagicRealmHexEngineModel extends MagicRealmHexEngineModel {
 

@@ -1,4 +1,4 @@
-package com.magicrealm.gui;
+package com.magicrealm.models.tiles;
 
 import java.util.HashMap;
 import java.util.Map;
