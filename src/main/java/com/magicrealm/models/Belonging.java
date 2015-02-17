@@ -8,7 +8,7 @@ public abstract class Belonging {
 		this.active = true;
 	}
 	
-	public void inactivate() {
+	public void deactivate() {
 		this.active = false;
 	}
 
