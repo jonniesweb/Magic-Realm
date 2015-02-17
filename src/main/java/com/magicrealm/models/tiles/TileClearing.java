@@ -1,8 +1,11 @@
 package com.magicrealm.models.tiles;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.magicrealm.models.Clearingable;
 
 public class TileClearing {
 	
@@ -14,7 +17,7 @@ public class TileClearing {
 	/**
 	 * Stack of tiles that this clearing contains
 	 */
-	private List tiles;
+	private List<Clearingable> tiles = new ArrayList<Clearingable>();
 	
 	/**
 	 * List of other clearings connected to via normal paths
@@ -38,5 +41,8 @@ public class TileClearing {
 		secretPaths.add(tileClearing);
 	}
 	
+	public void addToClearing(Clearingable clearingable) {
+		tiles.add(clearingable);
+	}
 	
 }

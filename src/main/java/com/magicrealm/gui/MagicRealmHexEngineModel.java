@@ -3,7 +3,10 @@ package com.magicrealm.gui;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
+import com.magicrealm.models.Clearingable;
 import com.magicrealm.models.tiles.GameTile;
+import com.magicrealm.models.tiles.GameTile.TileType;
+import com.magicrealm.models.tiles.TileClearing;
 
 public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 	
@@ -95,6 +98,22 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void placeChit(TileType tile, int clearingNumber, Clearingable clearingable) {
+		GameTile gameTile = getTile(tile);
+		gameTile.addToClearing(clearingNumber, clearingable);
+	}
+
+	private GameTile getTile(TileType tile) {
+		for (GameTile gameTile : array) {
+			if (gameTile != null && gameTile.getTileType().equals(tile)) {
+				return gameTile;
+			}
+		}
+		return null;
+	}
+	
+	
 	
 	
 }

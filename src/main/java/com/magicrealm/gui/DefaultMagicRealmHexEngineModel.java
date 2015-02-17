@@ -1,5 +1,6 @@
 package com.magicrealm.gui;
 
+import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 
@@ -8,6 +9,7 @@ public class DefaultMagicRealmHexEngineModel extends MagicRealmHexEngineModel {
 	public DefaultMagicRealmHexEngineModel(int columns, int rows) {
 		super(7, 5);
 		
+		// place tiles
 		setValueAt(1, 1, new GameTile(TileType.PW, 1));
 		setValueAt(1, 3, new GameTile(TileType.LW, 2));
 		setValueAt(2, 1, new GameTile(TileType.M, 0));
@@ -28,6 +30,15 @@ public class DefaultMagicRealmHexEngineModel extends MagicRealmHexEngineModel {
 		setValueAt(5, 2, new GameTile(TileType.CG, 4));
 		setValueAt(5, 3, new GameTile(TileType.DV, 3));
 		setValueAt(6, 1, new GameTile(TileType.CF, 0));
+		
+		// place dwellings
+		placeChit(TileType.DV, 5, new Dwelling(Dwelling.GUARD));
+		placeChit(TileType.CV, 5, new Dwelling(Dwelling.HOUSE));
+		placeChit(TileType.AV, 5, new Dwelling(Dwelling.CHAPEL));
+		placeChit(TileType.BV, 5, new Dwelling(Dwelling.INN));
+		
+		// place monsters
+//		placeChit(TileType.EV, 5, new Ghost());
 	}
 	
 }

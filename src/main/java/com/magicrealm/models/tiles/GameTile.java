@@ -3,6 +3,8 @@ package com.magicrealm.models.tiles;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.magicrealm.models.Clearingable;
+
 
 /**
  * 
@@ -323,10 +325,14 @@ public class GameTile {
 	public void setRotation(int rotation) {
 		this.rotation = rotation;
 	}
+
+	public TileClearing getClearing(int clearingNumber) {
+		return clearings.get(clearingNumber);
+	}
 	
-//	public void addChitToClearing(Chit chit) {
-//		
-//	}
+	public void addToClearing(int clearingNumber, Clearingable clearingable) {
+		getClearing(clearingNumber).addToClearing(clearingable);
+	}
 	
 	
 }
