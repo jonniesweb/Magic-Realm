@@ -1,7 +1,8 @@
 package com.magicrealm.gui;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TileClearing {
 	
@@ -18,12 +19,12 @@ public class TileClearing {
 	/**
 	 * List of other clearings connected to via normal paths
 	 */
-	private List<TileClearing> paths = new ArrayList<TileClearing>();
+	private Set<TileClearing> paths = new HashSet<TileClearing>();
 	
 	/**
 	 * List of other clearings connected to via secret paths
 	 */
-	private List<TileClearing> secretPaths = new ArrayList<TileClearing>();;
+	private Set<TileClearing> secretPaths = new HashSet<TileClearing>();;
 	
 	public void addPath(TileClearing tileClearing) {
 		if (tileClearing == this)
