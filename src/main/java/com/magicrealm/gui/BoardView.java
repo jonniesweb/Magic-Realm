@@ -14,6 +14,8 @@ import com.igormaznitsa.jhexed.engine.DefaultIntegerHexModel;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
+import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class BoardView {
 	

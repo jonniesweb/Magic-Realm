@@ -1,4 +1,4 @@
-package com.magicrealm.gui;
+package com.magicrealm.models.board;
 
 import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.tiles.GameTile;

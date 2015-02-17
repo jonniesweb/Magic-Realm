@@ -1,4 +1,4 @@
-package com.magicrealm.gui;
+package com.magicrealm.models.board;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
