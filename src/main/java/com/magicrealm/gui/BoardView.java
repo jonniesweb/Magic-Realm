@@ -19,8 +19,12 @@ import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class BoardView {
 	
-	public static void main(String... args) {
-		
+	
+	public BoardView() {
+		run();
+	}
+
+	private void run() {
 		final JFrame frame = new JFrame("JHexed");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
