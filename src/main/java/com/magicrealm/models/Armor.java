@@ -1,14 +1,44 @@
 package com.magicrealm.models;
 
-public class Armor extends Belonging {
+public abstract class Armor extends Belonging {
 	
-	private enum Protection {thrust, smash, all};
-	private enum State {intact, damaged, destroyed};
-	private enum Slot {suit, breastplate, helmet, shield}
-	private int price;
-	private Protection protection;
-	private State state;
-	private Slot slot;
-	private Weight weight;
+	public enum Protection {SWING, SMASH, ONE, ALL};
+	public enum State {INTACT, DAMAGED, DESTROYED};
+	public enum Slot {SUIT, BREASTPLATE, HELMET, SHIELD}
+	protected int price;
+	protected Protection protection;
+	protected State state;
+	protected Slot slot;
+	protected Weight weight;
+	protected String name;
+	
+	protected Armor(String name, Slot slot, Weight weight, Protection protection) {
+		this.slot = slot;
+		this.name = name;
+		this.weight = weight;
+		this.protection = protection;
+		this.intact();
+	}
+	
+	public void intact() {
+		state = State.INTACT;
+		setIntactPrice();
+	}
+	
+	public void damaged() {
+		state = State.DAMAGED;
+		setDamagedPrice();
+	}
+	
+	public void destroyed() {
+		state = State.DESTROYED;
+		setDestroyedPrice();
+	}
+
+	public abstract void setIntactPrice();
+	
+	public abstract void setDamagedPrice();
+	
+	public abstract void setDestroyedPrice();
 
 }
