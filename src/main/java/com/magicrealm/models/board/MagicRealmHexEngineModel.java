@@ -103,7 +103,7 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		gameTile.addToClearing(clearingNumber, clearingable);
 	}
 
-	private GameTile getTile(TileType tile) {
+	public GameTile getTile(TileType tile) {
 		for (GameTile gameTile : array) {
 			if (gameTile != null && gameTile.getTileType().equals(tile)) {
 				return gameTile;

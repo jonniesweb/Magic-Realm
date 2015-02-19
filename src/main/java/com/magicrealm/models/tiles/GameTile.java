@@ -64,7 +64,7 @@ public class GameTile {
 	 * 
 	 * @param type
 	 */
-	private void initClearings(TileType type) {
+	protected void initClearings(TileType type) {
 		switch (type) {
 		case AV:
 			addClearing(1, 2, 4, 5);
@@ -276,7 +276,7 @@ public class GameTile {
 	 * @param clearingNumber
 	 * @param connectsToSide a list of tile sides that the clearing connects to
 	 */
-	private void addExit(int clearingNumber, int ... connectsToSide) {
+	protected void addExit(int clearingNumber, int ... connectsToSide) {
 		TileClearing clearing = clearings.get(clearingNumber);
 		for (int i : connectsToSide) {
 			tileExits.put(i, clearing);
@@ -288,7 +288,7 @@ public class GameTile {
 	 * @param clearing1 Undirected connection to j
 	 * @param clearing2 Undirected connection to i
 	 */
-	private void addPath(int clearing1, int clearing2) {
+	protected void addPath(int clearing1, int clearing2) {
 		clearings.get(clearing1).addPath(clearings.get(clearing2));
 		clearings.get(clearing2).addPath(clearings.get(clearing1));
 	}
@@ -298,12 +298,12 @@ public class GameTile {
 	 * @param clearing1
 	 * @param clearing2
 	 */
-	private void addSecretPath(int clearing1, int clearing2) {
+	protected void addSecretPath(int clearing1, int clearing2) {
 		clearings.get(clearing1).addSecretPath(clearings.get(clearing2));
 		clearings.get(clearing2).addSecretPath(clearings.get(clearing1));
 	}
 
-	private void addClearing(int ... i) {
+	protected void addClearing(int ... i) {
 		for (int j : i) {
 			clearings.put(j, new TileClearing());
 		}
@@ -334,5 +334,11 @@ public class GameTile {
 		getClearing(clearingNumber).addToClearing(clearingable);
 	}
 	
-	
+	/**
+	 * Get the clearing that exits at this side, affected by rotation.
+	 * @param side
+	 */
+	public TileClearing getClearingOnSide(int side) {
+		return tileExits.get((6 + side - rotation) % 6);
+	}
 }
