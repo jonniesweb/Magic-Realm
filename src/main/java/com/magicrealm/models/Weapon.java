@@ -13,7 +13,7 @@ public abstract class Weapon extends Belonging {
 	protected boolean alerted;
 	protected int price;
 	
-	public Weapon(String name, Attack attack, int length, int price, Weight weight) {
+	protected Weapon(String name, Attack attack, int length, int price, Weight weight) {
 		this.attack = attack;
 		this.price = price;
 		this.weight = weight;
