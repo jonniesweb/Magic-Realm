@@ -58,7 +58,8 @@ public final class HexImageRenderer extends ColorHexRender {
 			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 123f), "chapel");
 		} else if (tile.getTileType() == TileType.EV) {
 			// show 2 ghosts on 5
-			
+			drawChitImage(graphic, x, y, getX(engine, image, 143f), getY(engine, image, 143f), "ghost");
+			drawChitImage(graphic, x, y, getX(engine, image, 133f), getY(engine, image, 133f), "ghost");
 		}
 		
 	}
