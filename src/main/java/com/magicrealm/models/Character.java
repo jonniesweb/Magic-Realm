@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import com.magicrealm.utils.ProbabilityCalculator;
 
-public abstract class Character {
+public abstract class Character implements Clearingable {
 	
 	protected String name;
 	protected Image picture;

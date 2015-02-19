@@ -6,7 +6,6 @@ import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.magicrealm.models.Clearingable;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
-import com.magicrealm.models.tiles.TileClearing;
 
 public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 	

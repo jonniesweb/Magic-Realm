@@ -1,5 +1,9 @@
 package com.magicrealm.models;
 
+import java.awt.Image;
+
+import com.magicrealm.utils.ImageCache;
+
 public class Amazon extends Character {
 	
 	public Amazon() {
@@ -31,6 +35,11 @@ public class Amazon extends Character {
 		
 		actionChits[10] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.MOVE, 4, 0);
 		actionChits[11] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.MOVE, 4, 0);
+	}
+
+	@Override
+	public Image getImage() {
+		return ImageCache.getImage("amazon");
 	}
 
 }

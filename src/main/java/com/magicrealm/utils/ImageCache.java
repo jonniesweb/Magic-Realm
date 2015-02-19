@@ -42,7 +42,7 @@ public class ImageCache {
 	 * @throws IOException
 	 */
 	private static Image loadImage(String name) throws IOException {
-		BufferedImage image = ImageIO.read(ImageCache.class.getClassLoader().getResource(name + "1.gif"));
+		BufferedImage image = ImageIO.read(ImageCache.class.getClassLoader().getResource(name + ".gif"));
 		cache.put(name, image);
 		return image;
 	}
