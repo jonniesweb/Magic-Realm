@@ -1,6 +1,5 @@
 package com.magicrealm.utils;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -13,15 +12,15 @@ import org.apache.commons.logging.LogFactory;
 public class ImageCache {
 	
 	private static final Log log = LogFactory.getLog(ImageCache.class);
-	private static HashMap<String, Image> cache = new HashMap<String, Image>();
+	private static HashMap<String, BufferedImage> cache = new HashMap<String, BufferedImage>();
 	
 	/**
 	 * Get an image from the cache. Loads image from disk if not loaded yet.
 	 * @param name
 	 * @return
 	 */
-	public static Image getImage(String name) {
-		Image image = cache.get(name);
+	public static BufferedImage getImage(String name) {
+		BufferedImage image = cache.get(name);
 		try {
 			if (image == null) {
 				return loadImage(name);
@@ -41,7 +40,7 @@ public class ImageCache {
 	 * @return
 	 * @throws IOException
 	 */
-	private static Image loadImage(String name) throws IOException {
+	private static BufferedImage loadImage(String name) throws IOException {
 		BufferedImage image = ImageIO.read(ImageCache.class.getClassLoader().getResource(name + ".gif"));
 		cache.put(name, image);
 		return image;
