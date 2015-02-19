@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.renders.swing.ColorHexRender;
 import com.magicrealm.models.tiles.GameTile;
+import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.utils.ImageCache;
 
 
@@ -33,37 +34,54 @@ public final class HexImageRenderer extends ColorHexRender {
 			return;
 		
 		String filename = getImage(tile);
-		log.trace("get image: " + filename);
+		log.trace("drawing tile " + filename);
 		
-		try {
-			// get image from file
-			BufferedImage image = ImageIO.read(getClass().getClassLoader().getResource(filename + "1.gif"));
+		// get tile from cache and rotate
+		BufferedImage image = rotateImage(tile, ImageCache.getImage(filename));
+		
+		// draw the tile onto the gameboard
+		graphic.drawImage(image, (int) x, (int) y, (int) engine.getCellWidth(), (int) engine.getCellHeight(), null);
+		
+		// draw chits
+		if (tile.getTileType() == TileType.B) {
+		} else if (tile.getTileType() == TileType.DV) {
+			// show guard on 5
+			drawChitImage(graphic, x, y, getX(engine, image, 140f), getY(engine, image, 140f), "guard");
+		} else if (tile.getTileType() == TileType.CV) {
+			// show house on 5
+			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 281f), "house");
+		} else if (tile.getTileType() == TileType.BV) {
+			// show inn on 5
+			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 156f), "inn");
+		} else if (tile.getTileType() == TileType.AV) {
+			// show chapel on 5
+			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 123f), "chapel");
+		} else if (tile.getTileType() == TileType.EV) {
+			// show 2 ghosts on 5
 			
-			BufferedImage rotatedImage = rotateImage(tile, image);
-			
-			// draw the image onto the gameboard
-			graphic.drawImage(rotatedImage, (int) x, (int) y, (int) engine.getCellWidth(), (int) engine.getCellHeight(), null);
-			
-			// draw chits
-			
-			float bx = 413f / image.getWidth();
-			float by = 217f / image.getHeight();
-			
-//			System.out.println(bx);
-//			System.out.println(by);
-			
-			float zx = bx * engine.getCellWidth();
-			float zy = by * engine.getCellHeight();
-			
-			
-			Image innImage = ImageCache.getImage("inn");
-			graphic.drawImage(innImage, (int) (x + zx - 25), (int) (y + zy - 25), 50, 50, null);
-			
-			
-		} catch (IOException e) {
-			log.error("Unable to load image: " + filename, e);
 		}
 		
+	}
+
+	private void drawChitImage(Graphics2D graphic, float x, float y,
+			float imgX, float imgY, String imageName) {
+		Image innImage = ImageCache.getImage(imageName);
+		graphic.drawImage(innImage, (int) (x + imgX - 25),
+				(int) (y + imgY - 25), 50, 50, null);
+	}
+
+	private float getY(HexEngine<Graphics2D> engine, BufferedImage image,
+			float yPos) {
+		float by = yPos / image.getHeight();
+		float zy = by * engine.getCellHeight();
+		return zy;
+	}
+
+	private float getX(HexEngine<Graphics2D> engine, BufferedImage image,
+			float xPos) {
+		float bx = xPos / image.getWidth();
+		float zx = bx * engine.getCellWidth();
+		return zx;
 	}
 
 	private BufferedImage rotateImage(GameTile tile, BufferedImage image) {
@@ -95,45 +113,45 @@ public final class HexImageRenderer extends ColorHexRender {
 		}
 		switch (tile.getTileType()) {
 		case AV:
-			return "awfulvalley";
+			return "awfulvalley1";
 		case BV:
-			return "badvalley";
+			return "badvalley1";
 		case CV:
-			return "curstvalley";
+			return "curstvalley1";
 		case DV:
-			return "darkvalley";
+			return "darkvalley1";
 		case EV:
-			return "evilvalley";
+			return "evilvalley1";
 		case LW:
-			return "lindenwoods";
+			return "lindenwoods1";
 		case MW:
-			return "maplewoods";
+			return "maplewoods1";
 		case NW:
-			return "nutwoods";
+			return "nutwoods1";
 		case OW:
-			return "oakwoods";
+			return "oakwoods1";
 		case PW:
-			return "pinewoods";
+			return "pinewoods1";
 		case B:
-			return "borderland";
+			return "borderland1";
 		case CN:
-			return "cavern";
+			return "cavern1";
 		case CS:
-			return "caves";
+			return "caves1";
 		case HP:
-			return "highpass";
+			return "highpass1";
 		case R:
-			return "ruins";
+			return "ruins1";
 		case CF:
-			return "cliff";
+			return "cliff1";
 		case CG:
-			return "crag";
+			return "crag1";
 		case DW:
-			return "deepwoods";
+			return "deepwoods1";
 		case L:
-			return "ledges";
+			return "ledges1";
 		case M:
-			return "mountain";
+			return "mountain1";
 		default:
 			throw new RuntimeException();
 		}
