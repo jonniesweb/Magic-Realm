@@ -1,5 +1,7 @@
 package com.magicrealm.models.board;
 
+import java.util.ArrayList;
+
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
