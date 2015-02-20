@@ -341,4 +341,9 @@ public class GameTile {
 	public TileClearing getClearingOnSide(int side) {
 		return tileExits.get((6 + side - rotation) % 6);
 	}
+	
+	@Override
+	public String toString() {
+		return tileType.toString();
+	}
 }

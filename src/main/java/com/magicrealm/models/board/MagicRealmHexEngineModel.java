@@ -24,6 +24,9 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 	 */
 	private final int rows;
 	
+	private static final int[][][] directions = new int[][][] {
+			{ { 0, 1 }, { -1, 0 }, { -1, -1 }, { 0, -1 }, { 1, -1 }, { 1, 0 } },
+			{ { 0, 1 }, { -1, 1 }, { -1, 0 }, { 0, -1 }, { 1, 0 }, { 1, 1 } } };
 	
 	/**
 	 * @param columns
@@ -114,8 +117,23 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		return null;
 	}
 	
-	public GameTile getTileAdjacentToEdge(int edge) {
-		return null;
+	public GameTile getTileAdjacentToEdge(GameTile tile, int edge) {
+		HexPosition location = getLocation(tile);
+		
+		int col = location.getColumn();
+		int row = location.getRow();
+		System.out.println("dis tile " + location);
+		if ((location.getColumn() & 1) == 0) {
+			// even
+			col += directions[0][edge][0];
+			row += directions[0][edge][1];
+		} else {
+			// odd
+			col += directions[1][edge][0];
+			row += directions[1][edge][1];
+		}
+		System.out.println("crap " + new HexPosition(col, row));
+		return getValueAt(col, row);
 	}
 	
 	public HexPosition getLocation(GameTile tile) {
@@ -128,11 +146,15 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 			}
 		}
 		
-		int col = i % getRowNumber();
-		int row = i / getRowNumber();
+		int col = i % getColumnNumber();
+		int row = i / getColumnNumber();
 		
 		return new HexPosition(col, row);
 		
+	}
+	
+	public static void main(String[] args) {
+		System.out.println((3 & 1) == 0);
 	}
 	
 }
