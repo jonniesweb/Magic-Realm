@@ -1,17 +1,13 @@
 package com.magicrealm.gui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import com.magicrealm.models.Activity;
 import com.magicrealm.models.Activity.ActivityType;
@@ -64,7 +60,7 @@ public class SelectActivityPane extends JPanel{
 //		for (int i = 0; i < 4; i++)
 //		      tileBox.addItem(tiles[i]);
 		
-		JComboBox<String> clearingBox = new JComboBox<String>(new String[] {"1", "2", "3", "4", "5"});
+		JComboBox<String> clearingBox = new JComboBox<String>(new String[] {"1", "2", "3", "4", "5", "6"});
 		
 		this.add(tileBox, BorderLayout.CENTER);
 		this.add(clearingBox, BorderLayout.SOUTH);
