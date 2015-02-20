@@ -1,5 +1,6 @@
 package com.magicrealm.models.tiles;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -342,8 +343,18 @@ public class GameTile {
 		return tileExits.get((6 + side - rotation) % 6);
 	}
 	
+
 	@Override
 	public String toString() {
 		return tileType.toString();
+	}
+	
+	public static String[] getTileNames() {
+		TileType[] tiles = TileType.values();
+		ArrayList<String> s = new ArrayList<String>();
+		for(TileType t: tiles) {
+			s.add(t.toString());
+		}
+		return  s.toArray(new String[0]);
 	}
 }
