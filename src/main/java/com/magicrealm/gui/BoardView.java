@@ -70,6 +70,7 @@ public class BoardView {
 		});
 		
 		frame.add(content, BorderLayout.CENTER);
+		frame.add(new ActivityView(), BorderLayout.NORTH);
 		frame.pack();
 		frame.setVisible(true);
 	}

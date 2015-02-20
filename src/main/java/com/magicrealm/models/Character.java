@@ -1,6 +1,7 @@
 package com.magicrealm.models;
 
 import java.awt.Image;
+import java.util.ArrayList;
 
 import com.magicrealm.utils.ProbabilityCalculator;
 
@@ -23,10 +24,14 @@ public abstract class Character implements Clearingable {
 	protected Armor activeHelmet;
 	protected Armor activeBreastplate;
 	protected Armor activeShield;
+	protected ArrayList<Activity> activities;
 //	private Person tradingRelationships;
 //	private int discoveries;
 	
-	//activities
+	public void addActivity(Activity activity) {
+		activities.add(activity);
+	}
+	
 	public void attemptHide() {
 		if(ProbabilityCalculator.calculateHide())
 			this.hide();
@@ -55,4 +60,10 @@ public abstract class Character implements Clearingable {
 	private void hide() {
 		hidden = true;
 	}
+
+	public ArrayList<Activity> getActivities() {
+		return activities;
+	}
+	
+	
 }
