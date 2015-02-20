@@ -1,6 +1,7 @@
 package com.magicrealm.models.tiles;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +49,7 @@ public class GameTile {
 	 * The paths that exit the tile along one of the sides.
 	 * Clearing side maps to the TileClearing that connects to it.
 	 */
-	private Map<Integer, TileClearing> tileExits = new HashMap<Integer, TileClearing>();;
+	private Map<Integer, TileClearing> tileExits = new HashMap<Integer, TileClearing>();
 
 	public GameTile(TileType type, int rotation) {
 		this.tileType = type;
@@ -340,7 +341,20 @@ public class GameTile {
 	 * @param side
 	 */
 	public TileClearing getClearingOnSide(int side) {
-		return tileExits.get((6 + side - rotation) % 6);
+		return tileExits.get(rotatedToNormal(side));
+	}
+
+	/**
+	 * Takes the side of a rotated tile and gets the unrotated side
+	 * @param side
+	 * @return
+	 */
+	public int rotatedToNormal(int side) {
+		return (6 + side - rotation) % 6;
+	}
+	
+	public int normalToRotated(int side) {
+		return (6 - rotation - side) % 6;
 	}
 	
 
@@ -356,5 +370,13 @@ public class GameTile {
 			s.add(t.toString());
 		}
 		return  s.toArray(new String[0]);
+	}
+
+	public Collection<TileClearing> getClearings() {
+		return clearings.values();
+	}
+
+	public Map<Integer, TileClearing> getTileExits() {
+		return tileExits;
 	}
 }

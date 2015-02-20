@@ -64,4 +64,15 @@ public class GameTileTest {
 			addExit(6, 5);
 		}
 	}
+	
+	@Test
+	public void testNormalToRotated() {
+		TestGameTile tile = new TestGameTile(0);
+		assertEquals(0, tile.rotatedToNormal(0));
+		assertEquals(5, tile.rotatedToNormal(5));
+		
+		tile = new TestGameTile(1);
+		assertEquals(5, tile.rotatedToNormal(0));
+		assertEquals(4, tile.rotatedToNormal(5));
+	}
 }

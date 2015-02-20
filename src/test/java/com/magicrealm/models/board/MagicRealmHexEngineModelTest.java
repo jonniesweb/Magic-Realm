@@ -42,8 +42,7 @@ public class MagicRealmHexEngineModelTest {
 	
 	@Test
 	public void testGetAdjacentTile() {
-		DefaultMagicRealmHexEngineModel model = new DefaultMagicRealmHexEngineModel(0, 0);
-		System.out.println("should be " + model.getLocation(model.getTile(TileType.MW)));
+		MagicRealmHexEngineModel model = new DefaultMagicRealmHexEngineModel(0, 0);
 		
 		GameTile badValley = model.getTile(TileType.BV);
 		assertEquals(model.getTile(TileType.MW), model.getTileAdjacentToEdge(badValley, 0));

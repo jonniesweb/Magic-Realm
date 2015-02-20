@@ -39,6 +39,8 @@ public class DefaultMagicRealmHexEngineModel extends MagicRealmHexEngineModel {
 		
 		// place monsters
 //		placeChit(TileType.EV, 5, new Ghost());
+		
+//		connectAllTheThings();
 	}
 	
 }

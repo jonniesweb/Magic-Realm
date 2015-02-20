@@ -1,6 +1,7 @@
 package com.magicrealm.models.board;
 
-import java.util.ArrayList;
+
+import java.util.Map;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
@@ -8,6 +9,7 @@ import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.magicrealm.models.Clearingable;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
+import com.magicrealm.models.tiles.TileClearing;
 
 public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 	
@@ -119,12 +121,20 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		return null;
 	}
 	
+	/**
+	 * Get the hex tile adjacent to <code>edge</code> side. If it doesn't exist,
+	 * return null.
+	 * 
+	 * Source: http://www.redblobgames.com/grids/hexagons/#neighbors
+	 * @param tile The tile to find the adjacent edge of
+	 * @param edge The side where the tile to get is touching
+	 * @return
+	 */
 	public GameTile getTileAdjacentToEdge(GameTile tile, int edge) {
 		HexPosition location = getLocation(tile);
 		
 		int col = location.getColumn();
 		int row = location.getRow();
-		System.out.println("dis tile " + location);
 		if ((location.getColumn() & 1) == 0) {
 			// even
 			col += directions[0][edge][0];
@@ -134,7 +144,6 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 			col += directions[1][edge][0];
 			row += directions[1][edge][1];
 		}
-		System.out.println("crap " + new HexPosition(col, row));
 		return getValueAt(col, row);
 	}
 	
@@ -155,8 +164,67 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		
 	}
 	
+	public static int getOppositeEdge(int edge) {
+		switch (edge) {
+		case 0:
+			return 3;
+		case 1:
+			return 4;
+		case 2:
+			return 5;
+		case 3:
+			return 0;
+		case 4:
+			return 1;
+		case 5:
+			return 2;
+		default:
+			throw new RuntimeException("Illegal edge value");
+		}
+	}
+
+	protected void connectAllTheThings() {
+		
+		// iterate over each tile on the board
+		for (GameTile gameTile : array) {
+			if (gameTile == null)
+				continue;
+			
+			// look at each exit of the tile
+			Map<Integer, TileClearing> exits = gameTile.getTileExits();
+			for (Integer side : exits.keySet()) {
+				
+				
+				
+				
+				
+				
+				// get the adjacent tile
+				GameTile adjacentTile = getTileAdjacentToEdge(gameTile, side);
+				if (adjacentTile == null)
+					continue;
+				
+				// get the clearing of the adjacent tile with the exit that
+				// meets up with this tile's exit
+				TileClearing oppositeClearing = adjacentTile.getClearingOnSide(getOppositeEdge(side));
+				TileClearing thisClearing = exits.get(side);
+				
+				thisClearing.addPath(oppositeClearing);
+				oppositeClearing.addPath(thisClearing);
+			}
+		}
+		
+	}
+	
 	public static void main(String[] args) {
-		System.out.println((3 & 1) == 0);
+		DefaultMagicRealmHexEngineModel m = new DefaultMagicRealmHexEngineModel(0, 0);
+		
+		GameTile cn = m.getTile(TileType.CN);
+		Map<Integer, TileClearing> tileExits = cn.getTileExits();
+		
+		// convert not rotated edge to rotated edge
+		
+		
 	}
 	
 }
