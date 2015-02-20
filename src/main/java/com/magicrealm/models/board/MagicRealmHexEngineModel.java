@@ -24,7 +24,7 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 	 */
 	private final int rows;
 	
-
+	
 	/**
 	 * @param columns
 	 * @param rows
@@ -35,74 +35,76 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		
 		array = new GameTile[columns * rows];
 	}
-
+	
 	@Override
-	  public int getColumnNumber() {
-	    return this.columns;
-	  }
-
-	  @Override
-	  public int getRowNumber() {
-	    return this.rows;
-	  }
-
-	  @Override
-	  public GameTile getValueAt(final int col, final int row) {
-	    if (isPositionValid(col, row)) {
-	      return this.array[col + row * this.columns];
-	    }
-	    else {
-	      return null;
-	    }
-	  }
-
-	  @Override
-	  public boolean isPositionValid(final int col, final int row) {
-	    return col >= 0 && row >= 0 && col < this.columns && row < this.rows;
-	  }
-
-	  @Override
-	  public boolean isPositionValid(final HexPosition pos) {
-	    return this.isPositionValid(pos.getColumn(), pos.getRow());
-	  }
-
-	  @Override
-	  public GameTile getValueAt(final HexPosition pos) {
-	    return this.getValueAt(pos.getColumn(), pos.getRow());
-	  }
-
-	  @Override
-	  public void setValueAt(final HexPosition pos, final GameTile value) {
-	    this.setValueAt(pos.getColumn(), pos.getRow(), value);
-	  }
-
-	  @Override
-	  public void setValueAt(final int col, final int row, final GameTile value) {
-	    if (value == null) {
-	      throw new NullPointerException("Can't have null value");
-	    }
-	    if (isPositionValid(col, row)) {
-	      this.array[col + row * this.columns] = value;
-	    }
-	  }
-
+	public int getColumnNumber() {
+		return this.columns;
+	}
+	
+	@Override
+	public int getRowNumber() {
+		return this.rows;
+	}
+	
+	@Override
+	public GameTile getValueAt(final int col, final int row) {
+		if (isPositionValid(col, row)) {
+			return this.array[col + row * this.columns];
+		}
+		else {
+			return null;
+		}
+	}
+	
+	@Override
+	public boolean isPositionValid(final int col, final int row) {
+		return col >= 0 && row >= 0 && col < this.columns && row < this.rows;
+	}
+	
+	@Override
+	public boolean isPositionValid(final HexPosition pos) {
+		return this.isPositionValid(pos.getColumn(), pos.getRow());
+	}
+	
+	@Override
+	public GameTile getValueAt(final HexPosition pos) {
+		return this.getValueAt(pos.getColumn(), pos.getRow());
+	}
+	
+	@Override
+	public void setValueAt(final HexPosition pos, final GameTile value) {
+		this.setValueAt(pos.getColumn(), pos.getRow(), value);
+	}
+	
+	@Override
+	public void setValueAt(final int col, final int row, final GameTile value) {
+		if (value == null) {
+			throw new NullPointerException("Can't have null value");
+		}
+		if (isPositionValid(col, row)) {
+			this.array[col + row * this.columns] = value;
+		} else {
+			throw new RuntimeException("Position out of bounds");
+		}
+	}
+	
 	@Override
 	public void attachedToEngine(HexEngine<?> engine) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	@Override
 	public void detachedFromEngine(HexEngine<?> engine) {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
 	public void placeChit(TileType tile, int clearingNumber, Clearingable clearingable) {
 		GameTile gameTile = getTile(tile);
 		gameTile.addToClearing(clearingNumber, clearingable);
 	}
-
+	
 	public GameTile getTile(TileType tile) {
 		for (GameTile gameTile : array) {
 			if (gameTile != null && gameTile.getTileType().equals(tile)) {
@@ -112,7 +114,25 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		return null;
 	}
 	
+	public GameTile getTileAdjacentToEdge(int edge) {
+		return null;
+	}
 	
-	
+	public HexPosition getLocation(GameTile tile) {
+		// find index position
+		int i = -1;
+		for (GameTile gameTile : array) {
+			i++;
+			if (gameTile != null && gameTile.equals(tile)) {
+				break;
+			}
+		}
+		
+		int col = i % getRowNumber();
+		int row = i / getRowNumber();
+		
+		return new HexPosition(col, row);
+		
+	}
 	
 }
