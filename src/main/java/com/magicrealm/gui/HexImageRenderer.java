@@ -1,21 +1,18 @@
 package com.magicrealm.gui;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.renders.swing.ColorHexRender;
+import com.magicrealm.models.Clearingable;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
+import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.ImageCache;
 
 
@@ -62,12 +59,17 @@ public final class HexImageRenderer extends ColorHexRender {
 			drawChitImage(graphic, x, y, getX(engine, image, 133f), getY(engine, image, 133f), "ghost");
 		}
 		
+		for (TileClearing clearing : tile.getClearings()) {
+			for (Clearingable chit : clearing.getTiles()) {
+				drawChitImage(graphic, x, y, 100, 100, chit.getImageName());
+			}
+		}
+		
 	}
 
 	private void drawChitImage(Graphics2D graphic, float x, float y,
 			float imgX, float imgY, String imageName) {
-		Image innImage = ImageCache.getImage(imageName);
-		graphic.drawImage(innImage, (int) (x + imgX - 25),
+		graphic.drawImage(ImageCache.getImage(imageName), (int) (x + imgX - 25),
 				(int) (y + imgY - 25), 50, 50, null);
 	}
 
