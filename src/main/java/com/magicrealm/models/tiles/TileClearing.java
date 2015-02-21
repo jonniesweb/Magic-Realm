@@ -28,7 +28,11 @@ public class TileClearing {
 	/**
 	 * List of other clearings connected to via secret paths
 	 */
-	private Set<TileClearing> secretPaths = new HashSet<TileClearing>();;
+	private Set<TileClearing> secretPaths = new HashSet<TileClearing>();
+
+	private int ypos;
+
+	private int xpos;;
 	
 	public TileClearing(int clearingNumber) {
 		this.setClearingNumber(clearingNumber);
@@ -68,5 +72,21 @@ public class TileClearing {
 	
 	public Set<TileClearing> getConnectedSecretClearings() {
 		return Collections.unmodifiableSet(secretPaths);
+	}
+
+	public void setYPosition(int ypos) {
+		this.ypos = ypos;
+	}
+	
+	public int getYPosition() {
+		return ypos;
+	}
+	
+	public void setXPosition(int xpos) {
+		this.xpos =xpos;
+	}
+	
+	public int getXPosition() {
+		return xpos;
 	}
 }

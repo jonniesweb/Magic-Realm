@@ -76,6 +76,10 @@ public class GameTile {
 			addExit(1, 2);
 			addExit(5, 3);
 			addExit(3, 4, 5);
+			setPosition(1, 153, 129);
+			setPosition(2, 277, 129);
+			setPosition(4, 306, 253);
+			setPosition(5, 246, 88);
 			break;
 		case BV:
 			addClearing(1,2,4,5);
@@ -85,6 +89,10 @@ public class GameTile {
 			addExit(4, 2, 3);
 			addExit(5, 4);
 			addExit(1, 5);
+			setPosition(1, 282, 363);
+			setPosition(2, 283, 135);
+			setPosition(4, 104, 181);
+			setPosition(5, 152, 360);
 			break;
 		case CV:
 			addClearing(1,2,4,5);
@@ -94,6 +102,10 @@ public class GameTile {
 			addExit(2, 2);
 			addExit(5, 4);
 			addExit(4, 1, 5);
+			setPosition(1, 83, 246);
+			setPosition(2, 149, 133);
+			setPosition(4, 285, 243);
+			setPosition(5, 153, 359);
 			break;
 		case DV:
 			addClearing(1,2,4,5);
@@ -103,6 +115,10 @@ public class GameTile {
 			addExit(2, 3);
 			addExit(1, 4);
 			addExit(5, 5);
+			setPosition(1, 152, 364);
+			setPosition(2, 86, 253);
+			setPosition(4, 252, 185);
+			setPosition(5, 281, 361);
 			break;
 		case EV:
 			addClearing(1,2,4,5);
@@ -112,6 +128,10 @@ public class GameTile {
 			addExit(2, 2);
 			addExit(4, 3, 4);
 			addExit(5, 5);
+			setPosition(1, 281, 130);
+			setPosition(2, 151, 132);
+			setPosition(4, 102, 314);
+			setPosition(5, 280, 359);
 			break;
 		case LW:
 			addClearing(2, 4, 5);
@@ -119,6 +139,9 @@ public class GameTile {
 			addExit(2, 1, 5);
 			addExit(4, 2);
 			addExit(5, 3, 4);
+			setPosition(2, 277, 247);
+			setPosition(4, 153, 131);
+			setPosition(5, 125, 297);
 			break;
 		case MW:
 			addClearing(2, 4, 5);
@@ -126,6 +149,9 @@ public class GameTile {
 			addExit(5, 1, 2);
 			addExit(2, 3, 4);
 			addExit(4, 5);
+			setPosition(2, 115, 315);
+			setPosition(4, 275, 366);
+			setPosition(5, 217, 139);
 			break;
 		case NW:
 			addClearing(2, 4, 5);
@@ -133,6 +159,9 @@ public class GameTile {
 			addExit(5, 1, 5);
 			addExit(2, 2, 3);
 			addExit(4, 4);
+			setPosition(2, 109, 187);
+			setPosition(4, 137, 351);
+			setPosition(5, 284, 244);
 			break;
 		case OW:
 			addClearing(2, 4, 5);
@@ -140,6 +169,9 @@ public class GameTile {
 			addExit(4, 1);
 			addExit(5, 2, 3);
 			addExit(2, 4, 5);
+			setPosition(2, 208, 359);
+			setPosition(4, 283, 134);
+			setPosition(5, 117, 191);
 			break;
 		case PW:
 			addClearing(2, 4, 5);
@@ -147,6 +179,9 @@ public class GameTile {
 			addExit(2, 1, 2);
 			addExit(4, 3);
 			addExit(5, 4, 5);
+			setPosition(2, 192, 117);
+			setPosition(4, 86, 230);
+			setPosition(5, 213, 363);
 			break;
 		case B:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -160,6 +195,12 @@ public class GameTile {
 			addExit(2, 4, 0);
 			addExit(4, 5);
 			addExit(5, 2);
+			setPosition(1, 77, 170);
+			setPosition(2, 204, 386);
+			setPosition(3, 93, 316);
+			setPosition(4, 363, 170);
+			setPosition(5, 271, 187);
+			setPosition(6, 183, 224);
 			break;
 		case CN:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -173,6 +214,12 @@ public class GameTile {
 			addExit(1, 4);
 			addExit(2, 3);
 			addExit(5, 2);
+			setPosition(1, 145, 368);
+			setPosition(2, 79, 245);
+			setPosition(3, 180, 242);
+			setPosition(4, 360, 252);
+			setPosition(5, 151, 134);
+			setPosition(6, 270, 296);
 			break;
 		case CS:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -184,6 +231,12 @@ public class GameTile {
 			addExit(2, 1);
 			addExit(5, 2);
 			addExit(1, 5);
+			setPosition(1, 286, 361);
+			setPosition(2, 282, 135);
+			setPosition(3, 220, 228);
+			setPosition(3, 220, 228);
+			setPosition(4, 350, 275);
+			setPosition(5, 157, 134);
 			break;
 		case HP:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -195,6 +248,12 @@ public class GameTile {
 			addExit(6, 2);
 			addExit(2, 3);
 			addExit(3, 4);
+			setPosition(1, 256, 336);
+			setPosition(2, 87, 244);
+			setPosition(3, 153, 350);
+			setPosition(4, 233, 217);
+			setPosition(5, 348, 250);
+			setPosition(6, 150, 133);
 			break;
 		case R:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -208,6 +267,12 @@ public class GameTile {
 			addExit(1, 2);
 			addExit(2, 3, 4);
 			addExit(3, 5);
+			setPosition(1, 151, 157);
+			setPosition(2, 90, 323);
+			setPosition(3, 288, 370);
+			setPosition(4, 262, 234);
+			setPosition(5, 331, 147);
+			setPosition(6, 184, 328);
 			break;
 		case CF:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -221,6 +286,12 @@ public class GameTile {
 			addExit(1, 2);
 			addExit(4, 4);
 			addExit(5, 5);
+			setPosition(1, 152, 128);
+			setPosition(2, 287, 131);
+			setPosition(3, 220, 244);
+			setPosition(4, 150, 360);
+			setPosition(5, 283, 363);
+			setPosition(6, 87, 249);
 			break;
 		case CG:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -231,6 +302,11 @@ public class GameTile {
 			addSecretPath(2, 3);
 			addSecretPath(1, 6);
 			addExit(2, 3);
+			setPosition(1, 367, 227);
+			setPosition(2, 84, 248);
+			setPosition(3, 174, 171);
+			setPosition(4, 288, 320);
+			setPosition(5, 282, 164);
 			break;
 		case DW:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -244,6 +320,12 @@ public class GameTile {
 			addExit(5, 1);
 			addExit(1, 2, 3);
 			addExit(2, 4, 5);
+			setPosition(1, 111, 159);
+			setPosition(2, 217, 378);
+			setPosition(3, 351, 300);
+			setPosition(4, 220, 88);
+			setPosition(5, 323, 148);
+			setPosition(6, 243, 242);
 			break;
 		case L:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -257,6 +339,12 @@ public class GameTile {
 			addExit(4, 3);
 			addExit(2, 4);
 			addExit(3, 5);
+			setPosition(1, 314, 268);
+			setPosition(2, 159, 363);
+			setPosition(3, 273, 376);
+			setPosition(4, 209, 248);
+			setPosition(5, 127, 157);
+			setPosition(6, 353, 174);
 			break;
 		case M:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -269,10 +357,29 @@ public class GameTile {
 			addExit(2, 1);
 			addExit(4, 3);
 			addExit(5, 5);
+			setPosition(1, 178, 169);
+			setPosition(2, 291, 122);
+			setPosition(3, 288, 239);
+			setPosition(4, 70, 249);
+			setPosition(5, 288, 372);
+			setPosition(6, 163, 343);
 			break;
 		default:
 			throw new RuntimeException();
 		}
+	}
+
+	/**
+	 * Add coordinates for clearings on the image
+	 * @param clearingNumber Clearing number
+	 * @param y Y position
+	 * @param x X position
+	 */
+	private void setPosition(int clearingNumber, int y, int x) {
+		TileClearing clearing = getClearing(clearingNumber);
+		clearing.setYPosition(y);
+		clearing.setXPosition(x);
+		
 	}
 
 	/**
