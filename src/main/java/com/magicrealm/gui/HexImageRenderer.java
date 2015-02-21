@@ -1,6 +1,7 @@
 package com.magicrealm.gui;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
@@ -63,11 +64,12 @@ public final class HexImageRenderer extends ColorHexRender {
 		// draw all chits from the clearings
 		for (TileClearing clearing : tile.getClearings()) {
 			for (Clearingable chit : clearing.getTiles()) {
-				double xMagnitude = (double) clearing.getXPosition() / 497;
-				double yMagnitude = (double) clearing.getYPosition() / 431;
+				Point rotatedPoint = rotateCoordinates(clearing.getXPosition(), clearing.getYPosition(), tile.getRotation());
+				double xMagnitude = rotatedPoint.getX() / (double) GameTile.MAX_X;
+				double yMagnitude = rotatedPoint.getY() / (double) GameTile.MAX_Y;
 				
-				int xPos = (int) (xMagnitude * engine.getCellWidth());
-				int yPos = (int) (yMagnitude * engine.getCellHeight());
+				double xPos = xMagnitude * engine.getCellWidth();
+				double yPos = yMagnitude * engine.getCellHeight();
 				
 				drawChitImage(graphic, x, y, xPos, yPos, chit.getImageName());
 			}
@@ -75,10 +77,10 @@ public final class HexImageRenderer extends ColorHexRender {
 		
 	}
 
-	private void drawChitImage(Graphics2D graphic, float x, float y,
-			float imgX, float imgY, String imageName) {
-		graphic.drawImage(ImageCache.getImage(imageName), (int) (x + imgX - 25),
-				(int) (y + imgY - 25), 50, 50, null);
+	private void drawChitImage(Graphics2D graphic, double x, double y,
+			double d, double e, String imageName) {
+		graphic.drawImage(ImageCache.getImage(imageName), (int) (x + d - 25),
+				(int) (y + e - 25), 50, 50, null);
 	}
 
 	private float getY(HexEngine<Graphics2D> engine, BufferedImage image,
@@ -165,6 +167,25 @@ public final class HexImageRenderer extends ColorHexRender {
 		default:
 			throw new RuntimeException();
 		}
+	}
+	
+	private static Point rotateCoordinates(int x, int y, int rotation) {
+		if (rotation == 0)
+			return new Point(x, y);
+		
+		double xhalf = GameTile.MAX_X / 2d;
+		double yhalf = GameTile.MAX_Y / 2d;
+		double theta = Math.toRadians(60 * rotation);
+		x -= xhalf;
+		y -= yhalf;
+		double rx = (x * Math.cos(theta)) - (y * Math.sin(theta));
+		double ry = (x * Math.sin(theta)) + (y * Math.cos(theta));
+		
+		rx += xhalf;
+		ry += yhalf;
+		
+		return new Point((int) rx, (int) ry);
+		
 	}
 	
 }

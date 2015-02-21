@@ -81,8 +81,8 @@ public class GameTile {
 			addExit(3, 4, 5);
 			setPosition(1, 153, 129);
 			setPosition(2, 277, 129);
-			setPosition(4, 306, 253);
-			setPosition(5, 246, 88);
+			setPosition(4, 253, 306);
+			setPosition(5, 88, 246);
 			break;
 		case BV:
 			addClearing(1,2,4,5);
