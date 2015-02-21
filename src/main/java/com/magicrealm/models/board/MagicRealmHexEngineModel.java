@@ -4,6 +4,7 @@ package com.magicrealm.models.board;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Observable;
 import java.util.Set;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
@@ -15,7 +16,7 @@ import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
 
-public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
+public class MagicRealmHexEngineModel extends Observable implements HexEngineModel<GameTile> {
 	
 	/**
 	 * Array to keep values
@@ -228,4 +229,8 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		return Collections.unmodifiableSet(dwellings);
 	}
 	
+	public void updateUI() {
+		setChanged();
+		notifyObservers();
+	}
 }

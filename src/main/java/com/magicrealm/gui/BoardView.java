@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -16,12 +18,14 @@ import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
-public class BoardView {
+public class BoardView implements Observer {
 
 	private MagicRealmHexEngineModel model;
+	JComponent content;
 	
 	public BoardView(MagicRealmHexEngineModel model) {
 		this.model = model;
+		model.addObserver(this);
 		run();
 	}
 
@@ -35,7 +39,7 @@ public class BoardView {
 		
 		engine.setRenderer(new HexImageRenderer());
 		
-		final JComponent content = new JComponent(){
+		content = new JComponent(){
 			
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -73,5 +77,11 @@ public class BoardView {
 		frame.add(new ActivityView(), BorderLayout.NORTH);
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		content.repaint();
+		
 	}
 }
