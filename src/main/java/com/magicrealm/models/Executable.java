@@ -2,6 +2,6 @@ package com.magicrealm.models;
 
 public interface Executable {
 	
-	public void execute(Character player);
+	public void execute(MRCharacter player);
 
 }

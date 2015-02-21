@@ -7,7 +7,7 @@ import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.ProbabilityCalculator;
 
-public abstract class Character implements Clearingable {
+public abstract class MRCharacter implements Clearingable {
 	
 	protected String name;
 	protected Image image;
@@ -32,7 +32,12 @@ public abstract class Character implements Clearingable {
 //	private Person tradingRelationships;
 //	private int discoveries;
 	
+	public MRCharacter() {
+		activities = new ArrayList<Activity>();
+	}
+	
 	public void addActivity(Activity activity) {
+		System.out.println(activity.toString());
 		activities.add(activity);
 	}
 	

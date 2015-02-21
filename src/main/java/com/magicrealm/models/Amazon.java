@@ -4,7 +4,7 @@ import java.awt.Image;
 
 import com.magicrealm.utils.ImageCache;
 
-public class Amazon extends Character {
+public class Amazon extends MRCharacter {
 	
 	public Amazon() {
 		name = "Amazon";

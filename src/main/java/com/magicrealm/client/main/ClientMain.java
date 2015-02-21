@@ -5,7 +5,6 @@ import com.magicrealm.gui.BoardView;
 import com.magicrealm.models.Amazon;
 import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
 import com.magicrealm.models.tiles.GameTile.TileType;
-import com.magicrealm.models.Character;
 
 public class ClientMain {
 	public static void main(String[] args) {

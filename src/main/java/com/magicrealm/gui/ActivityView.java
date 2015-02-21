@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.magicrealm.models.Character;
+import com.magicrealm.models.MRCharacter;
 import com.magicrealm.GameState;
 import com.magicrealm.models.Activity;
 

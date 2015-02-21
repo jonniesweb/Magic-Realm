@@ -75,11 +75,11 @@ public class SelectActivityPane extends JPanel{
 		return activity;
 	}
 	
-	public TileType getTile() {
+	public TileType getTileType() {
 		return GameTile.TileType.valueOf((String) tileBox.getSelectedItem());
 	}
 
-	public int getClearing() {
+	public int getClearingNumber() {
 		return Integer.parseInt((String) clearingBox.getSelectedItem());
 	}
 
