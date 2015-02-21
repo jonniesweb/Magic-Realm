@@ -12,8 +12,6 @@ public abstract class MRCharacter implements Placeable {
 	protected String name;
 	protected Image image;
 	protected String description;
-	protected GameTile tile;
-	protected TileClearing clearing;
 	protected Weight vulnerability;
 	protected boolean attentionChit;
 	protected int fame;
@@ -44,6 +42,10 @@ public abstract class MRCharacter implements Placeable {
 		activities.add(activity);
 	}
 	
+	public void executeActivity() {
+		activities.remove(0).execute(this);
+	}
+	
 	public void attemptHide() {
 		if(ProbabilityCalculator.calculateHide())
 			this.hide();
@@ -61,9 +63,8 @@ public abstract class MRCharacter implements Placeable {
 		}
 	}
 	
-	public void move(GameTile tile, TileClearing clearing) {
-		this.tile = tile;
-		this.clearing = clearing;
+	public void move() {
+
 	}
 	
 	public void block() {

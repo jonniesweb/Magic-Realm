@@ -17,9 +17,11 @@ public class ActivityView extends JPanel {
 		
 		private JLabel label;
 		private JButton select;
+		private JButton execute;
 	
 	public ActivityView() {
 		label = new JLabel("Activities");
+		
 		select = new JButton("Select Activity");
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -31,6 +33,14 @@ public class ActivityView extends JPanel {
 				}
 			}
 		});
+		execute = new JButton ("Daylight");
+		execute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GameState.getInstance().getCharacter().executeActivity();
+			}
+		});
+		
+		this.add(execute);
 		this.add(label);
 		this.add(select);
 	}

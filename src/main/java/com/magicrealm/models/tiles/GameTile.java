@@ -494,6 +494,14 @@ public class GameTile {
 	public Collection<TileClearing> getClearings() {
 		return clearings.values();
 	}
+	
+	public String[] getClearingStrings() {
+		ArrayList<String> array = new ArrayList<String>();
+		for(TileClearing c: getClearings()) {
+			array.add(c.getClearingNumber()+"");
+		}
+		return array.toArray(new String[0]);
+	}
 
 	public Map<Integer, TileClearing> getTileExits() {
 		return tileExits;

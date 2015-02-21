@@ -1,5 +1,6 @@
 package com.magicrealm.models;
 
+import com.magicrealm.GameState;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.TileClearing;
 
@@ -17,7 +18,7 @@ public class Move extends Activity {
 	@Override
 	public void execute(MRCharacter player) {
 		// TODO Auto-generated method stub
-		player.move(tile, clearing);
+		GameState.getInstance().getModel().moveChitTo(tile.getTileType(), clearing.getClearingNumber(), player);
 	}
 
 	public GameTile getTile() {

@@ -7,9 +7,12 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
+import javax.swing.ComboBoxModel;
+
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
+import com.magicrealm.gui.BoardView;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.tiles.GameTile;
@@ -114,13 +117,27 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		
 	}
 	
-	public void placeChit(TileType tile, int clearingNumber, Placeable clearingable) {
+	public void placeChit(TileType tile, int clearingNumber, Placeable placeable) {
 		GameTile gameTile = getTile(tile);
-		gameTile.addToClearing(clearingNumber, clearingable);
+		gameTile.addToClearing(clearingNumber, placeable);
 		
-		if (clearingable instanceof Dwelling) {
-			dwellings.add((Dwelling) clearingable);
+		if (placeable instanceof Dwelling) {
+			dwellings.add((Dwelling) placeable);
 		}
+	}
+	
+	public void moveChitTo(TileType tile, int clearingNumber, Placeable placeable) {
+		for(GameTile t: array) {
+			if(t == null)
+				continue;
+			for(TileClearing c: t.getClearings()) {
+				if(c == null)
+					continue;
+				c.getChits().remove(placeable);
+			}
+		}
+		placeChit(tile, clearingNumber, placeable);
+		this.updateUI();
 	}
 	
 	public GameTile getTile(TileType tile) {
@@ -130,6 +147,10 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 			}
 		}
 		return null;
+	}
+	
+	public GameTile getTile(String tile) {
+		return getTile(GameTile.TileType.valueOf(tile));
 	}
 	
 	/**
@@ -232,5 +253,10 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 	public void updateUI() {
 		setChanged();
 		notifyObservers();
+	}
+
+	public GameTile[] getTiles() {
+		// TODO Auto-generated method stub
+		return array;
 	}
 }

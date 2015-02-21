@@ -2,14 +2,18 @@ package com.magicrealm.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import com.magicrealm.GameState;
 import com.magicrealm.models.Activity.ActivityType;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
@@ -26,10 +30,6 @@ public class SelectActivityPane extends JPanel{
 		
 		public ActivityType getType() {
 			return type;
-		}
-		
-		public String toString() {
-			return type.name();
 		}
 	}
 	
@@ -53,16 +53,12 @@ public class SelectActivityPane extends JPanel{
 	private ActivityButton rest;
 	private ActivityGroup group;
 	private JPanel activityButtons;
-	private ActivityType activity;
 	private JComboBox<String> tileBox;
 	private JComboBox<String> clearingBox;
-
-	private String[] tiles;
 	
 	public SelectActivityPane() {
 		setLayout(new BorderLayout());
 		
-		tiles = GameTile.getTileNames();
 		group = new ActivityGroup();
 		
 		activityButtons = new JPanel();
@@ -86,12 +82,27 @@ public class SelectActivityPane extends JPanel{
 		
 		this.add(activityButtons, BorderLayout.NORTH);
 		
-		tileBox = new JComboBox<String>(tiles);
+		tileBox = new JComboBox<String>(GameTile.getTileNames());
+		tileBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				populateClearingBox();
+			}
+		});
 		
-		clearingBox = new JComboBox<String>(new String[] {"1", "2", "3", "4", "5"});
+		clearingBox = new JComboBox<String>();
+		populateClearingBox();
 		
 		this.add(tileBox, BorderLayout.CENTER);
 		this.add(clearingBox, BorderLayout.SOUTH);
+	}
+	
+	public void populateClearingBox() {
+		String[] clearings = GameState.getInstance().getModel().getTile((String) tileBox.getSelectedItem()).getClearingStrings();
+		clearingBox.setModel(new DefaultComboBoxModel<String>(clearings));
+		clearingBox.updateUI();
+		clearingBox.repaint();
+		this.repaint();
+		this.updateUI();
 	}
 	
 	public ActivityType getActivityType() {
