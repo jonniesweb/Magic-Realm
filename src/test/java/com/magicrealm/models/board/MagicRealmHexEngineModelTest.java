@@ -7,6 +7,7 @@ import org.junit.Test;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
+import com.magicrealm.models.tiles.TileClearing;
 
 public class MagicRealmHexEngineModelTest {
 	
@@ -59,5 +60,20 @@ public class MagicRealmHexEngineModelTest {
 		assertEquals(model.getTile(TileType.HP), model.getTileAdjacentToEdge(borderland, 3));
 		assertEquals(model.getTile(TileType.EV), model.getTileAdjacentToEdge(borderland, 4));
 		assertEquals(model.getTile(TileType.L), model.getTileAdjacentToEdge(borderland, 5));
+	}
+	
+	@Test
+	public void testGetAdjacentClearing() {
+		DefaultMagicRealmHexEngineModel model = new DefaultMagicRealmHexEngineModel(0, 0);
+		
+		GameTile bv = model.getTile(TileType.CN);
+		GameTile adjacentTile = model.getTileAdjacentToEdge(bv, 4);
+		TileClearing tileClearing = adjacentTile.getTileExits().get(adjacentTile.rotatedToNormal(MagicRealmHexEngineModel.getOppositeEdge(4)));
+		assertEquals(model.getTile(TileType.HP).getClearing(3), tileClearing);
+		
+		
+		
+		
+		
 	}
 }

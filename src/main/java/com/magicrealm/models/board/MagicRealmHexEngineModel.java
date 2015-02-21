@@ -192,38 +192,25 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 			
 			// look at each exit of the tile
 			Map<Integer, TileClearing> exits = gameTile.getTileExits();
-			for (Integer side : exits.keySet()) {
+			for (int side : exits.keySet()) {
 				
-				
-				
-				
-				
+				int outsideEdge = gameTile.rotatedToNormal(side);
 				
 				// get the adjacent tile
-				GameTile adjacentTile = getTileAdjacentToEdge(gameTile, side);
+				GameTile adjacentTile = getTileAdjacentToEdge(gameTile, outsideEdge);
 				if (adjacentTile == null)
 					continue;
 				
+				
 				// get the clearing of the adjacent tile with the exit that
 				// meets up with this tile's exit
-				TileClearing oppositeClearing = adjacentTile.getClearingOnSide(getOppositeEdge(side));
+				TileClearing oppositeClearing = adjacentTile.getClearingOnSide(getOppositeEdge(outsideEdge));
 				TileClearing thisClearing = exits.get(side);
 				
 				thisClearing.addPath(oppositeClearing);
 				oppositeClearing.addPath(thisClearing);
 			}
 		}
-		
-	}
-	
-	public static void main(String[] args) {
-		DefaultMagicRealmHexEngineModel m = new DefaultMagicRealmHexEngineModel(0, 0);
-		
-		GameTile cn = m.getTile(TileType.CN);
-		Map<Integer, TileClearing> tileExits = cn.getTileExits();
-		
-		// convert not rotated edge to rotated edge
-		
 		
 	}
 	
