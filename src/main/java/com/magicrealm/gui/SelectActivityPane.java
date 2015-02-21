@@ -11,7 +11,9 @@ import javax.swing.JPanel;
 
 import com.magicrealm.models.Activity;
 import com.magicrealm.models.Activity.ActivityType;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.tiles.GameTile;
+import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class SelectActivityPane extends JPanel{
 	
@@ -20,6 +22,9 @@ public class SelectActivityPane extends JPanel{
 	private JButton search;
 	private JPanel activityButtons;
 	private ActivityType activity;
+	private JComboBox<String> tileBox;
+	private JComboBox<String> clearingBox;
+
 	private String[] tiles;
 	
 	public SelectActivityPane() {
@@ -56,19 +61,26 @@ public class SelectActivityPane extends JPanel{
 		
 		this.add(activityButtons, BorderLayout.NORTH);
 		
-		JComboBox<String> tileBox = new JComboBox<String>(tiles);
+		tileBox = new JComboBox<String>(tiles);
 //		for (int i = 0; i < 4; i++)
 //		      tileBox.addItem(tiles[i]);
 		
-		JComboBox<String> clearingBox = new JComboBox<String>(new String[] {"1", "2", "3", "4", "5", "6"});
+		clearingBox = new JComboBox<String>(new String[] {"1", "2", "3", "4", "5"});
 		
 		this.add(tileBox, BorderLayout.CENTER);
 		this.add(clearingBox, BorderLayout.SOUTH);
-		
 	}
 	
-	public ActivityType getActivity() {
+	public ActivityType getActivityType() {
 		return activity;
+	}
+	
+	public TileType getTile() {
+		return GameTile.TileType.valueOf((String) tileBox.getSelectedItem());
+	}
+
+	public int getClearing() {
+		return Integer.parseInt((String) clearingBox.getSelectedItem());
 	}
 
 }

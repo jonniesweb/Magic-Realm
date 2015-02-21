@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.magicrealm.models.Character;
+import com.magicrealm.GameState;
 import com.magicrealm.models.Activity;
 
 public class ActivityView extends JPanel {
@@ -23,6 +25,9 @@ public class ActivityView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				SelectActivityPane activity = new SelectActivityPane();
 				int option = JOptionPane.showConfirmDialog(null, activity, "Select an Activity", JOptionPane.OK_CANCEL_OPTION);
+				if(option == JOptionPane.OK_OPTION) {
+					GameState.getInstance().getCharacter().addActivity(Activity.buildActivity(activity.getActivityType(), activity));
+				}
 			}
 		});
 		this.add(label);
