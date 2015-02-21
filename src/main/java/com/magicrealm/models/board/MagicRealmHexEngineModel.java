@@ -9,7 +9,7 @@ import java.util.Set;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
-import com.magicrealm.models.Clearingable;
+import com.magicrealm.models.Placeable;
 import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
@@ -113,7 +113,7 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 		
 	}
 	
-	public void placeChit(TileType tile, int clearingNumber, Clearingable clearingable) {
+	public void placeChit(TileType tile, int clearingNumber, Placeable clearingable) {
 		GameTile gameTile = getTile(tile);
 		gameTile.addToClearing(clearingNumber, clearingable);
 		

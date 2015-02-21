@@ -5,7 +5,7 @@ import java.awt.Image;
 import com.magicrealm.utils.ImageCache;
 
 
-public class Dwelling implements Clearingable {
+public class Dwelling implements Placeable {
 
 	public static final String SMALL_FIRE = "small_fire";
 	public static final String LARGE_FIRE = "large_fire";

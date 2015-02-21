@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.magicrealm.models.Clearingable;
+import com.magicrealm.models.Placeable;
 
 public class TileClearing {
 	
@@ -18,7 +18,7 @@ public class TileClearing {
 	/**
 	 * Stack of tiles that this clearing contains
 	 */
-	private List<Clearingable> tiles = new ArrayList<Clearingable>();
+	private List<Placeable> chits = new ArrayList<Placeable>();
 	
 	/**
 	 * List of other clearings connected to via normal paths
@@ -50,12 +50,12 @@ public class TileClearing {
 		secretPaths.add(tileClearing);
 	}
 	
-	public void addToClearing(Clearingable clearingable) {
-		tiles.add(clearingable);
+	public void addChit(Placeable placeable) {
+		chits.add(placeable);
 	}
 	
-	public List<Clearingable> getTiles() {
-		return tiles;
+	public List<Placeable> getChits() {
+		return chits;
 	}
 
 	public int getClearingNumber() {

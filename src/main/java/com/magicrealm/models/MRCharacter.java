@@ -7,7 +7,7 @@ import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.ProbabilityCalculator;
 
-public abstract class MRCharacter implements Clearingable {
+public abstract class MRCharacter implements Placeable {
 	
 	protected String name;
 	protected Image image;

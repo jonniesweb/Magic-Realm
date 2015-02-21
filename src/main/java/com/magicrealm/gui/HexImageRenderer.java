@@ -10,7 +10,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.renders.swing.ColorHexRender;
-import com.magicrealm.models.Clearingable;
+import com.magicrealm.models.Placeable;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
@@ -40,21 +40,6 @@ public final class HexImageRenderer extends ColorHexRender {
 		// draw the tile onto the gameboard
 		graphic.drawImage(image, (int) x, (int) y, (int) engine.getCellWidth(), (int) engine.getCellHeight(), null);
 		
-		// draw chits
-//		if (tile.getTileType() == TileType.B) {
-//		} else if (tile.getTileType() == TileType.DV) {
-//			// show guard on 5
-//			drawChitImage(graphic, x, y, getX(engine, image, 140f), getY(engine, image, 140f), "guard");
-//		} else if (tile.getTileType() == TileType.CV) {
-//			// show house on 5
-//			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 281f), "house");
-//		} else if (tile.getTileType() == TileType.BV) {
-//			// show inn on 5
-//			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 156f), "inn");
-//		} else if (tile.getTileType() == TileType.AV) {
-//			// show chapel on 5
-//			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 123f), "chapel");
-//		} else 
 		if (tile.getTileType() == TileType.EV) {
 			// show 2 ghosts on 5
 			drawChitImage(graphic, x, y, getX(engine, image, 143f), getY(engine, image, 143f), "ghost");
@@ -63,7 +48,7 @@ public final class HexImageRenderer extends ColorHexRender {
 		
 		// draw all chits from the clearings
 		for (TileClearing clearing : tile.getClearings()) {
-			for (Clearingable chit : clearing.getTiles()) {
+			for (Placeable chit : clearing.getChits()) {
 				Point rotatedPoint = rotateCoordinates(clearing.getXPosition(), clearing.getYPosition(), tile.getRotation());
 				double xMagnitude = rotatedPoint.getX() / (double) GameTile.MAX_X;
 				double yMagnitude = rotatedPoint.getY() / (double) GameTile.MAX_Y;

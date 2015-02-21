@@ -5,7 +5,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.magicrealm.models.Clearingable;
+import com.magicrealm.models.Placeable;
+import com.magicrealm.models.SoundChit;
+import com.magicrealm.models.WarningChit;
 
 
 /**
@@ -444,8 +446,8 @@ public class GameTile {
 		return clearings.get(clearingNumber);
 	}
 	
-	public void addToClearing(int clearingNumber, Clearingable clearingable) {
-		getClearing(clearingNumber).addToClearing(clearingable);
+	public void addToClearing(int clearingNumber, Placeable clearingable) {
+		getClearing(clearingNumber).addChit(clearingable);
 	}
 	
 	/**
