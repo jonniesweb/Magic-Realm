@@ -1,6 +1,7 @@
 package com.magicrealm.models.tiles;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,6 +49,10 @@ public class TileClearing {
 	public void addToClearing(Clearingable clearingable) {
 		tiles.add(clearingable);
 	}
+	
+	public List<Clearingable> getTiles() {
+		return tiles;
+	}
 
 	public int getClearingNumber() {
 		return clearingNumber;
@@ -57,4 +62,11 @@ public class TileClearing {
 		this.clearingNumber = clearingNumber;
 	}
 	
+	public Set<TileClearing> getConnectedClearings() {
+		return Collections.unmodifiableSet(paths);
+	}
+	
+	public Set<TileClearing> getConnectedSecretClearings() {
+		return Collections.unmodifiableSet(secretPaths);
+	}
 }

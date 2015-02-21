@@ -27,4 +27,8 @@ public class Dwelling implements Clearingable {
 		return ImageCache.getImage(dwelling);
 	}
 	
+	@Override
+	public String getImageName() {
+		return dwelling;
+	}
 }

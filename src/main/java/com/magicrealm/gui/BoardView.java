@@ -14,13 +14,14 @@ import com.igormaznitsa.jhexed.engine.DefaultIntegerHexModel;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
-import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class BoardView {
 	
+	private MagicRealmHexEngineModel model;
 	
-	public BoardView() {
+	public BoardView(MagicRealmHexEngineModel model) {
+		this.model = model;
 		run();
 	}
 
@@ -30,7 +31,6 @@ public class BoardView {
 		frame.setLayout(new BorderLayout());
 
 		final HexEngine<Graphics2D> engine = new HexEngine<Graphics2D>(200, 200, 0.25f, HexEngine.ORIENTATION_HORIZONTAL);
-		MagicRealmHexEngineModel model = new DefaultMagicRealmHexEngineModel(5, 5);
 		engine.setModel(model);
 		
 		engine.setRenderer(new HexImageRenderer());

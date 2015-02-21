@@ -42,4 +42,9 @@ public class Amazon extends Character {
 		return ImageCache.getImage("amazon");
 	}
 
+	@Override
+	public String getImageName() {
+		return "amazon";
+	}
+
 }

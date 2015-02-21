@@ -7,4 +7,6 @@ import java.awt.Image;
  */
 public interface Clearingable {
 	public Image getImage();
+
+	public String getImageName();
 }
