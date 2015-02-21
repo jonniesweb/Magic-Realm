@@ -2,6 +2,7 @@ package com.magicrealm.models;
 
 import java.awt.Image;
 
+import com.magicrealm.GameState;
 import com.magicrealm.utils.ImageCache;
 
 public class Amazon extends MRCharacter {
@@ -9,32 +10,22 @@ public class Amazon extends MRCharacter {
 	public Amazon() {
 		name = "Amazon";
 		vulnerability = Weight.MEDIUM;
-		actionChits = new ActionChit[12];
-		activeWeapon = new ShortSword();
-		activeWeapon.activate();
+		setActiveWeapon(new ShortSword());
 //		startingLocation = 
 	}
 	
 	public void setupActionChits() {
 		
 		//fight chits
-		actionChits[0] = new ActionChit(Weight.HEAVY, ActionChit.ACTION.FIGHT, 4, 2);
-		actionChits[1] = new ActionChit(Weight.LIGHT, ActionChit.ACTION.FIGHT, 4, 0);
-		actionChits[2] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.FIGHT, 5, 0);
+		fightChits.add(new ActionChit(Weight.HEAVY, ActionChit.Action.FIGHT, 4, 3));
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 5, 0));
 		
-		actionChits[3] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.FIGHT, 3, 2);
-		actionChits[4] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.FIGHT, 3, 2);
-		
-		actionChits[5] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.FIGHT, 4, 1);
-		actionChits[6] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.FIGHT, 4, 1);		
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 3, 4));
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 4, 2));	
 		
 		//move chits
-		actionChits[7] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.MOVE, 3, 1);
-		actionChits[8] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.MOVE, 3, 1);
-		actionChits[9] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.MOVE, 3, 1);
-		
-		actionChits[10] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.MOVE, 4, 0);
-		actionChits[11] = new ActionChit(Weight.MEDIUM, ActionChit.ACTION.MOVE, 4, 0);
+		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 3, 3));
+		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 4, 1));
 	}
 
 	@Override

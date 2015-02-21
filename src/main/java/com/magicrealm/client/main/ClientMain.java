@@ -10,7 +10,9 @@ public class ClientMain {
 	public static void main(String[] args) {
 		GameState.getInstance().setModel(new DefaultMagicRealmHexEngineModel(0, 0));
 		GameState.getInstance().setCharacter(new Amazon());
-		BoardView board = new BoardView(GameState.getInstance().getModel());
+		new BoardView(GameState.getInstance().getModel());
+		
+		
 		GameState.getInstance().getModel().placeChit(TileType.BV, 5, GameState.getInstance().getCharacter());
 
 	}

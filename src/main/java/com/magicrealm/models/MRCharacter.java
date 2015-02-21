@@ -12,13 +12,12 @@ public abstract class MRCharacter implements Placeable {
 	protected String name;
 	protected Image image;
 	protected String description;
-	protected GameTile tile;
-	protected TileClearing clearing;
 	protected Weight vulnerability;
 	protected boolean attentionChit;
 	protected int fame;
 	protected int notoriety;
-	protected ActionChit[] actionChits;
+	protected ArrayList<ActionChit> fightChits;
+	protected ArrayList<ActionChit> moveChits;
 	protected int gold;
 	protected Dwelling startingLocation;
 	protected boolean hidden;
@@ -33,12 +32,18 @@ public abstract class MRCharacter implements Placeable {
 //	private int discoveries;
 	
 	public MRCharacter() {
+		fightChits = new ArrayList<ActionChit>();
+		moveChits = new ArrayList<ActionChit>();
 		activities = new ArrayList<Activity>();
 	}
 	
 	public void addActivity(Activity activity) {
 		System.out.println(activity.toString());
 		activities.add(activity);
+	}
+	
+	public void executeActivity() {
+		activities.remove(0).execute(this);
 	}
 	
 	public void attemptHide() {
@@ -58,22 +63,53 @@ public abstract class MRCharacter implements Placeable {
 		}
 	}
 	
-	public void move(GameTile tile, TileClearing clearing) {
-		this.tile = tile;
-		this.clearing = clearing;
+	public void move() {
+
 	}
 	
 	public void block() {
 		blocked = true;
 	}
 	
+	public void rest() {
+		
+	}
+	
 	private void hide() {
+		System.out.println("Character Hidden");
 		hidden = true;
+	}
+	
+	private void reveal() {
+		hidden = false;
 	}
 
 	public ArrayList<Activity> getActivities() {
 		return activities;
 	}
+
+	public Weapon getActiveWeapon() {
+		return activeWeapon;
+	}
+
+	public void setActiveWeapon(Weapon activeWeapon) {
+		this.activeWeapon = activeWeapon;
+		this.activeWeapon.activate();
+	}
+
+	public ArrayList<ActionChit> getFightChits() {
+		return fightChits;
+	}
+
+	public ArrayList<ActionChit> getMoveChits() {
+		return moveChits;
+	}
 	
+	public ArrayList<ActionChit> getActionChits() {
+		ArrayList<ActionChit> all = new ArrayList<ActionChit>();
+		all.addAll(moveChits);
+		all.addAll(fightChits);
+		return all;
+	}
 	
 }

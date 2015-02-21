@@ -4,75 +4,109 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 
-import javax.swing.JButton;
+import javax.swing.AbstractButton;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
-import com.magicrealm.models.Activity;
+import com.magicrealm.GameState;
 import com.magicrealm.models.Activity.ActivityType;
-import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class SelectActivityPane extends JPanel{
 	
-	private JButton move;
-	private JButton hide;
-	private JButton search;
+	private class ActivityButton extends JToggleButton {
+		private ActivityType type;
+		
+		public ActivityButton(String text, ActivityType type) {
+			this.setText(text);
+			this.type = type;
+		}
+		
+		public ActivityType getType() {
+			return type;
+		}
+	}
+	
+	private class ActivityGroup extends ButtonGroup {
+		
+		public ActivityType getSelectedActivityType() {
+			Enumeration<AbstractButton> itr = this.getElements();
+			while(itr.hasMoreElements()) {
+				ActivityButton a = (ActivityButton) itr.nextElement();
+				if(a.isSelected())
+					return a.getType();
+			}
+			return null;
+		}
+		
+	}
+	
+	private ActivityButton move;
+	private ActivityButton hide;
+	private ActivityButton search;
+	private ActivityButton rest;
+	private ActivityGroup group;
 	private JPanel activityButtons;
-	private ActivityType activity;
 	private JComboBox<String> tileBox;
 	private JComboBox<String> clearingBox;
-
-	private String[] tiles;
 	
 	public SelectActivityPane() {
 		setLayout(new BorderLayout());
 		
-		tiles = GameTile.getTileNames();
+		group = new ActivityGroup();
 		
 		activityButtons = new JPanel();
 		activityButtons.setLayout(new GridLayout(1, 3));
 		
-		JButton move = new JButton("Move");
-		move.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				activity = Activity.ActivityType.MOVE;
-			}
-		});
+		move = new ActivityButton("Move", ActivityType.MOVE);
+		group.add(move);
 		activityButtons.add(move);
 		
-		JButton hide = new JButton("Hide");
-		hide.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				activity = Activity.ActivityType.HIDE;
-			}
-		});
+		hide = new ActivityButton("Hide", ActivityType.HIDE);
+		group.add(hide);
 		activityButtons.add(hide);
 		
-		JButton search = new JButton("Search");
-		search.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				activity = Activity.ActivityType.SEARCH;
-			}
-		});
+		search = new ActivityButton("Search", ActivityType.SEARCH);
+		group.add(search);
 		activityButtons.add(search);
+		
+		rest = new ActivityButton("Rest", ActivityType.REST);
+		group.add(rest);
+		activityButtons.add(rest);
 		
 		this.add(activityButtons, BorderLayout.NORTH);
 		
-		tileBox = new JComboBox<String>(tiles);
-//		for (int i = 0; i < 4; i++)
-//		      tileBox.addItem(tiles[i]);
+		tileBox = new JComboBox<String>(GameTile.getTileNames());
+		tileBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				populateClearingBox();
+			}
+		});
 		
-		clearingBox = new JComboBox<String>(new String[] {"1", "2", "3", "4", "5"});
+		clearingBox = new JComboBox<String>();
+		populateClearingBox();
 		
 		this.add(tileBox, BorderLayout.CENTER);
 		this.add(clearingBox, BorderLayout.SOUTH);
 	}
 	
+	public void populateClearingBox() {
+		String[] clearings = GameState.getInstance().getModel().getTile((String) tileBox.getSelectedItem()).getClearingStrings();
+		clearingBox.setModel(new DefaultComboBoxModel<String>(clearings));
+		clearingBox.updateUI();
+		clearingBox.repaint();
+		this.repaint();
+		this.updateUI();
+	}
+	
 	public ActivityType getActivityType() {
-		return activity;
+		return group.getSelectedActivityType();
 	}
 	
 	public TileType getTileType() {

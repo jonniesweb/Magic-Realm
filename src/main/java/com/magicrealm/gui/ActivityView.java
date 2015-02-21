@@ -17,9 +17,11 @@ public class ActivityView extends JPanel {
 		
 		private JLabel label;
 		private JButton select;
+		private JButton execute;
 	
 	public ActivityView() {
 		label = new JLabel("Activities");
+		
 		select = new JButton("Select Activity");
 		select.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -27,9 +29,18 @@ public class ActivityView extends JPanel {
 				int option = JOptionPane.showConfirmDialog(null, activity, "Select an Activity", JOptionPane.OK_CANCEL_OPTION);
 				if(option == JOptionPane.OK_OPTION) {
 					GameState.getInstance().getCharacter().addActivity(Activity.buildActivity(activity.getActivityType(), activity));
+					update(GameState.getInstance().getCharacter().getActivities());
 				}
 			}
 		});
+		execute = new JButton ("Daylight");
+		execute.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GameState.getInstance().getCharacter().executeActivity();
+			}
+		});
+		
+		this.add(execute);
 		this.add(label);
 		this.add(select);
 	}
