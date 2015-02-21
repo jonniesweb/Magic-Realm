@@ -6,7 +6,7 @@ import com.magicrealm.models.tiles.GameTile;
 
 public abstract class Activity implements Executable {
 	
-	public enum ActivityType {MOVE, HIDE, SEARCH};
+	public enum ActivityType {MOVE, HIDE, REST, SEARCH};
 	public ActivityType activity;
 	
 	public static Activity buildActivity(ActivityType type, SelectActivityPane activity) {
@@ -17,11 +17,11 @@ public abstract class Activity implements Executable {
 			tile = GameState.getInstance().getModel().getTile(activity.getTileType());
 			return new Move(tile, tile.getClearing(activity.getClearingNumber()));
 		case HIDE:
-			tile = GameState.getInstance().getModel().getTile(activity.getTileType());
-			return new Move(tile, tile.getClearing(activity.getClearingNumber()));
+			return new Hide();
+		case REST:
+			return new Rest();
 		case SEARCH:
-			//TODO add search
-			return null;
+			return new Search();
 		}
 		return null;
 	}

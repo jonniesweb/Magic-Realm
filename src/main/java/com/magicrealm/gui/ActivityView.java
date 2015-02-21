@@ -27,6 +27,7 @@ public class ActivityView extends JPanel {
 				int option = JOptionPane.showConfirmDialog(null, activity, "Select an Activity", JOptionPane.OK_CANCEL_OPTION);
 				if(option == JOptionPane.OK_OPTION) {
 					GameState.getInstance().getCharacter().addActivity(Activity.buildActivity(activity.getActivityType(), activity));
+					update(GameState.getInstance().getCharacter().getActivities());
 				}
 			}
 		});
