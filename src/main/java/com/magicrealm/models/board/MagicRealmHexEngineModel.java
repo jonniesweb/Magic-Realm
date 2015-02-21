@@ -1,12 +1,16 @@
 package com.magicrealm.models.board;
 
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.magicrealm.models.Clearingable;
+import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
@@ -27,6 +31,8 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 	 * Number of rows
 	 */
 	private final int rows;
+	
+	private Set<Dwelling> dwellings = new HashSet<Dwelling>();
 	
 	private static final int[][][] directions = new int[][][] {
 			{ { 0, 1 }, { -1, 0 }, { -1, -1 }, { 0, -1 }, { 1, -1 }, { 1, 0 } },
@@ -110,6 +116,10 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 	public void placeChit(TileType tile, int clearingNumber, Clearingable clearingable) {
 		GameTile gameTile = getTile(tile);
 		gameTile.addToClearing(clearingNumber, clearingable);
+		
+		if (clearingable instanceof Dwelling) {
+			dwellings.add((Dwelling) clearingable);
+		}
 	}
 	
 	public GameTile getTile(TileType tile) {
@@ -212,6 +222,10 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile> {
 			}
 		}
 		
+	}
+	
+	public Set<Dwelling> getDwellings() {
+		return Collections.unmodifiableSet(dwellings);
 	}
 	
 }
