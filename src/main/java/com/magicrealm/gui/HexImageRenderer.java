@@ -40,28 +40,36 @@ public final class HexImageRenderer extends ColorHexRender {
 		graphic.drawImage(image, (int) x, (int) y, (int) engine.getCellWidth(), (int) engine.getCellHeight(), null);
 		
 		// draw chits
-		if (tile.getTileType() == TileType.B) {
-		} else if (tile.getTileType() == TileType.DV) {
-			// show guard on 5
-			drawChitImage(graphic, x, y, getX(engine, image, 140f), getY(engine, image, 140f), "guard");
-		} else if (tile.getTileType() == TileType.CV) {
-			// show house on 5
-			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 281f), "house");
-		} else if (tile.getTileType() == TileType.BV) {
-			// show inn on 5
-			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 156f), "inn");
-		} else if (tile.getTileType() == TileType.AV) {
-			// show chapel on 5
-			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 123f), "chapel");
-		} else if (tile.getTileType() == TileType.EV) {
+//		if (tile.getTileType() == TileType.B) {
+//		} else if (tile.getTileType() == TileType.DV) {
+//			// show guard on 5
+//			drawChitImage(graphic, x, y, getX(engine, image, 140f), getY(engine, image, 140f), "guard");
+//		} else if (tile.getTileType() == TileType.CV) {
+//			// show house on 5
+//			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 281f), "house");
+//		} else if (tile.getTileType() == TileType.BV) {
+//			// show inn on 5
+//			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 156f), "inn");
+//		} else if (tile.getTileType() == TileType.AV) {
+//			// show chapel on 5
+//			drawChitImage(graphic, x, y, getX(engine, image, 360f), getY(engine, image, 123f), "chapel");
+//		} else 
+		if (tile.getTileType() == TileType.EV) {
 			// show 2 ghosts on 5
 			drawChitImage(graphic, x, y, getX(engine, image, 143f), getY(engine, image, 143f), "ghost");
 			drawChitImage(graphic, x, y, getX(engine, image, 133f), getY(engine, image, 133f), "ghost");
 		}
 		
+		// draw all chits from the clearings
 		for (TileClearing clearing : tile.getClearings()) {
 			for (Clearingable chit : clearing.getTiles()) {
-				drawChitImage(graphic, x, y, 100, 100, chit.getImageName());
+				double xMagnitude = (double) clearing.getXPosition() / 497;
+				double yMagnitude = (double) clearing.getYPosition() / 431;
+				
+				int xPos = (int) (xMagnitude * engine.getCellWidth());
+				int yPos = (int) (yMagnitude * engine.getCellHeight());
+				
+				drawChitImage(graphic, x, y, xPos, yPos, chit.getImageName());
 			}
 		}
 		
@@ -92,8 +100,7 @@ public final class HexImageRenderer extends ColorHexRender {
 		BufferedImage rotatedImage = new BufferedImage(image.getWidth(),
 				image.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
 
-		Graphics2D rotatedImageGraphics = (Graphics2D) rotatedImage
-				.getGraphics();
+		Graphics2D rotatedImageGraphics = rotatedImage.createGraphics();
 		double imageX = image.getWidth() / 2.0D;
 		double imageY = image.getHeight() / 2.0D;
 		int degrees = 60 * tile.getRotation();
@@ -159,7 +166,5 @@ public final class HexImageRenderer extends ColorHexRender {
 			throw new RuntimeException();
 		}
 	}
-	
-	
 	
 }

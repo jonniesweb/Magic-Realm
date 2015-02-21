@@ -27,6 +27,9 @@ public class GameTile {
 	public enum TileType {
 		AV, BV, CV, DV, EV, LW, MW, NW, OW, PW, B, CN, CS, HP, R, CF, CG, DW, L, M
 	};
+	
+	public static final int MAX_X = 497;
+	public static final int MAX_Y = 431;
 
 	/**
 	 * The type of this tile.
