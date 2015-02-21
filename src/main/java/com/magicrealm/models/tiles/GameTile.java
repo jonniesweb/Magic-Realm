@@ -193,6 +193,7 @@ public class GameTile {
 			addPath(3, 6);
 			addExit(5, 0);
 			addExit(6, 2);
+			addExit(2, 3);
 			addExit(3, 4);
 			break;
 		case R:
@@ -229,6 +230,7 @@ public class GameTile {
 			addPath(4, 1);
 			addSecretPath(2, 3);
 			addSecretPath(1, 6);
+			addExit(2, 3);
 			break;
 		case DW:
 			addClearing(1, 2, 3, 4, 5, 6);
