@@ -3,13 +3,17 @@ package com.magicrealm.models;
 import java.awt.Image;
 import java.util.ArrayList;
 
+import com.magicrealm.models.tiles.GameTile;
+import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.ProbabilityCalculator;
 
-public abstract class Character implements Clearingable {
+public abstract class MRCharacter implements Clearingable {
 	
 	protected String name;
-	protected Image picture;
+	protected Image image;
 	protected String description;
+	protected GameTile tile;
+	protected TileClearing clearing;
 	protected Weight vulnerability;
 	protected boolean attentionChit;
 	protected int fame;
@@ -28,7 +32,12 @@ public abstract class Character implements Clearingable {
 //	private Person tradingRelationships;
 //	private int discoveries;
 	
+	public MRCharacter() {
+		activities = new ArrayList<Activity>();
+	}
+	
 	public void addActivity(Activity activity) {
+		System.out.println(activity.toString());
 		activities.add(activity);
 	}
 	
@@ -49,8 +58,9 @@ public abstract class Character implements Clearingable {
 		}
 	}
 	
-	public void move() {
-		
+	public void move(GameTile tile, TileClearing clearing) {
+		this.tile = tile;
+		this.clearing = clearing;
 	}
 	
 	public void block() {

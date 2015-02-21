@@ -2,13 +2,14 @@ package com.magicrealm;
 
 import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.MRCharacter;
 
 public class GameState {
 
 	private static GameState instance = new GameState();
 	
 	private DefaultMagicRealmHexEngineModel model;
-	private Character character;
+	private MRCharacter character;
 	
 	public GameState() {
 		// stuff
@@ -26,11 +27,11 @@ public class GameState {
 		this.model = model;
 	}
 	
-	public Character getCharacter() {
+	public MRCharacter getCharacter() {
 		return character;
 	}
 	
-	public void setCharacter(Character character) {
+	public void setCharacter(MRCharacter character) {
 		this.character = character;
 	}
 	

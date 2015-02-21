@@ -17,7 +17,7 @@ import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class BoardView {
-	
+
 	private MagicRealmHexEngineModel model;
 	
 	public BoardView(MagicRealmHexEngineModel model) {
