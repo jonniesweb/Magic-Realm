@@ -29,6 +29,10 @@ public class TileClearing {
 	 */
 	private Set<TileClearing> secretPaths = new HashSet<TileClearing>();;
 	
+	public TileClearing(int clearingNumber) {
+		this.setClearingNumber(clearingNumber);
+	}
+
 	public void addPath(TileClearing tileClearing) {
 		if (tileClearing == this)
 			throw new RuntimeException("Path cannot lead to itself!");
@@ -43,6 +47,14 @@ public class TileClearing {
 	
 	public void addToClearing(Clearingable clearingable) {
 		tiles.add(clearingable);
+	}
+
+	public int getClearingNumber() {
+		return clearingNumber;
+	}
+
+	public void setClearingNumber(int clearingNumber) {
+		this.clearingNumber = clearingNumber;
 	}
 	
 }

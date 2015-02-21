@@ -72,7 +72,11 @@ public class GameTileTest {
 		assertEquals(5, tile.rotatedToNormal(5));
 		
 		tile = new TestGameTile(1);
-		assertEquals(5, tile.rotatedToNormal(0));
-		assertEquals(4, tile.rotatedToNormal(5));
+		assertEquals(1, tile.rotatedToNormal(0));
+		assertEquals(0, tile.rotatedToNormal(5));
+		
+		tile = new TestGameTile(2);
+		assertEquals(2, tile.rotatedToNormal(0));
+		assertEquals(1, tile.rotatedToNormal(5));
 	}
 }

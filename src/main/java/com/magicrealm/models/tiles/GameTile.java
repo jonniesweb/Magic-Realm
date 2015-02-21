@@ -307,7 +307,7 @@ public class GameTile {
 
 	protected void addClearing(int ... i) {
 		for (int j : i) {
-			clearings.put(j, new TileClearing());
+			clearings.put(j, new TileClearing(j));
 		}
 		
 	}
@@ -341,20 +341,25 @@ public class GameTile {
 	 * @param side
 	 */
 	public TileClearing getClearingOnSide(int side) {
-		return tileExits.get(rotatedToNormal(side));
+		return tileExits.get(normalToRotated(side));
 	}
 
 	/**
 	 * Takes the side of a rotated tile and gets the unrotated side
-	 * @param side
-	 * @return
+	 * @param side Inside number
+	 * @return Outside number
 	 */
 	public int rotatedToNormal(int side) {
-		return (6 + side - rotation) % 6;
+		return (6 + side + rotation) % 6;
 	}
 	
+	/**
+	 * 
+	 * @param side Outside number
+	 * @return Inside number
+	 */
 	public int normalToRotated(int side) {
-		return (6 - rotation - side) % 6;
+		return (6 + side - rotation) % 6;
 	}
 	
 
