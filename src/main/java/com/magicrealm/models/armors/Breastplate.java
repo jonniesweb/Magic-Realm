@@ -1,22 +1,24 @@
-package com.magicrealm.models;
+package com.magicrealm.models.armors;
 
-public class Shield extends Armor {
+import com.magicrealm.models.Weight;
 
-	protected Shield() {
-		super("Shield", Slot.SHIELD, Weight.MEDIUM, Protection.ONE);
+public class Breastplate extends Armor {
+
+	protected Breastplate() {
+		super("Breastplate", Slot.BREASTPLATE, Weight.MEDIUM, Protection.SWING);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void setIntactPrice() {
 		// TODO Auto-generated method stub
-		price = 7;
+		price = 9;
 	}
 
 	@Override
 	public void setDamagedPrice() {
 		// TODO Auto-generated method stub
-		price = 5;
+		price = 6;
 	}
 
 	@Override

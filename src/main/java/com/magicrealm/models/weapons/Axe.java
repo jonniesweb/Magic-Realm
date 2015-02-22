@@ -1,6 +1,6 @@
-package com.magicrealm.models;
+package com.magicrealm.models.weapons;
 
-import com.magicrealm.models.weapons.Weapon;
+import com.magicrealm.models.Weight;
 
 public class Axe extends Weapon {
 

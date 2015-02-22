@@ -3,6 +3,7 @@ package com.magicrealm.models;
 import java.awt.Image;
 import java.util.ArrayList;
 
+import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.weapons.Weapon;

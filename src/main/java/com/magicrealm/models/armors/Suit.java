@@ -1,29 +1,30 @@
-package com.magicrealm.models;
+package com.magicrealm.models.armors;
 
+import com.magicrealm.models.Weight;
 
-public class JadeShield extends Armor {
+public class Suit extends Armor {
 
-	protected JadeShield() {
-		super("Jade Shield", Slot.SHIELD, Weight.HEAVY, Protection.ONE);
+	protected Suit() {
+		super("Suit of Armor", Slot.SUIT, Weight.HEAVY, Protection.ALL);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public void setIntactPrice() {
 		// TODO Auto-generated method stub
-		price = 20;
+		price = 17;
 	}
 
 	@Override
 	public void setDamagedPrice() {
 		// TODO Auto-generated method stub
-		price = 16;
+		price = 12;
 	}
 
 	@Override
 	public void setDestroyedPrice() {
 		// TODO Auto-generated method stub
-		price = 10;
+		price = 0;
 	}
 
 }
