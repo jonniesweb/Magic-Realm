@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.utils.ProbabilityCalculator;
 
 public abstract class MRCharacter implements Placeable {
@@ -42,8 +43,9 @@ public abstract class MRCharacter implements Placeable {
 		activities.add(activity);
 	}
 	
-	public void executeActivity() {
+	public int executeActivity() {
 		activities.remove(0).execute(this);
+		return activities.size();
 	}
 	
 	public void attemptHide() {

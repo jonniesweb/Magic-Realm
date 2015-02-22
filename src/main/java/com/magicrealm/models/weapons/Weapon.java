@@ -1,4 +1,7 @@
-package com.magicrealm.models;
+package com.magicrealm.models.weapons;
+
+import com.magicrealm.models.Belonging;
+import com.magicrealm.models.Weight;
 
 public abstract class Weapon extends Belonging {
 	

@@ -1,5 +1,7 @@
 package com.magicrealm.models;
 
+import com.magicrealm.models.weapons.Weapon;
+
 public class Axe extends Weapon {
 
 	public Axe() {

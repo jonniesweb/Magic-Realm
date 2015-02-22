@@ -1,5 +1,6 @@
 package com.magicrealm.models;
 
+
 public class JadeShield extends Armor {
 
 	protected JadeShield() {
