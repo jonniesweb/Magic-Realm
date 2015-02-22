@@ -9,7 +9,7 @@ import com.magicrealm.utils.ImageCache;
 public class Swordsman extends MRCharacter {
 	
 	public Swordsman() {
-		name = "Captain";
+		name = "Swordsman";
 		vulnerability = Weight.MEDIUM;
 		setActiveWeapon(new ThrustingSword());
 //		startingLocation =
