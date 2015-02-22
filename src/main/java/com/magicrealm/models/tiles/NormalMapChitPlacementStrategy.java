@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
+	
+	private static final Log log = LogFactory.getLog(NormalMapChitPlacementStrategy.class);
 	
 	public NormalMapChitPlacementStrategy(MagicRealmHexEngineModel model) {
 		super(model);
@@ -54,6 +59,7 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 		// add lost city to cave and 5 site/sound chits
 		SiteChit lostCityChit = getLostCityChit();
 		lostCityChit.getExtraChits().addAll(mapChits.subList(8, 13));
+		log.debug("adding chits to lost city: " + lostCityChit.getExtraChits());
 		caveSoundSiteChits.add(lostCityChit);
 		addChitsToTiles(caves, caveSoundSiteChits);
 
@@ -63,6 +69,7 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 		// add lost castle to mountain and 5 site/sound chits
 		SiteChit lostCastleChit = getLostCastleChit();
 		lostCastleChit.getExtraChits().addAll(mapChits.subList(13, 18));
+		log.debug("adding chits to lost castle: " + lostCastleChit.getExtraChits());
 		mountainSoundSiteChits.add(lostCastleChit);
 		addChitsToTiles(mountains, mountainSoundSiteChits);
 		
@@ -77,6 +84,7 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 		Collections.shuffle(chits);
 		for (int i = 0; i < tiles.length; i++) {
 			tiles[i].getMapChits().add(chits.get(i));
+			log.debug("Adding " + chits.get(i) + " to " + tiles[i]);
 		}
 	}
 	

@@ -19,4 +19,9 @@ public class WarningChit extends MapChit {
 	public void setWarningTile(warning warningTile) {
 		this.warningTile = warningTile;
 	}
+	
+	@Override
+	public String toString() {
+		return "WarningTile: " + warningTile;
+	}
 }

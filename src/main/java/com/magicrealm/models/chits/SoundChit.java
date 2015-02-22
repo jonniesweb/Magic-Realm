@@ -19,5 +19,8 @@ public class SoundChit extends MapChit {
 		this.soundType = soundType;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "SoundChit: " + soundType;
+	}
 }

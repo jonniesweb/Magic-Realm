@@ -15,10 +15,13 @@ public class SiteChit extends MapChit {
 	/**
 	 * Chits for lost castle or lost city can be stored in here
 	 */
-	private List<MapChit> extraChits = new ArrayList<MapChit>();
+	private List<MapChit> extraChits;
 	
-	public SiteChit(site site) {
-		this.setSiteType(site);
+	public SiteChit(site s) {
+		this.setSiteType(s);
+		if (s == site.lost_castle || s == site.lost_city) {
+			extraChits = new ArrayList<>();
+		}
 	}
 	
 	public static int getClearing(site site) {
@@ -59,5 +62,15 @@ public class SiteChit extends MapChit {
 	public void setExtraChits(List<MapChit> extraChits) {
 		this.extraChits = extraChits;
 	}
-	
+
+	@Override
+	public String toString() {
+		if (siteType == site.lost_castle || siteType == site.lost_city) {
+			StringBuilder sb  = new StringBuilder("SiteChit: " + siteType + " contains: ");
+			for (MapChit mapChit : extraChits) {
+				sb.append(mapChit);
+			}
+		}
+		return "SiteChit: " + siteType + " ";
+	}
 }
