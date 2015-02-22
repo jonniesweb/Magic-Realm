@@ -62,7 +62,7 @@ public class SelectActivityPane extends JPanel{
 		group = new ActivityGroup();
 		
 		activityButtons = new JPanel();
-		activityButtons.setLayout(new GridLayout(1, 3));
+		activityButtons.setLayout(new GridLayout(1, 5));
 		
 		move = new ActivityButton("Move", ActivityType.MOVE);
 		group.add(move);

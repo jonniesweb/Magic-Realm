@@ -12,18 +12,31 @@ import javax.swing.JPanel;
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.GameState;
 import com.magicrealm.models.Activity;
+import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class ActivityView extends JPanel {
 		
 		private JLabel label;
-		private JButton select;
+		private JButton selectActivity;
+		private JButton selectCharacter;
 		private JButton execute;
 	
 	public ActivityView() {
 		label = new JLabel("Activities");
 		
-		select = new JButton("Select Activity");
-		select.addActionListener(new ActionListener() {
+		selectCharacter = new JButton("Select Character");
+		selectCharacter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SelectCharacter selectCharacter = new SelectCharacter();
+				JOptionPane.showConfirmDialog(null, selectCharacter, "Select a Character", JOptionPane.OK_CANCEL_OPTION);
+				GameState.getInstance().setCharacter(selectCharacter.getSelectedCharacter());
+				GameState.getInstance().getModel().placeChit(selectCharacter.getTileType(), 5, GameState.getInstance().getCharacter());
+				GameState.getInstance().getModel().updateUI();
+			}
+		});
+		
+		selectActivity = new JButton("Select Activity");
+		selectActivity.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SelectActivityPane activity = new SelectActivityPane();
 				int option = JOptionPane.showConfirmDialog(null, activity, "Select an Activity", JOptionPane.OK_CANCEL_OPTION);
@@ -40,9 +53,10 @@ public class ActivityView extends JPanel {
 			}
 		});
 		
-		this.add(execute);
+		this.add(selectCharacter);
 		this.add(label);
-		this.add(select);
+		this.add(selectActivity);
+		this.add(execute);
 	}
 	
 	public void update(ArrayList<Activity> activities) {
