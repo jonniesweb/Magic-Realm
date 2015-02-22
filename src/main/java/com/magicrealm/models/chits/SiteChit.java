@@ -1,5 +1,8 @@
 package com.magicrealm.models.chits;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SiteChit extends MapChit {
 	
 	public enum site {
@@ -7,6 +10,12 @@ public class SiteChit extends MapChit {
 	}
 	
 	private site siteType;
+//	private List<Treasure> treasures;
+	
+	/**
+	 * Chits for lost castle or lost city can be stored in here
+	 */
+	private List<MapChit> extraChits = new ArrayList<MapChit>();
 	
 	public SiteChit(site site) {
 		this.setSiteType(site);
@@ -41,6 +50,14 @@ public class SiteChit extends MapChit {
 	
 	public void setSiteType(site siteType) {
 		this.siteType = siteType;
+	}
+
+	public List<MapChit> getExtraChits() {
+		return extraChits;
+	}
+
+	public void setExtraChits(List<MapChit> extraChits) {
+		this.extraChits = extraChits;
 	}
 	
 }

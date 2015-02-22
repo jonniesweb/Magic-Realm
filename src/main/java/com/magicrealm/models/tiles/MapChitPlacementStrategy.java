@@ -8,12 +8,19 @@ import com.magicrealm.models.WarningChit;
 import com.magicrealm.models.SoundChit.sound;
 import com.magicrealm.models.WarningChit.warning;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.chits.SiteChit.site;
 
 public abstract class MapChitPlacementStrategy {
 	
-	public abstract void placeMapChits(MagicRealmHexEngineModel model);
+	private MagicRealmHexEngineModel model;
+
+	public MapChitPlacementStrategy(MagicRealmHexEngineModel model) {
+		this.setModel(model);
+	}
+	
+	public abstract void placeMapChits();
 	
 	public static List<WarningChit> getCWarningChits() {
 		return getWarningChits();
@@ -47,11 +54,11 @@ public abstract class MapChitPlacementStrategy {
 		return new SiteChit(site.lost_castle);
 	}
 	
-	public static List<SiteChit> getSiteChits() {
+	public static List<MapChit> getSiteChits() {
 		site[] s = new site[] { site.altair, site.cairns, site.hoard,
 				site.lair, site.pool, site.shrine, site.statue, site.vault };
 		
-		ArrayList<SiteChit> list = new ArrayList<SiteChit>();
+		ArrayList<MapChit> list = new ArrayList<MapChit>();
 		for (site site2 : s) {
 			list.add(new SiteChit(site2));
 		}
@@ -68,5 +75,13 @@ public abstract class MapChitPlacementStrategy {
 		}
 		
 		return list;
+	}
+
+	public MagicRealmHexEngineModel getModel() {
+		return model;
+	}
+
+	public void setModel(MagicRealmHexEngineModel model) {
+		this.model = model;
 	}
 }

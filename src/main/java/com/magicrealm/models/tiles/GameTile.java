@@ -56,7 +56,7 @@ public class GameTile {
 	 */
 	private Map<Integer, TileClearing> tileExits = new HashMap<Integer, TileClearing>();
 
-	private List<MapChit> mapChits;
+	private List<MapChit> mapChits = new ArrayList<>();
 	
 	public GameTile(TileType type, int rotation) {
 		this.tileType = type;
