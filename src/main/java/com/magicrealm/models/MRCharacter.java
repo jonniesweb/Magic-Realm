@@ -74,8 +74,8 @@ public abstract class MRCharacter implements Placeable {
 		blocked = true;
 	}
 	
-	public void rest() {
-		
+	public void rest(ActionChit chit) {
+		chit.restoreCharge();
 	}
 	
 	private void hide() {
@@ -113,6 +113,16 @@ public abstract class MRCharacter implements Placeable {
 		all.addAll(moveChits);
 		all.addAll(fightChits);
 		return all;
+	}
+	
+	public ActionChit[] getFatiguedChits() {
+		ArrayList<ActionChit> chits = new ArrayList<ActionChit>();
+		for(ActionChit c: getActionChits()) {
+			if(c.getTotalCharges() != c.getCharges() || c.isWounded()) {
+				chits.add(c);
+			}
+		}
+		return chits.toArray(new ActionChit[0]);
 	}
 	
 	public String getName() {
