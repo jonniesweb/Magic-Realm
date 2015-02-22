@@ -26,7 +26,7 @@ public class ActionChit extends Belonging {
 			-- charges;
 	}
 	
-	public void restore() {
+	public void restoreCharge() {
 		if(wounded)
 			wounded = false;
 		else
@@ -55,6 +55,12 @@ public class ActionChit extends Belonging {
 
 	public boolean isWounded() {
 		return wounded;
-	} 
+	}
+	
+	public String toString() {
+		String s = this.action.name().charAt(0)+"";
+		s += this.time+"";
+		return s;
+	}
 
 }
