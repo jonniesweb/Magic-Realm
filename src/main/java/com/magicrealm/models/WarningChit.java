@@ -1,8 +1,23 @@
 package com.magicrealm.models;
 
-public class WarningChit {
+import com.magicrealm.models.chits.MapChit;
+
+public class WarningChit extends MapChit {
 	
 	private enum tile {valley, woods, caves, mountains}
-	private enum warning {smoke, ruins, dank, stink, bones}
+	public enum warning {smoke, ruins, dank, stink, bones}
 
+	private warning warningTile;
+	
+	public WarningChit(warning warning) {
+		this.setWarningTile(warning);
+	}
+
+	public warning getWarningTile() {
+		return warningTile;
+	}
+
+	public void setWarningTile(warning warningTile) {
+		this.warningTile = warningTile;
+	}
 }

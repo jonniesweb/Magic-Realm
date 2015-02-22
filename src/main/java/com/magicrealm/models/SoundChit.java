@@ -1,8 +1,24 @@
 package com.magicrealm.models;
 
-public class SoundChit {
-	
-	private int clearing;
-	private enum sound {howl, flutter, roar, patter, slither};
+import com.magicrealm.models.chits.MapChit;
 
+public class SoundChit extends MapChit {
+	
+	public enum sound {howl, flutter, roar, patter, slither};
+
+	private sound soundType;
+
+	public SoundChit(sound sound) {
+		this.setSoundType(sound);
+	}
+
+	public sound getSoundType() {
+		return soundType;
+	}
+
+	public void setSoundType(sound soundType) {
+		this.soundType = soundType;
+	}
+	
+	
 }

@@ -3,11 +3,11 @@ package com.magicrealm.models.tiles;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.magicrealm.models.Placeable;
-import com.magicrealm.models.SoundChit;
-import com.magicrealm.models.WarningChit;
+import com.magicrealm.models.chits.MapChit;
 
 
 /**
@@ -56,6 +56,8 @@ public class GameTile {
 	 */
 	private Map<Integer, TileClearing> tileExits = new HashMap<Integer, TileClearing>();
 
+	private List<MapChit> mapChits;
+	
 	public GameTile(TileType type, int rotation) {
 		this.tileType = type;
 		this.rotation = rotation;
@@ -505,5 +507,13 @@ public class GameTile {
 
 	public Map<Integer, TileClearing> getTileExits() {
 		return tileExits;
+	}
+
+	public List<MapChit> getMapChits() {
+		return mapChits;
+	}
+
+	public void setMapChits(List<MapChit> mapChits) {
+		this.mapChits = mapChits;
 	}
 }
