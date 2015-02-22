@@ -1,4 +1,6 @@
-package com.magicrealm.models;
+package com.magicrealm.models.armors;
+
+import com.magicrealm.models.Weight;
 
 public class Helmet extends Armor {
 

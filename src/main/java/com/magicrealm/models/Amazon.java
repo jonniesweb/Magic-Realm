@@ -3,6 +3,7 @@ package com.magicrealm.models;
 import java.awt.Image;
 
 import com.magicrealm.GameState;
+import com.magicrealm.models.weapons.ShortSword;
 import com.magicrealm.utils.ImageCache;
 
 public class Amazon extends MRCharacter {

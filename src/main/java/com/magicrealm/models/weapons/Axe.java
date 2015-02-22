@@ -1,9 +1,11 @@
-package com.magicrealm.models;
+package com.magicrealm.models.weapons;
 
-public class Broadsword extends Weapon {
+import com.magicrealm.models.Weight;
 
-	public Broadsword() {
-		super("Broadsword", Attack.STRIKING, 7, 8, Weight.MEDIUM);
+public class Axe extends Weapon {
+
+	public Axe() {
+		super("Axe", Attack.STRIKING, 2, 4, Weight.MEDIUM);
 		// TODO Auto-generated constructor stub
 	}
 

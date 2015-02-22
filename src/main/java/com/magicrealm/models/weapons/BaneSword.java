@@ -1,4 +1,6 @@
-package com.magicrealm.models;
+package com.magicrealm.models.weapons;
+
+import com.magicrealm.models.Weight;
 
 public class BaneSword extends Weapon {
 

@@ -1,9 +1,11 @@
-package com.magicrealm.models;
+package com.magicrealm.models.armors;
 
-public class SilverBreastplate extends Armor {
+import com.magicrealm.models.Weight;
 
-	protected SilverBreastplate() {
-		super("Silver Breastplate", Slot.BREASTPLATE, Weight.HEAVY, Protection.SWING);
+public class TremendousArmor extends Armor {
+
+	protected TremendousArmor() {
+		super("Tremendous Armor", Slot.SUIT, Weight.TREMENDOUS, Protection.ALL);
 		// TODO Auto-generated constructor stub
 	}
 
@@ -16,13 +18,13 @@ public class SilverBreastplate extends Armor {
 	@Override
 	public void setDamagedPrice() {
 		// TODO Auto-generated method stub
-		price = 21;
+		price = 18;
 	}
 
 	@Override
 	public void setDestroyedPrice() {
 		// TODO Auto-generated method stub
-		price = 15;
+		price = 5;
 	}
 
 }
