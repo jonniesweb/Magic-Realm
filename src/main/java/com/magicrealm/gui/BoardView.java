@@ -11,11 +11,13 @@ import java.util.Observer;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import com.igormaznitsa.jhexed.engine.DefaultIntegerHexModel;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
+import com.magicrealm.GameState;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class BoardView implements Observer {

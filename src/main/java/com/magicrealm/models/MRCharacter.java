@@ -115,4 +115,8 @@ public abstract class MRCharacter implements Placeable {
 		return all;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 }
