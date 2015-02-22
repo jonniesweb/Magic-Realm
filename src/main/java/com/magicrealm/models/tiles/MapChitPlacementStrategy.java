@@ -3,14 +3,14 @@ package com.magicrealm.models.tiles;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.magicrealm.models.SoundChit;
-import com.magicrealm.models.WarningChit;
-import com.magicrealm.models.SoundChit.sound;
-import com.magicrealm.models.WarningChit.warning;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
+import com.magicrealm.models.chits.SoundChit;
+import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.chits.SiteChit.site;
+import com.magicrealm.models.chits.SoundChit.sound;
+import com.magicrealm.models.chits.WarningChit.warning;
 
 public abstract class MapChitPlacementStrategy {
 	

@@ -1,6 +1,5 @@
-package com.magicrealm.models;
+package com.magicrealm.models.chits;
 
-import com.magicrealm.models.chits.MapChit;
 
 public class WarningChit extends MapChit {
 	
