@@ -18,6 +18,7 @@ public class SiteChit extends MapChit {
 	private List<MapChit> extraChits;
 	
 	public SiteChit(site s) {
+		super(s.toString());
 		this.setSiteType(s);
 		if (s == site.lost_castle || s == site.lost_city) {
 			extraChits = new ArrayList<>();

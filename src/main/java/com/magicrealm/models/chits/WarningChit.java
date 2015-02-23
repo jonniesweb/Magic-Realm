@@ -8,8 +8,9 @@ public class WarningChit extends MapChit {
 
 	private warning warningTile;
 	
-	public WarningChit(warning warning) {
-		this.setWarningTile(warning);
+	public WarningChit(warning warn) {
+		super(warn.toString());
+		this.setWarningTile(warn);
 	}
 
 	public warning getWarningTile() {

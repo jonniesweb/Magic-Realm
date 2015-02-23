@@ -1,5 +1,6 @@
 package com.magicrealm.models.tiles;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.chits.MapChit;
+import com.magicrealm.models.chits.WarningChit;
 
 
 /**
@@ -56,7 +58,10 @@ public class GameTile {
 	 */
 	private Map<Integer, TileClearing> tileExits = new HashMap<Integer, TileClearing>();
 
-	private List<MapChit> mapChits = new ArrayList<>();
+	private WarningChit warningChit;
+	private MapChit siteSoundChit;
+	private Point warningChitPosition;
+	private Point siteSoundChitPosition;
 	
 	public GameTile(TileType type, int rotation) {
 		this.tileType = type;
@@ -87,6 +92,7 @@ public class GameTile {
 			setPosition(2, 277, 129);
 			setPosition(4, 253, 306);
 			setPosition(5, 88, 246);
+			setWarningChitPosition(241, 339);
 			break;
 		case BV:
 			addClearing(1,2,4,5);
@@ -100,6 +106,7 @@ public class GameTile {
 			setPosition(2, 283, 135);
 			setPosition(4, 104, 181);
 			setPosition(5, 152, 360);
+			setWarningChitPosition(254, 334);
 			break;
 		case CV:
 			addClearing(1,2,4,5);
@@ -113,6 +120,7 @@ public class GameTile {
 			setPosition(2, 149, 133);
 			setPosition(4, 285, 243);
 			setPosition(5, 153, 359);
+			setWarningChitPosition(395, 244);
 			break;
 		case DV:
 			addClearing(1,2,4,5);
@@ -126,6 +134,7 @@ public class GameTile {
 			setPosition(2, 86, 253);
 			setPosition(4, 252, 185);
 			setPosition(5, 281, 361);
+			setWarningChitPosition(240, 350);
 			break;
 		case EV:
 			addClearing(1,2,4,5);
@@ -139,6 +148,7 @@ public class GameTile {
 			setPosition(2, 151, 132);
 			setPosition(4, 102, 314);
 			setPosition(5, 280, 359);
+			setWarningChitPosition(241, 342);
 			break;
 		case LW:
 			addClearing(2, 4, 5);
@@ -149,6 +159,7 @@ public class GameTile {
 			setPosition(2, 277, 247);
 			setPosition(4, 153, 131);
 			setPosition(5, 125, 297);
+			setWarningChitPosition(403, 215);
 			break;
 		case MW:
 			addClearing(2, 4, 5);
@@ -159,6 +170,7 @@ public class GameTile {
 			setPosition(2, 115, 315);
 			setPosition(4, 275, 366);
 			setPosition(5, 217, 139);
+			setWarningChitPosition(244, 320);
 			break;
 		case NW:
 			addClearing(2, 4, 5);
@@ -169,6 +181,7 @@ public class GameTile {
 			setPosition(2, 109, 187);
 			setPosition(4, 137, 351);
 			setPosition(5, 284, 244);
+			setWarningChitPosition(112, 208);
 			break;
 		case OW:
 			addClearing(2, 4, 5);
@@ -179,6 +192,7 @@ public class GameTile {
 			setPosition(2, 208, 359);
 			setPosition(4, 283, 134);
 			setPosition(5, 117, 191);
+			setWarningChitPosition(285, 327);
 			break;
 		case PW:
 			addClearing(2, 4, 5);
@@ -189,6 +203,7 @@ public class GameTile {
 			setPosition(2, 192, 117);
 			setPosition(4, 86, 230);
 			setPosition(5, 213, 363);
+			setWarningChitPosition(248, 319);
 			break;
 		case B:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -208,6 +223,8 @@ public class GameTile {
 			setPosition(4, 363, 170);
 			setPosition(5, 271, 187);
 			setPosition(6, 183, 224);
+			setWarningChitPosition(77, 212);
+			setSiteSoundChitPosition(347, 355);
 			break;
 		case CN:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -227,6 +244,8 @@ public class GameTile {
 			setPosition(4, 360, 252);
 			setPosition(5, 151, 134);
 			setPosition(6, 270, 296);
+			setWarningChitPosition(103, 253);
+			setSiteSoundChitPosition(150, 347);
 			break;
 		case CS:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -244,6 +263,8 @@ public class GameTile {
 			setPosition(3, 220, 228);
 			setPosition(4, 350, 275);
 			setPosition(5, 157, 134);
+			setWarningChitPosition(211, 71);
+			setSiteSoundChitPosition(403, 184);
 			break;
 		case HP:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -261,6 +282,8 @@ public class GameTile {
 			setPosition(4, 233, 217);
 			setPosition(5, 348, 250);
 			setPosition(6, 150, 133);
+			setWarningChitPosition(98, 245);
+			setSiteSoundChitPosition(146, 325);
 			break;
 		case R:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -280,6 +303,8 @@ public class GameTile {
 			setPosition(4, 262, 234);
 			setPosition(5, 331, 147);
 			setPosition(6, 184, 328);
+			setWarningChitPosition(79, 219);
+			setSiteSoundChitPosition(165, 53);
 			break;
 		case CF:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -299,6 +324,8 @@ public class GameTile {
 			setPosition(4, 150, 360);
 			setPosition(5, 283, 363);
 			setPosition(6, 87, 249);
+			setWarningChitPosition(63, 221);
+			setSiteSoundChitPosition(432, 213);
 			break;
 		case CG:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -314,6 +341,8 @@ public class GameTile {
 			setPosition(3, 174, 171);
 			setPosition(4, 288, 320);
 			setPosition(5, 282, 164);
+			setWarningChitPosition(82, 218);
+			setSiteSoundChitPosition(415, 216);
 			break;
 		case DW:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -333,6 +362,8 @@ public class GameTile {
 			setPosition(4, 220, 88);
 			setPosition(5, 323, 148);
 			setPosition(6, 243, 242);
+			setWarningChitPosition(300, 160);
+			setSiteSoundChitPosition(330, 62);
 			break;
 		case L:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -352,6 +383,8 @@ public class GameTile {
 			setPosition(4, 209, 248);
 			setPosition(5, 127, 157);
 			setPosition(6, 353, 174);
+			setWarningChitPosition(327, 60);
+			setSiteSoundChitPosition(120, 243);
 			break;
 		case M:
 			addClearing(1, 2, 3, 4, 5, 6);
@@ -370,10 +403,20 @@ public class GameTile {
 			setPosition(4, 70, 249);
 			setPosition(5, 288, 372);
 			setPosition(6, 163, 343);
+			setWarningChitPosition(340, 55);
+			setSiteSoundChitPosition(259, 170);
 			break;
 		default:
 			throw new RuntimeException();
 		}
+	}
+	
+	private void setWarningChitPosition(int x, int y) {
+		this.warningChitPosition = new Point(x, y);
+	}
+	
+	private void setSiteSoundChitPosition(int x, int y) {
+		this.siteSoundChitPosition = new Point(x, y);
 	}
 
 	/**
@@ -509,11 +552,35 @@ public class GameTile {
 		return tileExits;
 	}
 
-	public List<MapChit> getMapChits() {
-		return mapChits;
+	public Point getWarningChitPosition() {
+		return warningChitPosition;
 	}
 
-	public void setMapChits(List<MapChit> mapChits) {
-		this.mapChits = mapChits;
+	public void setWarningChitPosition(Point warningChitPosition) {
+		this.warningChitPosition = warningChitPosition;
+	}
+
+	public Point getSiteSoundChitPosition() {
+		return siteSoundChitPosition;
+	}
+
+	public void setSiteSoundChitPosition(Point siteSoundChitPosition) {
+		this.siteSoundChitPosition = siteSoundChitPosition;
+	}
+
+	public WarningChit getWarningChit() {
+		return warningChit;
+	}
+
+	public void setWarningChit(WarningChit warningChit) {
+		this.warningChit = warningChit;
+	}
+
+	public MapChit getSiteSoundChit() {
+		return siteSoundChit;
+	}
+
+	public void setSiteSoundChit(MapChit siteSoundChit) {
+		this.siteSoundChit = siteSoundChit;
 	}
 }

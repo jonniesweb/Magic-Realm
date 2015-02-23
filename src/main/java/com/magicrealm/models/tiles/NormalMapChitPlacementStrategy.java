@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
+import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
@@ -83,7 +84,12 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 	private void addChitsToTiles(GameTile[] tiles, List<? extends MapChit> chits) {
 		Collections.shuffle(chits);
 		for (int i = 0; i < tiles.length; i++) {
-			tiles[i].getMapChits().add(chits.get(i));
+			if (chits.get(i) instanceof WarningChit) {
+				tiles[i].setWarningChit((WarningChit) chits.get(i));
+			} else {
+				tiles[i].setSiteSoundChit(chits.get(i));
+			}
+			
 			log.debug("Adding " + chits.get(i) + " to " + tiles[i]);
 		}
 	}

@@ -8,6 +8,7 @@ public class SoundChit extends MapChit {
 	private sound soundType;
 
 	public SoundChit(sound sound) {
+		super(sound.toString());
 		this.setSoundType(sound);
 	}
 

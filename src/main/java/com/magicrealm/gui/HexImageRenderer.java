@@ -1,9 +1,13 @@
 package com.magicrealm.gui;
 
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.List;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,6 +15,8 @@ import org.apache.commons.logging.LogFactory;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.renders.swing.ColorHexRender;
 import com.magicrealm.models.Placeable;
+import com.magicrealm.models.chits.MapChit;
+import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
@@ -20,7 +26,6 @@ import com.magicrealm.utils.ImageCache;
 public final class HexImageRenderer extends ColorHexRender {
 	
 	private static final Log log = LogFactory.getLog(HexImageRenderer.class);
-	
 	
 	@Override
 	public void renderHexCell(HexEngine<Graphics2D> engine, Graphics2D graphic,
@@ -50,16 +55,41 @@ public final class HexImageRenderer extends ColorHexRender {
 		for (TileClearing clearing : tile.getClearings()) {
 			for (Placeable chit : clearing.getChits()) {
 				Point rotatedPoint = rotateCoordinates(clearing.getXPosition(), clearing.getYPosition(), tile.getRotation());
-				double xMagnitude = rotatedPoint.getX() / (double) GameTile.MAX_X;
-				double yMagnitude = rotatedPoint.getY() / (double) GameTile.MAX_Y;
 				
-				double xPos = xMagnitude * engine.getCellWidth();
-				double yPos = yMagnitude * engine.getCellHeight();
+				Point scaleCoordinates = scaleCoordinates(engine, rotatedPoint);
 				
-				drawChitImage(graphic, x, y, xPos, yPos, chit.getImageName());
+				drawChitImage(graphic, x, y, scaleCoordinates.x, scaleCoordinates.y, chit.getImageName());
 			}
 		}
 		
+		// draw all map chits
+		if (tile.getWarningChit() != null && tile.getWarningChitPosition() != null) {
+			drawMapChit(graphic, engine, x, y, tile, tile.getWarningChitPosition(), tile.getWarningChit());
+		}
+		
+		// draw site or sound chit
+		if (tile.getSiteSoundChit() != null && tile.getSiteSoundChitPosition() != null) {
+			drawMapChit(graphic, engine, x, y, tile, tile.getSiteSoundChitPosition(), tile.getSiteSoundChit());
+		}
+		
+	}
+	
+	private static Point scaleCoordinates(HexEngine<Graphics2D> engine, Point point) {
+		double xMagnitude = point.getX() / (double) GameTile.MAX_X;
+		double yMagnitude = point.getY() / (double) GameTile.MAX_Y;
+		
+		return new Point((int) (xMagnitude * engine.getCellWidth()), (int) (yMagnitude * engine.getCellHeight()));
+	}
+	
+	private void drawMapChit(Graphics2D graphic, HexEngine<Graphics2D> engine, float x, float y, GameTile tile, Point point, MapChit chit) {
+
+		BufferedImage mapChit = getMapChit(chit);
+		Point scaledRotatedCoords = scaleCoordinates(engine, rotateCoordinates(point, tile.getRotation()));
+		
+		int sx = (int) (scaledRotatedCoords.x);
+		int sy = (int) (scaledRotatedCoords.y);
+		
+		graphic.drawImage(mapChit, (int) x + sx - 10, (int) y + sy - 10, 20, 20, null);
 	}
 
 	private void drawChitImage(Graphics2D graphic, double x, double y,
@@ -105,9 +135,6 @@ public final class HexImageRenderer extends ColorHexRender {
 	 * @return
 	 */
 	private String getImage(GameTile tile) {
-		if (tile == null) {
-			return ""; // XXX remove
-		}
 		switch (tile.getTileType()) {
 		case AV:
 			return "awfulvalley1";
@@ -154,6 +181,10 @@ public final class HexImageRenderer extends ColorHexRender {
 		}
 	}
 	
+	private static Point rotateCoordinates(Point point, int rotation) {
+		return rotateCoordinates((int) point.getX(), (int) point.getY(), rotation);
+	}
+	
 	private static Point rotateCoordinates(int x, int y, int rotation) {
 		if (rotation == 0)
 			return new Point(x, y);
@@ -173,4 +204,19 @@ public final class HexImageRenderer extends ColorHexRender {
 		
 	}
 	
+	private BufferedImage getMapChit(MapChit chit) {
+		
+		BufferedImage image = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D g = image.createGraphics();
+		g.setColor(Color.white);
+		g.fillRect(0, 0, 20, 20);
+		g.setColor(Color.black);
+		if (chit instanceof WarningChit)
+			g.drawString("W", 5, 15);
+		else
+			g.drawString("S", 5, 15);
+		
+		return image;
+		
+	}
 }
