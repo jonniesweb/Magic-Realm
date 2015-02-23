@@ -12,8 +12,10 @@ import java.util.Set;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
+import com.magicrealm.GameState;
 import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.Placeable;
+import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.tiles.GameTile;
@@ -296,4 +298,13 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		
 		return list;
 	}
+	
+	public ClearingMapChit getChitAtLocation(GameTile tile, int clearing) {
+		ClearingMapChit chit = (ClearingMapChit) tile.getSiteSoundChit();
+		if(chit != null && chit.getClearing() == clearing) {			
+			return chit;
+		}
+		return null;
+	}
+	
 }

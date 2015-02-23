@@ -37,10 +37,10 @@ public abstract class MRCharacter implements Placeable {
 		fightChits = new ArrayList<ActionChit>();
 		moveChits = new ArrayList<ActionChit>();
 		activities = new ArrayList<Activity>();
+		discoveries = new ArrayList<Discoverable>();
 	}
 	
 	public void addActivity(Activity activity) {
-		System.out.println(activity.toString());
 		activities.add(activity);
 	}
 	
@@ -117,6 +117,10 @@ public abstract class MRCharacter implements Placeable {
 		return chits.toArray(new ActionChit[0]);
 	}
 	
+	public ArrayList<Discoverable> getDiscoveries() {
+		return discoveries;
+	}
+
 	public String getName() {
 		return name;
 	}

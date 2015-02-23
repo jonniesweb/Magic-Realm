@@ -6,9 +6,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.magicrealm.GameState;
+import com.magicrealm.models.Discoverable;
 import com.magicrealm.models.Placeable;
 
-public class TileClearing {
+public class TileClearing implements Discoverable {
 	
 	public enum ClearingType {
 		MOUNTAIN, CAVE, WOODS
@@ -79,6 +81,14 @@ public class TileClearing {
 	
 	public TileClearing getConnectedSecretClearing() {
 		return secretPath;
+	}
+	
+	public TileClearing[] getPlayerConnectedClearings() {
+		Set<TileClearing> clearings = getConnectedClearings();
+		if(GameState.getInstance().getCharacter().getDiscoveries().contains(secretPath)) {
+			clearings.add(secretPath);
+		}
+		return clearings.toArray(new TileClearing[0]);
 	}
 
 	public void setYPosition(int ypos) {
