@@ -31,16 +31,16 @@ public abstract class MRCharacter implements Placeable {
 	protected Armor activeShield;
 	protected ArrayList<Activity> activities;
 //	private Person tradingRelationships;
-//	private int discoveries;
+	private ArrayList<Discoverable> discoveries;
 	
 	public MRCharacter() {
 		fightChits = new ArrayList<ActionChit>();
 		moveChits = new ArrayList<ActionChit>();
 		activities = new ArrayList<Activity>();
+		discoveries = new ArrayList<Discoverable>();
 	}
 	
 	public void addActivity(Activity activity) {
-		System.out.println(activity.toString());
 		activities.add(activity);
 	}
 	
@@ -49,21 +49,13 @@ public abstract class MRCharacter implements Placeable {
 		return activities.size();
 	}
 	
+	public void addDiscovery(Discoverable disc) {
+		discoveries.add(disc);
+	}
+	
 	public void attemptHide() {
 		if(ProbabilityCalculator.calculateHide())
 			this.hide();
-	}
-	
-	public void attemptSearchTreasure() {
-		if(ProbabilityCalculator.findTreasure()) {
-			//find some treasure
-		}
-	}
-	
-	public void attemptSearchPassage() {
-		if(ProbabilityCalculator.findPassage()) {
-			//find passage
-		}
 	}
 	
 	public void move() {
@@ -125,6 +117,10 @@ public abstract class MRCharacter implements Placeable {
 		return chits.toArray(new ActionChit[0]);
 	}
 	
+	public ArrayList<Discoverable> getDiscoveries() {
+		return discoveries;
+	}
+
 	public String getName() {
 		return name;
 	}

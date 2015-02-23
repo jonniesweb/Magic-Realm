@@ -4,8 +4,6 @@ import java.util.Random;
 
 public abstract class ProbabilityCalculator {
 	
-	public enum Peer {CHOICE, CLUES_PATHS, ENEMIES_PATHS, ENEMIES, CLUES, NOTHING};
-	public enum Locate {CHOICE, PASSAGES_CLUES, PASSAGES, DISCOVER, NOTHING};
 	public enum Result {ONE, TWO, THREE, FOUR, FIVE, SIX};
 	private static final int TOTAL_COMBINATIONS = 36;
 	private static final int HIDE = 25;
@@ -19,38 +17,6 @@ public abstract class ProbabilityCalculator {
 	
 	public static boolean calculateHide() {
 		return getRandom() < HIDE;
-	}
-	
-	public static Peer getPeerResult() {
-		int num = getRandom();
-		if(num == ONE_PROBABILITY) {
-			return Peer.CHOICE;
-		} else if(num <= TWO_PROBABILITY) {
-			return Peer.CLUES_PATHS;
-		} else if(num <= THREE_PROBABILITY) {
-			return Peer.ENEMIES_PATHS;
-		} else if(num <= FOUR_PROBABILITY) {
-			return Peer.ENEMIES;
-		} else if(num <= FIVE_PROBABILITY) {
-			return Peer.CLUES;
-		} else {
-			return Peer.NOTHING;
-		}
-	}
-	
-	public static Locate getLocateResult() {
-		int num = getRandom();
-		if(num == ONE_PROBABILITY) {
-			return Locate.CHOICE;
-		} else if(num <= TWO_PROBABILITY) {
-			return Locate.PASSAGES_CLUES;
-		} else if(num <= THREE_PROBABILITY) {
-			return Locate.PASSAGES;
-		} else if(num <= FOUR_PROBABILITY) {
-			return Locate.DISCOVER;
-		} else {
-			return Locate.NOTHING;
-		}
 	}
 	
 	public static Result getResult() {
@@ -78,9 +44,14 @@ public abstract class ProbabilityCalculator {
 		return getRandom() < DISCOVER_PASSAGE;
 	}
 	
+	public static Result[] getResultChoices() {
+		return new Result[] {Result.TWO, Result.THREE, Result.FOUR, Result.FIVE};
+	}
+	
 	private static int getRandom() {
 		Random rand = new Random();
 		return rand.nextInt(TOTAL_COMBINATIONS);
 	}
+
 
 }

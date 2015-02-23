@@ -13,7 +13,6 @@ public abstract class Activity implements Executable {
 		GameTile tile;
 		switch (type) {
 		case MOVE:
-			System.out.println("building move");
 			tile = GameState.getInstance().getModel().getTile(activity.getTileType());
 			return new Move(tile, tile.getClearing(activity.getClearingNumber()));
 		case HIDE:

@@ -2,7 +2,11 @@ package com.magicrealm.models;
 
 import javax.swing.JOptionPane;
 
+import com.magicrealm.GameState;
 import com.magicrealm.gui.SelectObject;
+import com.magicrealm.gui.SimpleSelection;
+import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.models.tiles.TileClearing.ClearingType;
 import com.magicrealm.utils.ProbabilityCalculator;
 import com.magicrealm.utils.ProbabilityCalculator.Result;
 
@@ -15,13 +19,14 @@ public class Search extends Activity {
 	@Override
 	public void execute(MRCharacter player) {
 		// TODO Auto-generated method stub
-		Peer peer = new Peer();
-		Locate locate = new Locate();
-		SelectObject selectTable = new SelectObject(new Table[] {peer, locate});
-		int option = JOptionPane.showConfirmDialog(null, selectTable, "Select A Table", JOptionPane.OK_CANCEL_OPTION);
-		if(option == JOptionPane.OK_OPTION) {
-			Result result = ProbabilityCalculator.getResult();
-			((Table) selectTable.getSelected()).execute(result);
+		SimpleSelection selectTable = new SimpleSelection(new Table[] {new Peer(), new Locate()}, "Select A Table");
+		Table selectedTable = (Table) selectTable.getSelected();
+		Result result = ProbabilityCalculator.getResult();
+		if(result == Result.ONE) {
+			SimpleSelection selectResult = new SimpleSelection(ProbabilityCalculator.getResultChoices(), "Select A Result");
+			selectedTable.execute((Result) selectResult.getSelected());
+		} else {
+			selectedTable.execute(result);
 		}
 	}
 

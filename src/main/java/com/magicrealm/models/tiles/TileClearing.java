@@ -6,9 +6,17 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.magicrealm.GameState;
+import com.magicrealm.models.Discoverable;
 import com.magicrealm.models.Placeable;
 
-public class TileClearing {
+public class TileClearing implements Discoverable {
+	
+	public enum ClearingType {
+		MOUNTAIN, CAVE, WOODS
+	}
+	
+	private ClearingType clearingType;
 	
 	/**
 	 * The number that this clearing represents on the game tile
@@ -28,7 +36,7 @@ public class TileClearing {
 	/**
 	 * List of other clearings connected to via secret paths
 	 */
-	private Set<TileClearing> secretPaths = new HashSet<TileClearing>();
+	private TileClearing secretPath = null;
 
 	private int ypos;
 
@@ -36,6 +44,7 @@ public class TileClearing {
 	
 	public TileClearing(int clearingNumber) {
 		this.setClearingNumber(clearingNumber);
+		this.clearingType = null;
 	}
 
 	public void addPath(TileClearing tileClearing) {
@@ -47,7 +56,7 @@ public class TileClearing {
 	public void addSecretPath(TileClearing tileClearing) {
 		if (tileClearing == this)
 			throw new RuntimeException("Secret path cannot lead to itself!");
-		secretPaths.add(tileClearing);
+		secretPath = tileClearing;
 	}
 	
 	public void addChit(Placeable placeable) {
@@ -70,8 +79,16 @@ public class TileClearing {
 		return Collections.unmodifiableSet(paths);
 	}
 	
-	public Set<TileClearing> getConnectedSecretClearings() {
-		return Collections.unmodifiableSet(secretPaths);
+	public TileClearing getConnectedSecretClearing() {
+		return secretPath;
+	}
+	
+	public TileClearing[] getPlayerConnectedClearings() {
+		Set<TileClearing> clearings = getConnectedClearings();
+		if(GameState.getInstance().getCharacter().getDiscoveries().contains(secretPath)) {
+			clearings.add(secretPath);
+		}
+		return clearings.toArray(new TileClearing[0]);
 	}
 
 	public void setYPosition(int ypos) {
@@ -89,4 +106,9 @@ public class TileClearing {
 	public int getXPosition() {
 		return xpos;
 	}
+
+	public ClearingType getClearingType() {
+		return clearingType;
+	}
+	
 }
