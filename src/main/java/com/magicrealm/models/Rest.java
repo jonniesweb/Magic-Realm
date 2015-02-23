@@ -15,8 +15,9 @@ public class Rest extends Activity {
 	public void execute(MRCharacter player) {
 		// TODO Auto-generated method stub
 		SelectRestChit restChit = new SelectRestChit(player.getFatiguedChits());
-		JOptionPane.showConfirmDialog(null, restChit, "Select A Chit To Restore", JOptionPane.OK_OPTION);
-		player.rest(restChit.getSelectedChit());
+		int option = JOptionPane.showConfirmDialog(null, restChit, "Select A Chit To Restore", JOptionPane.OK_CANCEL_OPTION);
+		if(option == JOptionPane.OK_OPTION) {
+			player.rest(restChit.getSelectedChit());
+		}
 	}
-
 }
