@@ -2,6 +2,7 @@ package com.magicrealm.models;
 
 import com.magicrealm.GameState;
 import com.magicrealm.models.chits.ClearingMapChit;
+import com.magicrealm.utils.GameLog;
 
 public class Locate extends Table {
 
@@ -24,9 +25,9 @@ public class Locate extends Table {
 		ClearingMapChit chit = getChitAtLocation();
 		if(chit != null) {
 			GameState.getInstance().getCharacter().addDiscovery(chit);
-			print("You discovered site " + chit.getType());
+			GameLog.log("You discovered site " + chit.getType());
 		} else {
-			print("You found nothing of value");
+			GameLog.log("You found nothing of value");
 		}
 	}
 

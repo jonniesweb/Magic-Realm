@@ -4,9 +4,8 @@ import java.awt.Image;
 import java.util.ArrayList;
 
 import com.magicrealm.models.armors.Armor;
-import com.magicrealm.models.tiles.GameTile;
-import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.weapons.Weapon;
+import com.magicrealm.utils.GameLog;
 import com.magicrealm.utils.ProbabilityCalculator;
 
 public abstract class MRCharacter implements Placeable {
@@ -71,7 +70,7 @@ public abstract class MRCharacter implements Placeable {
 	}
 	
 	private void hide() {
-		System.out.println("Character Hidden");
+		GameLog.log("Character Hidden");
 		hidden = true;
 	}
 	

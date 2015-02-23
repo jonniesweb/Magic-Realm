@@ -4,14 +4,19 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
+
+import net.miginfocom.swing.MigLayout;
 
 import com.igormaznitsa.jhexed.engine.DefaultIntegerHexModel;
 import com.igormaznitsa.jhexed.engine.HexEngine;
@@ -22,7 +27,8 @@ import com.magicrealm.models.board.MagicRealmHexEngineModel;
 public class BoardView implements Observer {
 
 	private MagicRealmHexEngineModel model;
-	JComponent gameboardComponent;
+	private ConsoleLog consoleLogFrame = new ConsoleLog();
+	private JComponent gameboardComponent;
 	
 	public BoardView(MagicRealmHexEngineModel model) {
 		this.model = model;
@@ -33,7 +39,7 @@ public class BoardView implements Observer {
 	private void run() {
 		final JFrame frame = new JFrame("Magic Realms - NullPointerException expansion");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
+		frame.getContentPane().setLayout(new BorderLayout());
 
 		final HexEngine<Graphics2D> engine = new HexEngine<Graphics2D>(200, 200, 0.25f, HexEngine.ORIENTATION_HORIZONTAL);
 		engine.setModel(model);
@@ -78,8 +84,18 @@ public class BoardView implements Observer {
 				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jScrollPane.setPreferredSize(new Dimension(1000, 600));
 		
-		frame.add(jScrollPane, BorderLayout.CENTER);
-		frame.add(new ActivityView(), BorderLayout.NORTH);
+		frame.getContentPane().add(jScrollPane, BorderLayout.CENTER);
+		ActivityView activityView = new ActivityView();
+		frame.getContentPane().add(activityView, BorderLayout.NORTH);
+		activityView.setLayout(new MigLayout("", "[][][][grow][right]", "[]"));
+		
+		JButton btnConsoleLog = new JButton("Console Log");
+		btnConsoleLog.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				consoleLogFrame.setVisible(true);
+			}
+		});
+		activityView.add(btnConsoleLog, "cell 4 0");
 		frame.pack();
 		frame.setVisible(true);
 	}

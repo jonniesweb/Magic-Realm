@@ -47,7 +47,8 @@ public class SiteChit extends ClearingMapChit {
 		case vault:
 			return 3;
 		default:
-			throw new RuntimeException("no clearing avaliable");
+			return 0;
+			// not sure what to do here for lost city and lost castle
 		}
 	}
 	

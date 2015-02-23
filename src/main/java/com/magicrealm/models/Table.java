@@ -1,13 +1,11 @@
 package com.magicrealm.models;
 
-import javax.swing.JOptionPane;
-
 import com.magicrealm.GameState;
-import com.magicrealm.gui.SelectObject;
 import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.tiles.TileClearing.ClearingType;
+import com.magicrealm.utils.GameLog;
 import com.magicrealm.utils.ProbabilityCalculator.Result;
 
 public abstract class Table implements TableMethods {
@@ -51,9 +49,9 @@ public abstract class Table implements TableMethods {
 		TileClearing secret = getClearing().getConnectedSecretClearing();
 		if(secret != null) {
 			GameState.getInstance().getCharacter().addDiscovery(secret);
-			print("You Discovered a secret path, this path is now accessible");
+			GameLog.log("You Discovered a secret path, this path is now accessible");
 		} else {
-			print("no secret paths");
+			GameLog.log("no secret paths");
 		}
 	}
 	
@@ -68,18 +66,14 @@ public abstract class Table implements TableMethods {
 	public void clues() {
 		ClearingMapChit chit = getChitAtLocation();
 		if(chit != null) {			
-			print("You found clues of " + chit.getType());
+			GameLog.log("You found clues of " + chit.getType());
 		} else {
-			print("You found nothing of value");
+			GameLog.log("You found nothing of value");
 		}
 	}
 	
 	public void nothing() {
-		print("Nothing");
-	}
-	
-	public void print(String s) {
-		System.out.println(s);
+		GameLog.log("Nothing");
 	}
 	
 	public String toString() {

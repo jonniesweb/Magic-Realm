@@ -3,6 +3,7 @@ package com.magicrealm.models;
 import com.magicrealm.GameState;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.utils.GameLog;
 
 public class Peer extends Table {
 	
@@ -23,7 +24,7 @@ public class Peer extends Table {
 	@Override
 	public void four() {
 		// TODO Auto-generated method stub
-		print("No hidden enemies here");
+		GameLog.log("No hidden enemies here");
 	}
 
 	@Override
