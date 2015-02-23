@@ -117,6 +117,21 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		
 	}
 	
+	public TileClearing findChit(Placeable placeable) {
+		for(GameTile t: array) {
+			if(t == null)
+				continue;
+			for(TileClearing c: t.getClearings()) {
+				if(c == null) {
+					continue;
+				} else if(c.getChits().contains(placeable)) {
+					return c;
+				}
+			}
+		}
+		return null;
+	}
+	
 	public void placeChit(TileType tile, int clearingNumber, Placeable placeable) {
 		GameTile gameTile = getTile(tile);
 		gameTile.addToClearing(clearingNumber, placeable);
@@ -126,16 +141,12 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		}
 	}
 	
+	public void removeChit(Placeable placeable) {
+		findChit(placeable).getChits().remove(placeable);
+	}
+	
 	public void moveChitTo(TileType tile, int clearingNumber, Placeable placeable) {
-		for(GameTile t: array) {
-			if(t == null)
-				continue;
-			for(TileClearing c: t.getClearings()) {
-				if(c == null)
-					continue;
-				c.getChits().remove(placeable);
-			}
-		}
+		removeChit(placeable);
 		placeChit(tile, clearingNumber, placeable);
 		this.updateUI();
 	}

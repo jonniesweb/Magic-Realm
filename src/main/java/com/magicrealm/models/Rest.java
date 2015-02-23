@@ -2,7 +2,7 @@ package com.magicrealm.models;
 
 import javax.swing.JOptionPane;
 
-import com.magicrealm.gui.SelectRestChit;
+import com.magicrealm.gui.SelectObject;
 
 
 public class Rest extends Activity {
@@ -14,10 +14,10 @@ public class Rest extends Activity {
 	@Override
 	public void execute(MRCharacter player) {
 		// TODO Auto-generated method stub
-		SelectRestChit restChit = new SelectRestChit(player.getFatiguedChits());
+		SelectObject restChit = new SelectObject(player.getFatiguedChits());
 		int option = JOptionPane.showConfirmDialog(null, restChit, "Select A Chit To Restore", JOptionPane.OK_CANCEL_OPTION);
 		if(option == JOptionPane.OK_OPTION) {
-			player.rest(restChit.getSelectedChit());
+			player.rest((ActionChit) restChit.getSelected());
 		}
 	}
 }
