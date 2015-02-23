@@ -22,7 +22,7 @@ import com.magicrealm.models.board.MagicRealmHexEngineModel;
 public class BoardView implements Observer {
 
 	private MagicRealmHexEngineModel model;
-	JComponent content;
+	JComponent gameboardComponent;
 	
 	public BoardView(MagicRealmHexEngineModel model) {
 		this.model = model;
@@ -31,7 +31,7 @@ public class BoardView implements Observer {
 	}
 
 	private void run() {
-		final JFrame frame = new JFrame("JHexed");
+		final JFrame frame = new JFrame("Magic Realms - NullPointerException expansion");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
 
@@ -40,7 +40,7 @@ public class BoardView implements Observer {
 		
 		engine.setRenderer(new HexImageRenderer());
 		
-		content = new JComponent(){
+		gameboardComponent = new JComponent(){
 			
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -54,7 +54,7 @@ public class BoardView implements Observer {
 			}
 		};
 		
-		content.addMouseListener(new MouseAdapter() {
+		gameboardComponent.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -69,13 +69,15 @@ public class BoardView implements Observer {
 					}
 					model.setValueAt(position, value);
 				}
-				content.repaint();
+				gameboardComponent.repaint();
 			}
 			
 		});
 		
-		JScrollPane jScrollPane = new JScrollPane(content, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		JScrollPane jScrollPane = new JScrollPane(gameboardComponent,
+				JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		jScrollPane.setPreferredSize(new Dimension(1000, 600));
+		
 		frame.add(jScrollPane, BorderLayout.CENTER);
 		frame.add(new ActivityView(), BorderLayout.NORTH);
 		frame.pack();
@@ -84,7 +86,7 @@ public class BoardView implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		content.repaint();
+		gameboardComponent.repaint();
 		
 	}
 }

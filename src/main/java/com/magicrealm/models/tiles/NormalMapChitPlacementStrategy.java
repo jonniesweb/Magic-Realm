@@ -13,6 +13,9 @@ import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.tiles.GameTile.TileType;
 
+/**
+ * Places Map Chits on the board according to the rulebook
+ */
 public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 	
 	private static final Log log = LogFactory.getLog(NormalMapChitPlacementStrategy.class);
@@ -36,7 +39,7 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 		
 		GameTile[] mountains = new GameTile[] { get(TileType.CF),
 				get(TileType.CG), get(TileType.DW), get(TileType.L),
-				get(TileType.LW) };
+				get(TileType.M) };
 		
 		// add all warning chits
 		addChitsToTiles(valleys, getVWarningChits());

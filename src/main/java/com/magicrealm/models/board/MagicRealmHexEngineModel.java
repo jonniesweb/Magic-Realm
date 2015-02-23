@@ -1,20 +1,21 @@
 package com.magicrealm.models.board;
 
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
-import javax.swing.ComboBoxModel;
-
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
-import com.magicrealm.gui.BoardView;
-import com.magicrealm.models.Placeable;
 import com.magicrealm.models.Dwelling;
+import com.magicrealm.models.Placeable;
+import com.magicrealm.models.chits.MapChit;
+import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
@@ -266,8 +267,18 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		notifyObservers();
 	}
 
-	public GameTile[] getTiles() {
-		// TODO Auto-generated method stub
-		return array;
+	public List<SiteChit> getAllSiteChits() {
+		ArrayList<SiteChit> list = new ArrayList<>();
+		
+		for (GameTile tile : array) {
+			if (tile != null) {
+				MapChit siteSoundChit = tile.getSiteSoundChit();
+				if (siteSoundChit instanceof SiteChit) {
+					list.add((SiteChit) siteSoundChit);
+				}
+			}
+		}
+		
+		return list;
 	}
 }

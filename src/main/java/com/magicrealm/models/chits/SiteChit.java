@@ -3,14 +3,16 @@ package com.magicrealm.models.chits;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SiteChit extends MapChit {
+import com.magicrealm.models.treasure.TreasureChit;
+
+public class SiteChit extends ClearingMapChit {
 	
 	public enum site {
 		altair, cairns, hoard, lair, pool, shrine, statue, vault, lost_castle, lost_city
 	}
 	
 	private site siteType;
-//	private List<Treasure> treasures;
+	private List<TreasureChit> treasures = new ArrayList<TreasureChit>();
 	
 	/**
 	 * Chits for lost castle or lost city can be stored in here
@@ -25,8 +27,9 @@ public class SiteChit extends MapChit {
 		}
 	}
 	
-	public static int getClearing(site site) {
-		switch (site) {
+	@Override
+	public int getClearing() {
+		switch (siteType) {
 		case altair:
 			return 1;
 		case cairns:
@@ -73,5 +76,13 @@ public class SiteChit extends MapChit {
 			}
 		}
 		return "SiteChit: " + siteType + " ";
+	}
+
+	public List<TreasureChit> getTreasures() {
+		return treasures;
+	}
+
+	public void addTreasure(TreasureChit chit) {
+		getTreasures().add(chit);
 	}
 }
