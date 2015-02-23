@@ -307,4 +307,23 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return null;
 	}
 	
+	public TileClearing getCharacterClearing() {
+		return findChit(GameState.getInstance().getCharacter());
+	}
+	
+	public GameTile getCharacterTile() {
+		return findChitTile(GameState.getInstance().getCharacter());
+	}
+	
+	public GameTile getTileFromClearing(TileClearing clearing) {
+		for(GameTile t: array) {
+			if(t == null)
+				continue;
+			if(t.getClearings().contains(clearing)) {
+				return t;
+			}
+		}
+		return null;
+	}
+	
 }

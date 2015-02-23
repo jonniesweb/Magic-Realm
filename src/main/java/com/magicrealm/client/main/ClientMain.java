@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import com.magicrealm.GameState;
 import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SelectCharacter;
+import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.models.Activity;
 import com.magicrealm.models.Amazon;
 import com.magicrealm.models.Captain;
@@ -16,6 +17,10 @@ public class ClientMain {
 	public static void main(String[] args) {
 		GameState.getInstance().setModel(new DefaultMagicRealmHexEngineModel(0, 0));
 		
+		int option = JOptionPane.showConfirmDialog(null, "Cheat Mode?", "Mode", JOptionPane.YES_NO_OPTION);
+		if(option == JOptionPane.YES_OPTION) {
+			GameState.getInstance().setCheatMode(true);
+		}
 		SelectCharacter selectCharacter = new SelectCharacter();
 		JOptionPane.showConfirmDialog(null, selectCharacter, "Select a Character", JOptionPane.OK_OPTION);
 		GameState.getInstance().setCharacter(selectCharacter.getSelectedCharacter());
