@@ -57,7 +57,7 @@ public class BasicTreasaurePlacementStrategy extends
 		}
 	}
 
-	private void addGold(SiteChit chit, int small, int large) {
+	private static void addGold(SiteChit chit, int small, int large) {
 		Random r = new Random();
 		
 		for (int i = 0; i < small; i++) {

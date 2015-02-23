@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.chits.WarningChit;
@@ -90,7 +91,7 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 			if (chits.get(i) instanceof WarningChit) {
 				tiles[i].setWarningChit((WarningChit) chits.get(i));
 			} else {
-				tiles[i].setSiteSoundChit(chits.get(i));
+				tiles[i].setSiteSoundChit((ClearingMapChit) chits.get(i));
 			}
 			
 			log.debug("Adding " + chits.get(i) + " to " + tiles[i]);

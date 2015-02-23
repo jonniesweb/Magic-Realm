@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.magicrealm.models.Placeable;
+import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.WarningChit;
 
@@ -59,7 +60,7 @@ public class GameTile {
 	private Map<Integer, TileClearing> tileExits = new HashMap<Integer, TileClearing>();
 
 	private WarningChit warningChit;
-	private MapChit siteSoundChit;
+	private ClearingMapChit siteSoundChit;
 	private Point warningChitPosition;
 	private Point siteSoundChitPosition;
 	
@@ -576,11 +577,12 @@ public class GameTile {
 		this.warningChit = warningChit;
 	}
 
-	public MapChit getSiteSoundChit() {
+	public ClearingMapChit getSiteSoundChit() {
 		return siteSoundChit;
 	}
 
-	public void setSiteSoundChit(MapChit siteSoundChit) {
+	public void setSiteSoundChit(ClearingMapChit siteSoundChit) {
 		this.siteSoundChit = siteSoundChit;
 	}
+
 }

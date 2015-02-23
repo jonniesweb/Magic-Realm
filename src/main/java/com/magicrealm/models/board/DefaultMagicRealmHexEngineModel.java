@@ -4,6 +4,7 @@ import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.NormalMapChitPlacementStrategy;
 import com.magicrealm.models.tiles.GameTile.TileType;
+import com.magicrealm.models.treasure.BasicTreasaurePlacementStrategy;
 
 public class DefaultMagicRealmHexEngineModel extends MagicRealmHexEngineModel {
 
@@ -44,6 +45,8 @@ public class DefaultMagicRealmHexEngineModel extends MagicRealmHexEngineModel {
 		connectAllTheThings();
 		
 		new NormalMapChitPlacementStrategy(this).placeMapChits();
+		
+		new BasicTreasaurePlacementStrategy(this).placeTreasure();
 	}
 	
 }
