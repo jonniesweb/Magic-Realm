@@ -70,6 +70,8 @@ public class SelectCharacter extends JPanel {
 		group.add(swordsman);
 		characterButtons.add(swordsman);
 		
+		group.setSelected(amazon.getModel(), true);
+		
 		this.add(characterButtons, BorderLayout.NORTH);
 		
 		startLocations = new JComboBox<String>(captainLocations);

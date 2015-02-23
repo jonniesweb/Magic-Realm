@@ -18,22 +18,10 @@ public class ActivityView extends JPanel {
 		
 		private JLabel label;
 		private JButton selectActivity;
-		private JButton selectCharacter;
 		private JButton execute;
 	
 	public ActivityView() {
 		label = new JLabel("Activities");
-		
-		selectCharacter = new JButton("Select Character");
-		selectCharacter.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SelectCharacter selectCharacter = new SelectCharacter();
-				JOptionPane.showConfirmDialog(null, selectCharacter, "Select a Character", JOptionPane.OK_CANCEL_OPTION);
-				GameState.getInstance().setCharacter(selectCharacter.getSelectedCharacter());
-				GameState.getInstance().getModel().placeChit(selectCharacter.getTileType(), 5, GameState.getInstance().getCharacter());
-				GameState.getInstance().getModel().updateUI();
-			}
-		});
 		
 		selectActivity = new JButton("Select Activity");
 		selectActivity.addActionListener(new ActionListener() {
@@ -53,7 +41,6 @@ public class ActivityView extends JPanel {
 			}
 		});
 		
-		this.add(selectCharacter);
 		this.add(label);
 		this.add(selectActivity);
 		this.add(execute);

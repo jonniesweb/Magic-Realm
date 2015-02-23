@@ -16,8 +16,14 @@ public class ClientMain {
 	public static void main(String[] args) {
 		GameState.getInstance().setModel(new DefaultMagicRealmHexEngineModel(0, 0));
 		
+		SelectCharacter selectCharacter = new SelectCharacter();
+		JOptionPane.showConfirmDialog(null, selectCharacter, "Select a Character", JOptionPane.OK_OPTION);
+		GameState.getInstance().setCharacter(selectCharacter.getSelectedCharacter());
+		GameState.getInstance().getModel().placeChit(selectCharacter.getTileType(), 5, GameState.getInstance().getCharacter());
+		GameState.getInstance().getModel().updateUI();
+		
 		new BoardView(GameState.getInstance().getModel());
 		
-
+		
 	}
 }
