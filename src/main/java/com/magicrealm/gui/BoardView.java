@@ -11,13 +11,12 @@ import java.util.Observer;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import com.igormaznitsa.jhexed.engine.DefaultIntegerHexModel;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
-import com.magicrealm.GameState;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class BoardView implements Observer {
@@ -75,7 +74,9 @@ public class BoardView implements Observer {
 			
 		});
 		
-		frame.add(content, BorderLayout.CENTER);
+		JScrollPane jScrollPane = new JScrollPane(content, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		jScrollPane.setPreferredSize(new Dimension(1000, 600));
+		frame.add(jScrollPane, BorderLayout.CENTER);
 		frame.add(new ActivityView(), BorderLayout.NORTH);
 		frame.pack();
 		frame.setVisible(true);
