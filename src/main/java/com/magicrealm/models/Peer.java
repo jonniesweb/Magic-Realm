@@ -1,13 +1,9 @@
 package com.magicrealm.models;
 
+import com.magicrealm.GameState;
+
 public class Peer extends Table {
-
-	@Override
-	public void one() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	@Override
 	public void two() {
 		// TODO Auto-generated method stub
@@ -29,6 +25,7 @@ public class Peer extends Table {
 	@Override
 	public void five() {
 		// TODO Auto-generated method stub
+//		GameState.getInstance().getModel().findChitTile(GameState.getInstance().getCharacter()).getSiteSoundChit()
 		
 	}
 

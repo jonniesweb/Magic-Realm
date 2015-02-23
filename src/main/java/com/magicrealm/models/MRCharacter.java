@@ -31,7 +31,7 @@ public abstract class MRCharacter implements Placeable {
 	protected Armor activeShield;
 	protected ArrayList<Activity> activities;
 //	private Person tradingRelationships;
-//	private int discoveries;
+	private ArrayList<Discoverable> discoveries;
 	
 	public MRCharacter() {
 		fightChits = new ArrayList<ActionChit>();
@@ -49,21 +49,13 @@ public abstract class MRCharacter implements Placeable {
 		return activities.size();
 	}
 	
+	public void addDiscovery(Discoverable disc) {
+		discoveries.add(disc);
+	}
+	
 	public void attemptHide() {
 		if(ProbabilityCalculator.calculateHide())
 			this.hide();
-	}
-	
-	public void attemptSearchTreasure() {
-		if(ProbabilityCalculator.findTreasure()) {
-			//find some treasure
-		}
-	}
-	
-	public void attemptSearchPassage() {
-		if(ProbabilityCalculator.findPassage()) {
-			//find passage
-		}
 	}
 	
 	public void move() {

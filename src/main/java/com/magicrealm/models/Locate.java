@@ -3,12 +3,6 @@ package com.magicrealm.models;
 public class Locate extends Table {
 
 	@Override
-	public void one() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void two() {
 		// TODO Auto-generated method stub
 		
