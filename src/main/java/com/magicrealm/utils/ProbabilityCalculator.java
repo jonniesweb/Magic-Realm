@@ -2,6 +2,8 @@ package com.magicrealm.utils;
 
 import java.util.Random;
 
+import com.magicrealm.GameState;
+
 public abstract class ProbabilityCalculator {
 	
 	public enum Result {ONE, TWO, THREE, FOUR, FIVE, SIX};
@@ -20,6 +22,8 @@ public abstract class ProbabilityCalculator {
 	}
 	
 	public static Result getResult() {
+		if(GameState.getInstance().getCheatMode())
+			return Result.ONE;
 		int num = getRandom();
 		if(num == ONE_PROBABILITY) {
 			return Result.ONE;

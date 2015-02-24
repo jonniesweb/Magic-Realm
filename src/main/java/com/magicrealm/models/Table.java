@@ -37,7 +37,7 @@ public abstract class Table implements TableMethods {
 	}
 	
 	public TileClearing getClearing() {
-		TileClearing playerTile = GameState.getInstance().getModel().findChit(GameState.getInstance().getCharacter());
+		TileClearing playerTile = GameState.getInstance().getModel().getCharacterClearing();
 		if((Object) this instanceof Peer && playerTile.getClearingType() == ClearingType.MOUNTAIN) {
 			SimpleSelection selectClearing = new SimpleSelection(playerTile.getPlayerConnectedClearings(), "Select A Clearing to Peer");
 			return (TileClearing) selectClearing.getSelected();

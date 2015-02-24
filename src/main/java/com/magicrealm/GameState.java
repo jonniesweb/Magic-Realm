@@ -10,9 +10,10 @@ public class GameState {
 	
 	private DefaultMagicRealmHexEngineModel model;
 	private MRCharacter character;
+	private boolean cheatMode;
 	
 	public GameState() {
-		// stuff
+		cheatMode = false;
 	}
 	
 	public static GameState getInstance() {
@@ -33,6 +34,14 @@ public class GameState {
 	
 	public void setCharacter(MRCharacter character) {
 		this.character = character;
+	}
+	
+	public boolean getCheatMode() {
+		return cheatMode;
+	}
+	
+	public void setCheatMode(boolean cheatMode) {
+		this.cheatMode = cheatMode;
 	}
 	
 }

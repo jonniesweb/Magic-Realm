@@ -111,4 +111,8 @@ public class TileClearing implements Discoverable {
 		return clearingType;
 	}
 	
+	public String toString() {
+		return getClearingNumber()+"";
+	}
+	
 }

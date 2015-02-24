@@ -2,6 +2,7 @@ package com.magicrealm.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Enumeration;
@@ -17,6 +18,7 @@ import com.magicrealm.GameState;
 import com.magicrealm.models.Activity.ActivityType;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
+import com.magicrealm.models.tiles.TileClearing;
 
 public class SelectActivityPane extends JPanel{
 	
@@ -55,6 +57,7 @@ public class SelectActivityPane extends JPanel{
 	private JPanel activityButtons;
 	private JComboBox<String> tileBox;
 	private JComboBox<String> clearingBox;
+	private TileClearing selectedClearing;
 	
 	public SelectActivityPane() {
 		setLayout(new BorderLayout());
@@ -65,6 +68,14 @@ public class SelectActivityPane extends JPanel{
 		activityButtons.setLayout(new GridLayout(1, 5));
 		
 		move = new ActivityButton("Move", ActivityType.MOVE);
+		move.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!GameState.getInstance().getCheatMode()) {
+					SimpleSelection clearing = new SimpleSelection(GameState.getInstance().getModel().getCharacterClearing().getPlayerConnectedClearings(), "Select a clearing");
+					selectedClearing = (TileClearing) clearing.getSelected();
+				}
+			}
+		});
 		group.add(move);
 		activityButtons.add(move);
 		
@@ -81,19 +92,20 @@ public class SelectActivityPane extends JPanel{
 		activityButtons.add(rest);
 		
 		this.add(activityButtons, BorderLayout.NORTH);
-		
-		tileBox = new JComboBox<String>(GameTile.getTileNames());
-		tileBox.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				populateClearingBox();
-			}
-		});
-		
-		clearingBox = new JComboBox<String>();
-		populateClearingBox();
-		
-		this.add(tileBox, BorderLayout.CENTER);
-		this.add(clearingBox, BorderLayout.SOUTH);
+			
+		if(GameState.getInstance().getCheatMode()) {
+			tileBox = new JComboBox<String>(GameTile.getTileNames());
+			tileBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					populateClearingBox();
+				}
+			});
+			
+			clearingBox = new JComboBox<String>();
+			populateClearingBox();
+			this.add(tileBox, BorderLayout.CENTER);
+			this.add(clearingBox, BorderLayout.SOUTH);
+		}
 	}
 	
 	public void populateClearingBox() {
@@ -108,13 +120,17 @@ public class SelectActivityPane extends JPanel{
 	public ActivityType getActivityType() {
 		return group.getSelectedActivityType();
 	}
-	
+
 	public TileType getTileType() {
-		return GameTile.TileType.valueOf((String) tileBox.getSelectedItem());
+		if(GameState.getInstance().getCheatMode())
+			return TileType.valueOf((String) tileBox.getSelectedItem());
+		return GameState.getInstance().getModel().getTileFromClearing(selectedClearing).getTileType();
 	}
 
 	public int getClearingNumber() {
-		return Integer.parseInt((String) clearingBox.getSelectedItem());
+		if(GameState.getInstance().getCheatMode())
+			return Integer.parseInt((String) clearingBox.getSelectedItem());
+		return selectedClearing.getClearingNumber();
 	}
 
 }
