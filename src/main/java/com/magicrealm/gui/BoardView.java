@@ -106,7 +106,7 @@ public class BoardView implements Observer {
 		});
 		
 		// update gold
-		MRCharacter character = GameState.getInstance().getCharacter();
+		final MRCharacter character = GameState.getInstance().getCharacter();
 		character.getPropertyChangeSupport().addPropertyChangeListener("gold", new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {

@@ -60,7 +60,7 @@ public class Loot extends Table {
 		SiteChit site = null;
 		
 		for (Discoverable disc : character.getDiscoveries()) {
-			if (getChitAtLocation().equals(disc) && disc instanceof SiteChit) {
+			if (getChitAtLocation() != null && getChitAtLocation().equals(disc) && disc instanceof SiteChit) {
 				site = (SiteChit) getChitAtLocation();
 				log.info("found site chit at characters location " + site);
 				break;
