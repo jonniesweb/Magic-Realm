@@ -3,6 +3,7 @@ package com.magicrealm.utils;
 import java.util.Random;
 
 import com.magicrealm.GameState;
+import com.magicrealm.gui.SimpleSelection;
 
 public abstract class ProbabilityCalculator {
 	
@@ -18,12 +19,14 @@ public abstract class ProbabilityCalculator {
 	public static final int FIVE_PROBABILITY = 24;
 	
 	public static boolean calculateHide() {
-		return getRandom() < HIDE;
+		return getResult() != Result.SIX;
 	}
 	
 	public static Result getResult() {
-		if(GameState.getInstance().getCheatMode())
-			return Result.ONE;
+		if(GameState.getInstance().getCheatMode()) {
+			SimpleSelection selectResult = new SimpleSelection(ProbabilityCalculator.Result.values(), "Select A Result");
+			return (Result) selectResult.getSelected();
+		}
 		int num = getRandom();
 		if(num == ONE_PROBABILITY) {
 			return Result.ONE;
