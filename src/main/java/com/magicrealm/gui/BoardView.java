@@ -8,12 +8,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
@@ -22,6 +27,8 @@ import com.igormaznitsa.jhexed.engine.DefaultIntegerHexModel;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
+import com.magicrealm.GameState;
+import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class BoardView implements Observer {
@@ -29,6 +36,7 @@ public class BoardView implements Observer {
 	private MagicRealmHexEngineModel model;
 	private ConsoleLog consoleLogFrame = new ConsoleLog();
 	private JComponent gameboardComponent;
+	private JLabel lblGold = new JLabel("Gold");
 	
 	public BoardView(MagicRealmHexEngineModel model) {
 		this.model = model;
@@ -37,7 +45,8 @@ public class BoardView implements Observer {
 	}
 
 	private void run() {
-		final JFrame frame = new JFrame("Magic Realms - NullPointerException expansion");
+		
+		final JFrame frame = new JFrame(getTitle());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout());
 
@@ -87,7 +96,7 @@ public class BoardView implements Observer {
 		frame.getContentPane().add(jScrollPane, BorderLayout.CENTER);
 		ActivityView activityView = new ActivityView();
 		frame.getContentPane().add(activityView, BorderLayout.NORTH);
-		activityView.setLayout(new MigLayout("", "[][][][grow][right]", "[]"));
+		activityView.setLayout(new MigLayout("", "[][][][][grow][right]", "[]"));
 		
 		JButton btnConsoleLog = new JButton("Console Log");
 		btnConsoleLog.addActionListener(new ActionListener() {
@@ -95,9 +104,37 @@ public class BoardView implements Observer {
 				consoleLogFrame.setVisible(true);
 			}
 		});
-		activityView.add(btnConsoleLog, "cell 4 0");
+		
+		// update gold
+		MRCharacter character = GameState.getInstance().getCharacter();
+		character.getPropertyChangeSupport().addPropertyChangeListener("gold", new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				lblGold.setText("Gold: " + character.getGold());
+			}
+		});
+		
+		// set initial value
+		lblGold.setText("Gold: " + character.getGold());
+		
+		activityView.add(lblGold, "cell 3 0");
+		activityView.add(btnConsoleLog, "cell 5 0");
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	private String getTitle() {
+		// generate the title
+		String title;
+		try {
+			throw new NullPointerException("Magic Realm - Team 25");
+		} catch (NullPointerException e1) {
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e1.printStackTrace(pw);
+			title = sw.toString();
+		}
+		return title;
 	}
 
 	@Override

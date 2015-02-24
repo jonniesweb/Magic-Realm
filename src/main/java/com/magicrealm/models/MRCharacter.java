@@ -1,6 +1,7 @@
 package com.magicrealm.models;
 
 import java.awt.Image;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import com.magicrealm.GameState;
@@ -21,7 +22,9 @@ public abstract class MRCharacter implements Placeable {
 	protected int notoriety;
 	protected ArrayList<ActionChit> fightChits;
 	protected ArrayList<ActionChit> moveChits;
-	protected int gold;
+	
+	// give 10 to allow character to buy stuff
+	protected int gold = 10;
 	protected Dwelling startingLocation;
 	protected boolean hidden;
 	protected boolean blocked;
@@ -33,6 +36,7 @@ public abstract class MRCharacter implements Placeable {
 	protected ArrayList<Activity> activities;
 //	private Person tradingRelationships;
 	private ArrayList<Discoverable> discoveries;
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	
 	public MRCharacter() {
 		fightChits = new ArrayList<ActionChit>();
@@ -139,5 +143,19 @@ public abstract class MRCharacter implements Placeable {
 	public String getName() {
 		return name;
 	}
+
+	public int getGold() {
+		return gold;
+	}
+
+	public void setGold(int gold) {
+		int old = this.gold;
+		this.gold = gold;
+		pcs.firePropertyChange("gold", old, gold);
+		
+	}
 	
+	public PropertyChangeSupport getPropertyChangeSupport() {
+		return pcs;
+	}
 }

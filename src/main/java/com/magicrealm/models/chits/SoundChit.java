@@ -24,7 +24,7 @@ public class SoundChit extends ClearingMapChit {
 	
 	@Override
 	public String toString() {
-		return "SoundChit: " + soundType;
+		return "SoundChit: " + soundType + " clearing: " + getClearing();
 	}
 
 	@Override

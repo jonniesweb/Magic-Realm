@@ -2,6 +2,8 @@ package com.magicrealm.models;
 
 public interface TableMethods {
 	
+	public void one();
+	
 	public void two();
 	
 	public void three();

@@ -16,6 +16,9 @@ public abstract class Table implements TableMethods {
 	
 	public void execute(Result result) {
 		switch (result) {
+		case ONE:
+			this.one();
+			break;
 		case TWO:
 			this.two();
 			break;

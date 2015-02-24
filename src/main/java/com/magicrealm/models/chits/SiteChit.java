@@ -75,8 +75,9 @@ public class SiteChit extends ClearingMapChit {
 			for (MapChit mapChit : extraChits) {
 				sb.append(mapChit);
 			}
+			return sb.toString();
 		}
-		return "SiteChit: " + siteType + " ";
+		return "SiteChit: " + siteType + " clearing: " + getClearing();
 	}
 
 	public List<TreasureChit> getTreasures() {
