@@ -71,7 +71,7 @@ public class SelectActivityPane extends JPanel{
 		move.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!GameState.getInstance().getCheatMode()) {
-					SimpleSelection clearing = new SimpleSelection(GameState.getInstance().getModel().getCharacterClearing().getPlayerConnectedClearings(), "Select a clearing");
+					SimpleSelection clearing = new SimpleSelection(GameState.getInstance().getCharacter().getFutureClearing().getPlayerConnectedClearings(), "Select a clearing");
 					selectedClearing = (TileClearing) clearing.getSelected();
 				}
 			}
