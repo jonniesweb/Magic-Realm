@@ -3,7 +3,9 @@ package com.magicrealm.models;
 import java.awt.Image;
 import java.util.ArrayList;
 
+import com.magicrealm.GameState;
 import com.magicrealm.models.armors.Armor;
+import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.utils.GameLog;
 import com.magicrealm.utils.ProbabilityCalculator;
@@ -44,8 +46,22 @@ public abstract class MRCharacter implements Placeable {
 	}
 	
 	public int executeActivity() {
-		activities.remove(0).execute(this);
+		if(activities.size() > 0)
+			activities.remove(0).execute(this);
 		return activities.size();
+	}
+	
+	public TileClearing getFutureClearing() {
+		Move m = null;
+		for(Activity a: activities) {
+			if(a instanceof Move)
+				m = (Move) a;
+		}
+		if(m == null) {
+			return GameState.getInstance().getModel().getCharacterClearing();
+		} else {
+			return m.getClearing();
+		}
 	}
 	
 	public void addDiscovery(Discoverable disc) {
