@@ -9,6 +9,7 @@ import java.util.Set;
 import com.magicrealm.GameState;
 import com.magicrealm.models.Discoverable;
 import com.magicrealm.models.Placeable;
+import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class TileClearing implements Discoverable {
 	
@@ -112,7 +113,8 @@ public class TileClearing implements Discoverable {
 	}
 	
 	public String toString() {
-		return getClearingNumber()+"";
+		TileType t = GameState.getInstance().getModel().getTileFromClearing(this).getTileType();
+		return t.name()+getClearingNumber()+"";
 	}
 	
 }

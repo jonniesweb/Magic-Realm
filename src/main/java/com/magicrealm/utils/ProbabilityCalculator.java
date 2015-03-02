@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.magicrealm.GameState;
 import com.magicrealm.gui.SimpleSelection;
+import com.magicrealm.models.Loot;
 
 public abstract class ProbabilityCalculator {
 	
@@ -23,7 +24,13 @@ public abstract class ProbabilityCalculator {
 	}
 	
 	public static Result getResult() {
-		int num = getRandom();
+		if(GameState.getInstance().getCheatMode()) {
+			Result[] choices = Result.values();
+			SimpleSelection selectResult = new SimpleSelection(choices, "Select A Result");
+			return (Result) selectResult.getSelected();
+		}
+		int num;
+		num = getRandom();
 		if(num == ONE_PROBABILITY) {
 			return Result.ONE;
 		} else if(num <= TWO_PROBABILITY) {
