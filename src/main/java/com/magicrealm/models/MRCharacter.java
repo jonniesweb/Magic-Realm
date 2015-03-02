@@ -75,6 +75,8 @@ public abstract class MRCharacter implements Placeable {
 	public void attemptHide() {
 		if(ProbabilityCalculator.calculateHide())
 			this.hide();
+		else
+			GameLog.log("Character failed to hide");
 	}
 	
 	public void move() {

@@ -17,7 +17,7 @@ public class Search extends Activity {
 		SimpleSelection selectTable = new SimpleSelection(new Table[] {new Peer(), new Locate(), new Loot()}, "Select A Table");
 		Table selectedTable = (Table) selectTable.getSelected();
 		Result result = ProbabilityCalculator.getResult();
-		if(GameState.getInstance().getCheatMode() || result == Result.ONE && !(selectedTable instanceof Loot)) {
+		if(result == Result.ONE && !(selectedTable instanceof Loot)) {
 			Result[] choices = (selectedTable instanceof Loot) ? Result.values() : ProbabilityCalculator.getResultChoices();
 			SimpleSelection selectResult = new SimpleSelection(choices, "Select A Result");
 			selectedTable.execute((Result) selectResult.getSelected());
