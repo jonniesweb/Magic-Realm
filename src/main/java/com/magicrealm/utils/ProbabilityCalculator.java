@@ -23,10 +23,6 @@ public abstract class ProbabilityCalculator {
 	}
 	
 	public static Result getResult() {
-		if(GameState.getInstance().getCheatMode()) {
-			SimpleSelection selectResult = new SimpleSelection(ProbabilityCalculator.Result.values(), "Select A Result");
-			return (Result) selectResult.getSelected();
-		}
 		int num = getRandom();
 		if(num == ONE_PROBABILITY) {
 			return Result.ONE;
