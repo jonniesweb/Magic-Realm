@@ -21,6 +21,7 @@ public class RMIClient {
 	private Integer port;
 
 	/**
+	 * Connect to the server using the specified host and port
 	 * @param host
 	 * @param port
 	 */
@@ -29,6 +30,10 @@ public class RMIClient {
 		this.port = port;
 	}
 
+	/**
+	 * Connect to the server using the ones specified in the config, or the
+	 * default host "localhost" and port 1099.
+	 */
 	public RMIClient() {
 		this(null, null);
 	}
@@ -88,12 +93,9 @@ public class RMIClient {
 			String methodName = method.getName();
 			Class<?>[] parameterTypes = method.getParameterTypes();
 			
-				// send the method to call, parameter types, parameters, and client
-				// id to the server through the rmi service
-				return getRmiService().invoke(methodName, parameterTypes, args,
-						getClient());
-				// throw the cause of the exception instead of the RemoteException
-//				throw e.getCause();
+			// send the method to call, parameter types, parameters, and client
+			// id to the server through the rmi service
+			return getRmiService().invoke(methodName, parameterTypes, args, getClient());
 		}
 		
 		private String getClient() {

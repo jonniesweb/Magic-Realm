@@ -1,6 +1,8 @@
 package com.magicrealm.server;
 
-import java.util.HashSet;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import com.magicrealm.models.MRCharacter;
@@ -11,12 +13,13 @@ import com.magicrealm.models.board.MagicRealmHexEngineModel;
  */
 public class ServerGameState {
 	private MagicRealmHexEngineModel board;
-	private static Set<MRCharacter> characters = new HashSet<>();
+	private Map<String, MRCharacter> characters = new HashMap<>();
+	private static ServerGameState instance;
 	
-	/**
-	 * @param board
-	 */
-	public ServerGameState(MagicRealmHexEngineModel board) {
+	protected ServerGameState() {
+	}
+	
+	public void setBoard(MagicRealmHexEngineModel board) {
 		this.board = board;
 	}
 	
@@ -24,8 +27,22 @@ public class ServerGameState {
 		return board;
 	}
 	
-	public static Set<MRCharacter> getCharacters() {
-		return characters;
+	public Collection<MRCharacter> getCharacters() {
+		return characters.values();
 	}
 	
+	public MRCharacter getCharacter(String clientId) {
+		return characters.get(clientId);
+	}
+	
+	public void addCharacter(String clientId, MRCharacter character) {
+		characters.put(clientId, character);
+	}
+	
+	public static ServerGameState getInstance() {
+		if (instance == null) {
+			instance = new ServerGameState();
+		}
+		return instance;
+	}
 }

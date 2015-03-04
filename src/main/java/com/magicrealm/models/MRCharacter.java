@@ -167,4 +167,18 @@ public abstract class MRCharacter implements Placeable {
 	public void setCheatModeEnabled(boolean cheatModeEnabled) {
 		this.cheatModeEnabled = cheatModeEnabled;
 	}
+	
+	public static MRCharacter getCharacterFromString(String characterName) {
+		switch (characterName) {
+		case "Amazon":
+			return new Amazon();
+		case "Captain":
+			return new Captain();
+		case "Swordsman":
+			return new Swordsman();
+		
+		default:
+			throw new RuntimeException("Invalid character name");
+		}
+	}
 }

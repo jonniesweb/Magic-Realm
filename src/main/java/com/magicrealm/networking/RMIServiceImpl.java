@@ -8,6 +8,8 @@ import java.rmi.server.UnicastRemoteObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.magicrealm.server.ServerGameState;
+
 /**
  * The server-side implementation of {@link RMIService} for invoking methods
  * called from the clients. This class is registered on the RMI registry. It
@@ -25,9 +27,14 @@ public class RMIServiceImpl extends UnicastRemoteObject implements RMIService {
 	public Object invoke(String methodName, Class<?>[] methodParameterTypes, Object[] args, String client)
 			throws Throwable {
 		try {
+			// log method call
+			if (log.isDebugEnabled()) {
+				log.debug("Client [" + client + "] calling method ["
+						+ methodName + "] with values [" + args + "]");
+			}
 			
 			// create a new net class, passing in the client's id
-			Net net = new Net(client);
+			Net net = new Net(client, ServerGameState.getInstance());
 			
 			// find the method and then invoke it
 			Method method = net.getClass().getMethod(methodName, methodParameterTypes);
