@@ -72,6 +72,10 @@ public class RMIClient {
 		this.port = port;
 	}
 
+	/**
+	 * Whenever a method is called from the proxied object, this handler
+	 * forwards it to the server through RMI.
+	 */
 	private class RmiInvocationHandler implements InvocationHandler {
 		
 		private final Log log = LogFactory.getLog(RmiInvocationHandler.class);
@@ -84,14 +88,22 @@ public class RMIClient {
 			String methodName = method.getName();
 			Class<?>[] parameterTypes = method.getParameterTypes();
 			
-			// send to the server
-			return getRmiService().invoke(methodName, parameterTypes, args, getClient());
+				// send the method to call, parameter types, parameters, and client
+				// id to the server through the rmi service
+				return getRmiService().invoke(methodName, parameterTypes, args,
+						getClient());
+				// throw the cause of the exception instead of the RemoteException
+//				throw e.getCause();
 		}
 		
 		private String getClient() {
 			return "clientabc";
 		}
 		
+		/**
+		 * Gets the RMI service interface from the server, connecting to a
+		 * server or starting one locally if it hasn't connected yet.
+		 */
 		private RMIService getRmiService() {
 			
 			if (rmiService == null) {
@@ -115,6 +127,9 @@ public class RMIClient {
 			return rmiService;
 		}
 		
+		/**
+		 * Connect to a remote server
+		 */
 		private void connectToServer() throws RemoteException,
 		NotBoundException, AccessException {
 			Registry registry = LocateRegistry.getRegistry(
@@ -122,6 +137,9 @@ public class RMIClient {
 			rmiService = (RMIService) registry.lookup(RMIService.LOOKUPNAME);
 		}
 		
+		/**
+		 * Start a local server
+		 */
 		private void startLocalServer() throws RemoteException, NotBoundException {
 			RMIServer rmiServerStarter = new RMIServer();
 			rmiServerStarter.start();

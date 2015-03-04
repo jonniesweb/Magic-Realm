@@ -8,20 +8,28 @@ import java.rmi.server.UnicastRemoteObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * The server-side implementation of {@link RMIService} for invoking methods
+ * called from the clients. This class is registered on the RMI registry. It
+ * then calls an instance of {@link Net}, passing the client id to it.
+ */
 public class RMIServiceImpl extends UnicastRemoteObject implements RMIService {
 	
 	private static final long serialVersionUID = -6308121689692145017L;
 	private final Log log = LogFactory.getLog(RMIServiceImpl.class);
-	private Net net = new Net();
-
+	
 	protected RMIServiceImpl() throws RemoteException {
 	}
 
 	@Override
 	public Object invoke(String methodName, Class<?>[] methodParameterTypes, Object[] args, String client)
-			throws RemoteException {
+			throws Throwable {
 		try {
 			
+			// create a new net class, passing in the client's id
+			Net net = new Net(client);
+			
+			// find the method and then invoke it
 			Method method = net.getClass().getMethod(methodName, methodParameterTypes);
 			return method.invoke(net, args);
 			
@@ -29,7 +37,17 @@ public class RMIServiceImpl extends UnicastRemoteObject implements RMIService {
 				| InvocationTargetException | NoSuchMethodException
 				| SecurityException e) {
 			log.error(e);
-			throw new RemoteException("Error occurred on server", e);
+			
+			// if the exception is of InvocationTargetException type, then throw
+			// its cause since InvocationTargetException wraps itself around
+			// whatever errors occur from the method
+			if (e instanceof InvocationTargetException && e.getCause() != null) {
+				throw e.getCause();
+				
+			} else {
+				// throw the original error otherwise
+				throw e;
+			}
 		}
 	}
 	
