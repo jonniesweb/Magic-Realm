@@ -70,7 +70,7 @@ public class SelectActivityPane extends JPanel{
 		move = new ActivityButton("Move", ActivityType.MOVE);
 		move.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!GameState.getInstance().getCheatMode()) {
+				if(!GameState.getInstance().getCharacter().isCheatModeEnabled()) {
 					SimpleSelection clearing = new SimpleSelection(GameState.getInstance().getCharacter().getFutureClearing().getPlayerConnectedClearings(), "Select a clearing");
 					selectedClearing = (TileClearing) clearing.getSelected();
 				}
@@ -93,7 +93,7 @@ public class SelectActivityPane extends JPanel{
 		
 		this.add(activityButtons, BorderLayout.NORTH);
 			
-		if(GameState.getInstance().getCheatMode()) {
+		if(GameState.getInstance().getCharacter().isCheatModeEnabled()) {
 			tileBox = new JComboBox<String>(GameTile.getTileNames());
 			tileBox.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -122,13 +122,13 @@ public class SelectActivityPane extends JPanel{
 	}
 
 	public TileType getTileType() {
-		if(GameState.getInstance().getCheatMode())
+		if(GameState.getInstance().getCharacter().isCheatModeEnabled())
 			return TileType.valueOf((String) tileBox.getSelectedItem());
 		return GameState.getInstance().getModel().getTileFromClearing(selectedClearing).getTileType();
 	}
 
 	public int getClearingNumber() {
-		if(GameState.getInstance().getCheatMode())
+		if(GameState.getInstance().getCharacter().isCheatModeEnabled())
 			return Integer.parseInt((String) clearingBox.getSelectedItem());
 		return selectedClearing.getClearingNumber();
 	}

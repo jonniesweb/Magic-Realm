@@ -6,6 +6,16 @@ import java.util.Properties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * Key-value properties stored in a file on the classpath named
+ * <code>GameConfig.properties</code>. Properties set in file can be overridden
+ * as JVM parameters.
+ * <br>
+ * <br>
+ * Development properties can be enabled by adding <code>-DdevMode=true</code>
+ * as a JVM parameter. The properties would then get loaded from
+ * <code>GameConfig.dev.properties</code> file on the classpath instead.
+ */
 public class Config extends Properties {
 	private static final String CONFIG_FILENAME = "GameConfig.properties";
 	private static final String DEV_CONFIG_FILENAME = "GameConfig.dev.properties";

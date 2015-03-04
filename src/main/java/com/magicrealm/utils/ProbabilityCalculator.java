@@ -24,7 +24,7 @@ public abstract class ProbabilityCalculator {
 	}
 	
 	public static Result getResult() {
-		if(GameState.getInstance().getCheatMode()) {
+		if(GameState.getInstance().getCharacter().isCheatModeEnabled()) {
 			Result[] choices = Result.values();
 			SimpleSelection selectResult = new SimpleSelection(choices, "Select A Result");
 			return (Result) selectResult.getSelected();

@@ -1,19 +1,16 @@
 package com.magicrealm;
 
-import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
-import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.MRCharacter;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class GameState {
 
 	private static GameState instance = new GameState();
 	
-	private DefaultMagicRealmHexEngineModel model;
+	private MagicRealmHexEngineModel model;
 	private MRCharacter character;
-	private boolean cheatMode;
 	
 	public GameState() {
-		cheatMode = false;
 	}
 	
 	public static GameState getInstance() {
@@ -24,7 +21,7 @@ public class GameState {
 		return model;
 	}
 
-	public void setModel(DefaultMagicRealmHexEngineModel model) {
+	public void setModel(MagicRealmHexEngineModel model) {
 		this.model = model;
 	}
 	
@@ -34,14 +31,6 @@ public class GameState {
 	
 	public void setCharacter(MRCharacter character) {
 		this.character = character;
-	}
-	
-	public boolean getCheatMode() {
-		return cheatMode;
-	}
-	
-	public void setCheatMode(boolean cheatMode) {
-		this.cheatMode = cheatMode;
 	}
 	
 }

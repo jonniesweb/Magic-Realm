@@ -1,6 +1,5 @@
 package com.magicrealm.models;
 
-import java.awt.Image;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
@@ -14,7 +13,6 @@ import com.magicrealm.utils.ProbabilityCalculator;
 public abstract class MRCharacter implements Placeable {
 	
 	protected String name;
-	protected Image image;
 	protected String description;
 	protected Weight vulnerability;
 	protected boolean attentionChit;
@@ -37,6 +35,7 @@ public abstract class MRCharacter implements Placeable {
 //	private Person tradingRelationships;
 	private ArrayList<Discoverable> discoveries;
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private boolean cheatModeEnabled = false;
 	
 	public MRCharacter() {
 		fightChits = new ArrayList<ActionChit>();
@@ -159,5 +158,13 @@ public abstract class MRCharacter implements Placeable {
 	
 	public PropertyChangeSupport getPropertyChangeSupport() {
 		return pcs;
+	}
+
+	public boolean isCheatModeEnabled() {
+		return cheatModeEnabled;
+	}
+
+	public void setCheatModeEnabled(boolean cheatModeEnabled) {
+		this.cheatModeEnabled = cheatModeEnabled;
 	}
 }

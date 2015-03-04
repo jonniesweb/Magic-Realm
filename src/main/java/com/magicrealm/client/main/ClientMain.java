@@ -15,19 +15,22 @@ import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class ClientMain {
 	public static void main(String[] args) {
-		GameState.getInstance().setModel(new DefaultMagicRealmHexEngineModel(0, 0));
+		GameState instance = GameState.getInstance();
+		instance.setModel(new DefaultMagicRealmHexEngineModel(0, 0));
 		
+		boolean cheatMode = false;
 		int option = JOptionPane.showConfirmDialog(null, "Cheat Mode?", "Mode", JOptionPane.YES_NO_OPTION);
 		if(option == JOptionPane.YES_OPTION) {
-			GameState.getInstance().setCheatMode(true);
+			cheatMode = true;
 		}
 		SelectCharacter selectCharacter = new SelectCharacter();
 		JOptionPane.showConfirmDialog(null, selectCharacter, "Select a Character", JOptionPane.OK_OPTION);
-		GameState.getInstance().setCharacter(selectCharacter.getSelectedCharacter());
-		GameState.getInstance().getModel().placeChit(selectCharacter.getTileType(), 5, GameState.getInstance().getCharacter());
-		GameState.getInstance().getModel().updateUI();
+		instance.setCharacter(selectCharacter.getSelectedCharacter());
+		instance.getCharacter().setCheatModeEnabled(cheatMode);
+		instance.getModel().placeChit(selectCharacter.getTileType(), 5, instance.getCharacter());
+		instance.getModel().updateUI();
 		
-		new BoardView(GameState.getInstance().getModel());
+		new BoardView(instance.getModel());
 		
 		
 	}
