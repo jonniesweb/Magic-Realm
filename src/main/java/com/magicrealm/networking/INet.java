@@ -1,10 +1,13 @@
 package com.magicrealm.networking;
 
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
+import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.models.MRCharacter;
+import com.magicrealm.models.MRCharacter.character;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 
-interface INet {
+public interface INet {
 	
 	// For testing
 	public String test();
@@ -18,7 +21,7 @@ interface INet {
 	 * @return The character the player has chosen
 	 * @throws CharacterAlreadyTakenException
 	 */
-	public MRCharacter selectCharacter(String characterName)
+	public MRCharacter selectCharacter(character characterType)
 			throws CharacterAlreadyTakenException;
 	
 	/**
@@ -28,4 +31,6 @@ interface INet {
 	 * @return true if successful, false if unsuccessful
 	 */
 	public boolean setCheatModeForCharacter(boolean cheatModeEnabled);
+	public void startGame() throws GameAlreadyStartedException;
+	public MagicRealmHexEngineModel getGameBoard();
 }

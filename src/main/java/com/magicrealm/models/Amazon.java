@@ -8,6 +8,7 @@ import com.magicrealm.utils.ImageCache;
 public class Amazon extends MRCharacter {
 	
 	public Amazon() {
+		super(character.amazon);
 		name = "Amazon";
 		vulnerability = Weight.MEDIUM;
 		setActiveWeapon(new ShortSword());

@@ -4,6 +4,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 
 import com.magicrealm.GameState;
+import com.magicrealm.models.MRCharacter.character;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.weapons.Weapon;
@@ -21,6 +22,9 @@ public abstract class MRCharacter implements Placeable {
 	protected ArrayList<ActionChit> fightChits;
 	protected ArrayList<ActionChit> moveChits;
 	
+	public enum character { amazon, captain, swordsman };
+	public character characterType;
+	
 	// give 10 to allow character to buy stuff
 	protected int gold = 10;
 	protected Dwelling startingLocation;
@@ -37,7 +41,8 @@ public abstract class MRCharacter implements Placeable {
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private boolean cheatModeEnabled = false;
 	
-	public MRCharacter() {
+	public MRCharacter(character characterType) {
+		this.characterType = characterType;
 		fightChits = new ArrayList<ActionChit>();
 		moveChits = new ArrayList<ActionChit>();
 		activities = new ArrayList<Activity>();
@@ -168,17 +173,21 @@ public abstract class MRCharacter implements Placeable {
 		this.cheatModeEnabled = cheatModeEnabled;
 	}
 	
-	public static MRCharacter getCharacterFromString(String characterName) {
-		switch (characterName) {
-		case "Amazon":
+	public static MRCharacter getCharacter(character characterType) {
+		switch (characterType) {
+		case amazon:
 			return new Amazon();
-		case "Captain":
+		case captain:
 			return new Captain();
-		case "Swordsman":
+		case swordsman:
 			return new Swordsman();
 		
 		default:
 			throw new RuntimeException("Invalid character name");
 		}
+	}
+
+	public character getCharacterType() {
+		return characterType;
 	}
 }

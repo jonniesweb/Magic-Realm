@@ -46,7 +46,7 @@ public class BoardView implements Observer {
 
 	private void run() {
 		
-		final JFrame frame = new JFrame(getTitle());
+		final JFrame frame = new JFrame("Magic Realm - Team 25");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout());
 
@@ -121,20 +121,6 @@ public class BoardView implements Observer {
 		activityView.add(btnConsoleLog, "cell 5 0");
 		frame.pack();
 		frame.setVisible(true);
-	}
-
-	private String getTitle() {
-		// generate the title
-		String title;
-		try {
-			throw new NullPointerException("Magic Realm - Team 25");
-		} catch (NullPointerException e1) {
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			e1.printStackTrace(pw);
-			title = sw.toString();
-		}
-		return title;
 	}
 
 	@Override

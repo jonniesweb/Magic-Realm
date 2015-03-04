@@ -3,18 +3,22 @@ package com.magicrealm.server;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.server.state.PlayerConnectState;
+import com.magicrealm.server.state.ServerState;
 
 /**
  * Singleton class for all game state.
  */
 public class ServerGameState {
+	
+	private static ServerGameState instance;
+	
 	private MagicRealmHexEngineModel board;
 	private Map<String, MRCharacter> characters = new HashMap<>();
-	private static ServerGameState instance;
+	private ServerState state = new PlayerConnectState(this);
 	
 	protected ServerGameState() {
 	}
@@ -45,4 +49,13 @@ public class ServerGameState {
 		}
 		return instance;
 	}
+
+	public ServerState getState() {
+		return state;
+	}
+	
+	public void setState(ServerState state) {
+		this.state = state;
+	}
+
 }

@@ -6,8 +6,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
+import com.magicrealm.exceptions.GameAlreadyStartedException;
+import com.magicrealm.exceptions.InappropriateStateException;
 import com.magicrealm.models.MRCharacter;
+import com.magicrealm.models.MRCharacter.character;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.server.ServerGameState;
+import com.magicrealm.server.state.PlayerConnectState;
 import com.magicrealm.utils.Config;
 
 
@@ -59,19 +64,24 @@ class Net implements INet {
 	}
 
 	@Override
-	public MRCharacter selectCharacter(String characterName) throws CharacterAlreadyTakenException {
+	public MRCharacter selectCharacter(character characterType) throws CharacterAlreadyTakenException {
+		
+		if (!(getGameState().getState() instanceof PlayerConnectState)) {
+			throw new InappropriateStateException("select character", getGameState().getState().getClass());
+		}
+		
 		// throw error if the character is already chosen
 		Collection<MRCharacter> characters = getGameState().getCharacters();
 		for (MRCharacter mrCharacter : characters) {
-			if (characterName.equals(mrCharacter.getName())) {
-				throw new CharacterAlreadyTakenException(characterName + " is already taken by another player");
+			if (characterType.equals(mrCharacter.getName())) {
+				throw new CharacterAlreadyTakenException(characterType + " is already taken by another player");
 			}
 		}
 
-		log.info("Player " + getClientId() + " selected character " + characterName);
+		log.info("Player " + getClientId() + " selected character " + characterType);
 		
 		// add the character, return the new character
-		MRCharacter chosenCharacter = MRCharacter.getCharacterFromString(characterName);
+		MRCharacter chosenCharacter = MRCharacter.getCharacter(characterType);
 		getGameState().addCharacter(getClientId(), chosenCharacter);
 		return chosenCharacter;
 	}
@@ -87,6 +97,21 @@ class Net implements INet {
 			// failed to turn cheat mode on or off
 			return false;
 		}
+	}
+
+	@Override
+	public void startGame() throws GameAlreadyStartedException {
+		if (gameState.getState() instanceof PlayerConnectState) {
+			PlayerConnectState playerConnectState = (PlayerConnectState) gameState.getState();
+			playerConnectState.startGame();
+		} else {
+			throw new GameAlreadyStartedException();
+		}
+	}
+
+	@Override
+	public MagicRealmHexEngineModel getGameBoard() {
+		return getGameState().getBoard();
 	}
 	
 }

@@ -8,6 +8,7 @@ import com.magicrealm.utils.ImageCache;
 public class Captain extends MRCharacter {
 	
 	public Captain() {
+		super(character.captain);
 		name = "Captain";
 		vulnerability = Weight.MEDIUM;
 		setActiveWeapon(new ShortSword());
