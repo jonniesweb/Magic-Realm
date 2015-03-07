@@ -10,6 +10,7 @@ import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SelectCharacter;
+import com.magicrealm.models.ClientGameState;
 import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.INet;
@@ -20,7 +21,7 @@ public class ClientMain {
 	private static final Log log = LogFactory.getLog(ClientMain.class);
 	
 	public static void main(String[] args) {
-		GameState instance = GameState.getInstance();
+		ClientGameState instance = ClientGameState.getInstance();
 		instance.setModel(new DefaultMagicRealmHexEngineModel(0, 0));
 		
 		RMIClient rmiClient = new RMIClient("localhost", 1099);
