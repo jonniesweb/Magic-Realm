@@ -2,6 +2,7 @@ package com.magicrealm.models;
 
 import java.awt.Image;
 
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.weapons.ShortSword;
 import com.magicrealm.utils.ImageCache;
 
@@ -41,6 +42,11 @@ public class Captain extends MRCharacter {
 	public String getImageName() {
 		// TODO Auto-generated method stub
 		return "captain";
+	}
+
+	public dwelling[] getPossibleStartingLocations() {
+		dwelling[] starting = { dwelling.inn, dwelling.house, dwelling.guard };
+		return starting;
 	}
 
 }

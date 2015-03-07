@@ -3,8 +3,11 @@ package com.magicrealm.models;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import com.magicrealm.GameState;
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.weapons.Weapon;
@@ -28,7 +31,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	
 	// give 10 to allow character to buy stuff
 	protected int gold = 10;
-	private Dwelling startingLocation;
+	private dwelling startingLocation;
 	protected boolean hidden;
 	protected boolean blocked;
 	protected Weapon activeWeapon;
@@ -174,7 +177,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		this.cheatModeEnabled = cheatModeEnabled;
 	}
 	
-	public static MRCharacter getCharacter(character characterType) {
+	public static MRCharacter createCharacter(character characterType) {
 		switch (characterType) {
 		case amazon:
 			return new Amazon();
@@ -192,11 +195,13 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		return characterType;
 	}
 
-	public Dwelling getStartingLocation() {
+	public dwelling getStartingLocation() {
 		return startingLocation;
 	}
 
-	public void setStartingLocation(Dwelling startingLocation) {
+	public void setStartingLocation(dwelling startingLocation) {
 		this.startingLocation = startingLocation;
 	}
+
+	public abstract dwelling[] getPossibleStartingLocations();
 }

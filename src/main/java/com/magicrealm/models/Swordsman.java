@@ -2,6 +2,7 @@ package com.magicrealm.models;
 
 import java.awt.Image;
 
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.weapons.ShortSword;
 import com.magicrealm.models.weapons.ThrustingSword;
 import com.magicrealm.utils.ImageCache;
@@ -45,6 +46,11 @@ public class Swordsman extends MRCharacter {
 	public String getImageName() {
 		// TODO Auto-generated method stub
 		return "swordsman";
+	}
+
+	public dwelling[] getPossibleStartingLocations() {
+		dwelling[] starting = { dwelling.inn };
+		return starting;
 	}
 
 }

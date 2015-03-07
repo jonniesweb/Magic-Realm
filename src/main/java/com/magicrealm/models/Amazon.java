@@ -2,6 +2,7 @@ package com.magicrealm.models;
 
 import java.awt.Image;
 
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.weapons.ShortSword;
 import com.magicrealm.utils.ImageCache;
 
@@ -42,4 +43,9 @@ public class Amazon extends MRCharacter {
 		return "amazon";
 	}
 
+	@Override
+	public dwelling[] getPossibleStartingLocations() {
+		dwelling[] starting = { dwelling.inn };
+		return starting;
+	}
 }

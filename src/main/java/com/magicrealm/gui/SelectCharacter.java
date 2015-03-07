@@ -10,17 +10,14 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import com.magicrealm.GameState;
 import com.magicrealm.models.Amazon;
 import com.magicrealm.models.Captain;
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.Swordsman;
-import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class SelectCharacter extends JPanel {
@@ -106,6 +103,10 @@ public class SelectCharacter extends JPanel {
 			}
 		}
 		return TileType.BV;
+	}
+	
+	public dwelling getStartingLocation() {
+		return dwelling.inn;
 	}
 	
 	private class CharacterButton extends JToggleButton {
