@@ -1,8 +1,10 @@
 package com.magicrealm.models.board;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +23,16 @@ import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.utils.TileClearingLocation;
 
-public class MagicRealmHexEngineModel extends Observable implements HexEngineModel<GameTile> {
+/**
+ * @author jon
+ *
+ */
+public class MagicRealmHexEngineModel extends Observable implements HexEngineModel<GameTile>, Serializable {
 	
+	private static final long serialVersionUID = -6176084011679757523L;
+
 	/**
 	 * Array to keep values
 	 */
@@ -110,17 +119,13 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 	
 	@Override
 	public void attachedToEngine(HexEngine<?> engine) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	@Override
 	public void detachedFromEngine(HexEngine<?> engine) {
-		// TODO Auto-generated method stub
-		
 	}
 	
-	public TileClearing findChit(Placeable placeable) {
+	public TileClearing getChitClearing(Placeable placeable) {
 		for(GameTile t: array) {
 			if(t == null)
 				continue;
@@ -135,7 +140,22 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return null;
 	}
 	
-	public GameTile findChitTile(Placeable placeable) {
+	public TileClearingLocation getChitLocation(Placeable placeable) {
+		for(GameTile t: array) {
+			if(t == null)
+				continue;
+			for(TileClearing c: t.getClearings()) {
+				if(c == null) {
+					continue;
+				} else if(c.getChits().contains(placeable)) {
+					return new TileClearingLocation(t.getTileType(), c.getClearingNumber());
+				}
+			}
+		}
+		return null;
+	}
+	
+	public GameTile getChitTile(Placeable placeable) {
 		for(GameTile t: array) {
 			if(t == null)
 				continue;
@@ -150,6 +170,10 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return null;
 	}
 	
+	public void placeChit(TileClearingLocation location, Placeable placeable) {
+		placeChit(location.getTileType(), location.getClearingNumber(), placeable);
+	}
+	
 	public void placeChit(TileType tile, int clearingNumber, Placeable placeable) {
 		GameTile gameTile = getTile(tile);
 		gameTile.addToClearing(clearingNumber, placeable);
@@ -160,7 +184,11 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 	}
 	
 	public void removeChit(Placeable placeable) {
-		findChit(placeable).getChits().remove(placeable);
+		getChitClearing(placeable).getChits().remove(placeable);
+	}
+	
+	public void moveChitTo(TileClearingLocation location, Placeable placeable) {
+		moveChitTo(location.getTileType(), location.getClearingNumber(), placeable);
 	}
 	
 	public void moveChitTo(TileType tile, int clearingNumber, Placeable placeable) {
@@ -244,6 +272,9 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		}
 	}
 
+	/**
+	 * Connect all exiting paths of the tiles with its adjacent tile's exit.
+	 */
 	protected void connectAllTheThings() {
 		
 		// iterate over each tile on the board
@@ -275,8 +306,12 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		
 	}
 	
-	public Set<Dwelling> getDwellings() {
-		return Collections.unmodifiableSet(dwellings);
+	public Map<Dwelling, TileClearingLocation> getDwellingLocations() {
+		Map<Dwelling, TileClearingLocation> dwellingsMap = new HashMap<>();
+		for (Dwelling dwelling : dwellings) {
+			dwellingsMap.put(dwelling, getChitLocation(dwelling));
+		}
+		return dwellingsMap;
 	}
 	
 	public void updateUI() {
@@ -299,20 +334,12 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return list;
 	}
 	
-	public ClearingMapChit getChitAtLocation(GameTile tile, int clearing) {
-		ClearingMapChit chit = (ClearingMapChit) tile.getSiteSoundChit();
-		if(chit != null && chit.getClearing() == clearing) {			
-			return chit;
-		}
-		return null;
-	}
-	
 	public TileClearing getCharacterClearing() {
-		return findChit(GameState.getInstance().getCharacter());
+		return getChitClearing(GameState.getInstance().getCharacter());
 	}
 	
 	public GameTile getCharacterTile() {
-		return findChitTile(GameState.getInstance().getCharacter());
+		return getChitTile(GameState.getInstance().getCharacter());
 	}
 	
 	public GameTile getTileFromClearing(TileClearing clearing) {

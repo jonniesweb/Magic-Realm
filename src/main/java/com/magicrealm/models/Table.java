@@ -59,7 +59,7 @@ public abstract class Table implements TableMethods {
 	}
 	
 	public ClearingMapChit getChitAtLocation() {
-		ClearingMapChit chit = GameState.getInstance().getModel().findChitTile(GameState.getInstance().getCharacter()).getSiteSoundChit();
+		ClearingMapChit chit = GameState.getInstance().getModel().getChitTile(GameState.getInstance().getCharacter()).getSiteSoundChit();
 		if(chit != null && chit.getClearing() == getClearing().getClearingNumber()) {			
 			return chit;
 		}

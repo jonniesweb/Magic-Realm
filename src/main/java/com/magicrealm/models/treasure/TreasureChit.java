@@ -1,6 +1,8 @@
 package com.magicrealm.models.treasure;
 
-public class TreasureChit {
+import java.io.Serializable;
+
+public class TreasureChit implements Serializable {
 	
 	// 6 treasures within treasures
 	// 23 large treasures

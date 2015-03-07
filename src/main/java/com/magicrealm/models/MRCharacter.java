@@ -1,18 +1,19 @@
 package com.magicrealm.models;
 
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.magicrealm.GameState;
-import com.magicrealm.models.MRCharacter.character;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.utils.GameLog;
 import com.magicrealm.utils.ProbabilityCalculator;
 
-public abstract class MRCharacter implements Placeable {
+public abstract class MRCharacter implements Serializable, Placeable {
 	
+	private static final long serialVersionUID = 5714651037717652242L;
 	protected String name;
 	protected String description;
 	protected Weight vulnerability;
@@ -27,7 +28,7 @@ public abstract class MRCharacter implements Placeable {
 	
 	// give 10 to allow character to buy stuff
 	protected int gold = 10;
-	protected Dwelling startingLocation;
+	private Dwelling startingLocation;
 	protected boolean hidden;
 	protected boolean blocked;
 	protected Weapon activeWeapon;
@@ -38,7 +39,7 @@ public abstract class MRCharacter implements Placeable {
 	protected ArrayList<Activity> activities;
 //	private Person tradingRelationships;
 	private ArrayList<Discoverable> discoveries;
-	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private transient PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private boolean cheatModeEnabled = false;
 	
 	public MRCharacter(character characterType) {
@@ -189,5 +190,13 @@ public abstract class MRCharacter implements Placeable {
 
 	public character getCharacterType() {
 		return characterType;
+	}
+
+	public Dwelling getStartingLocation() {
+		return startingLocation;
+	}
+
+	public void setStartingLocation(Dwelling startingLocation) {
+		this.startingLocation = startingLocation;
 	}
 }

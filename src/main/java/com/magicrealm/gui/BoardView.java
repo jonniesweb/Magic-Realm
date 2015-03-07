@@ -71,21 +71,21 @@ public class BoardView implements Observer {
 		
 		gameboardComponent.addMouseListener(new MouseAdapter() {
 			
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				final HexPosition position = engine.pointToHex(e.getX(), e.getY());
-				if (engine.getModel().isPositionValid(position)) {
-					final DefaultIntegerHexModel model = (DefaultIntegerHexModel) engine.getModel();
-					Integer value = model.getValueAt(position);
-					if (value > 7) {
-						value = 0;
-					} else {
-						value++;
-					}
-					model.setValueAt(position, value);
-				}
-				gameboardComponent.repaint();
-			}
+//			@Override
+//			public void mouseClicked(MouseEvent e) {
+//				final HexPosition position = engine.pointToHex(e.getX(), e.getY());
+//				if (engine.getModel().isPositionValid(position)) {
+//					final DefaultIntegerHexModel model = (DefaultIntegerHexModel) engine.getModel();
+//					Integer value = model.getValueAt(position);
+//					if (value > 7) {
+//						value = 0;
+//					} else {
+//						value++;
+//					}
+//					model.setValueAt(position, value);
+//				}
+//				gameboardComponent.repaint();
+//			}
 			
 		});
 		

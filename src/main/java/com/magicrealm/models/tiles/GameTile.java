@@ -1,6 +1,7 @@
 package com.magicrealm.models.tiles;
 
 import java.awt.Point;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import com.magicrealm.models.chits.WarningChit;
  *        0
  * </pre>
  */
-public class GameTile {
+public class GameTile implements Serializable {
 	
 	public enum TileType {
 		AV, BV, CV, DV, EV, LW, MW, NW, OW, PW, B, CN, CS, HP, R, CF, CG, DW, L, M

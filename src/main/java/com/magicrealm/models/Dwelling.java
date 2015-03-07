@@ -1,11 +1,12 @@
 package com.magicrealm.models;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 import com.magicrealm.utils.ImageCache;
 
 
-public class Dwelling implements Placeable {
+public class Dwelling implements Serializable, Placeable {
 
 	public static final String SMALL_FIRE = "small_fire";
 	public static final String LARGE_FIRE = "large_fire";

@@ -57,7 +57,7 @@ public class ClientMain {
 		
 		MagicRealmHexEngineModel model = service.getGameBoard();
 		
-		new BoardView(instance.getModel());
+		new BoardView(model);
 		
 		
 	}

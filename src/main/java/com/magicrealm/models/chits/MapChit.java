@@ -1,6 +1,8 @@
 package com.magicrealm.models.chits;
 
-public abstract class MapChit {
+import java.io.Serializable;
+
+public abstract class MapChit implements Serializable {
 	
 	private String type;
 	

@@ -1,6 +1,8 @@
 package com.magicrealm.models;
 
-public abstract class Belonging {
+import java.io.Serializable;
+
+public abstract class Belonging implements Serializable {
 	
 	protected boolean active;
 	

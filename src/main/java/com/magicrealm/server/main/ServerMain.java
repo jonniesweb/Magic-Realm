@@ -1,15 +1,30 @@
 package com.magicrealm.server.main;
 
-import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
-import com.magicrealm.server.ServerGameState;
+import java.rmi.RemoteException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import com.magicrealm.networking.RMIServer;
 
 public class ServerMain {
 	
+	private final Log log = LogFactory.getLog(ServerMain.class);
+	
+	public ServerMain() {
+
+		try {
+			RMIServer rmiServer = new RMIServer();
+			rmiServer.start();
+			
+		} catch (RemoteException e) {
+			log.error("unable to start the server", e);
+		}
+	}
+	
+	
 	public static void main(String[] args) {
-		
-		ServerGameState.getInstance().setBoard(new DefaultMagicRealmHexEngineModel(0, 0));
-		
-		
+		new ServerMain();	
 	}
 	
 }

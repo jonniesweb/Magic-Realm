@@ -1,5 +1,6 @@
 package com.magicrealm.models.tiles;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,7 +12,7 @@ import com.magicrealm.models.Discoverable;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.tiles.GameTile.TileType;
 
-public class TileClearing implements Discoverable {
+public class TileClearing implements Serializable, Discoverable {
 	
 	public enum ClearingType {
 		MOUNTAIN, CAVE, WOODS

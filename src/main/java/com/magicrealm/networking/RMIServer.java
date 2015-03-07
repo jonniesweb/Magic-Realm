@@ -4,9 +4,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.magicrealm.utils.Config;
 
 public class RMIServer {
+	
+	private final Log log = LogFactory.getLog(RMIServer.class);
 	
 	private Registry registry;
 	private RMIServiceImpl service;
@@ -23,6 +28,7 @@ public class RMIServer {
 		setRegistry(LocateRegistry.createRegistry(getPort()));
 		setService(new RMIServiceImpl());
 		getRegistry().rebind(RMIService.LOOKUPNAME, getService());
+		log.info("Server has started");
 	}
 
 	public Registry getRegistry() {

@@ -1,10 +1,12 @@
 package com.magicrealm.models;
 
+import java.io.Serializable;
+
 import com.magicrealm.GameState;
 import com.magicrealm.gui.SelectActivityPane;
 import com.magicrealm.models.tiles.GameTile;
 
-public abstract class Activity implements Executable {
+public abstract class Activity implements Serializable, Executable {
 	
 	public enum ActivityType {MOVE, HIDE, REST, SEARCH};
 	public ActivityType activity;
