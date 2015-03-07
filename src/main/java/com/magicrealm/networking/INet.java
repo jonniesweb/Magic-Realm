@@ -2,6 +2,7 @@ package com.magicrealm.networking;
 
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.MRCharacter.character;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
@@ -33,4 +34,5 @@ public interface INet {
 	public boolean setCheatModeForCharacter(boolean cheatModeEnabled);
 	public void startGame() throws GameAlreadyStartedException;
 	public MagicRealmHexEngineModel getGameBoard();
+	public void setStartingLocationForCharacter(dwelling dwellingType);
 }

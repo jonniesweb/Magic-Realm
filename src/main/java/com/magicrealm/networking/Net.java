@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.exceptions.InappropriateStateException;
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.MRCharacter.character;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
@@ -81,7 +82,7 @@ class Net implements INet {
 		log.info("Player " + getClientId() + " selected character " + characterType);
 		
 		// add the character, return the new character
-		MRCharacter chosenCharacter = MRCharacter.getCharacter(characterType);
+		MRCharacter chosenCharacter = MRCharacter.createCharacter(characterType);
 		getGameState().addCharacter(getClientId(), chosenCharacter);
 		return chosenCharacter;
 	}
@@ -112,6 +113,12 @@ class Net implements INet {
 	@Override
 	public MagicRealmHexEngineModel getGameBoard() {
 		return getGameState().getBoard();
+	}
+
+	@Override
+	public void setStartingLocationForCharacter(dwelling dwellingType) {
+		MRCharacter character = gameState.getCharacter(clientId);
+		character.setStartingLocation(dwellingType);
 	}
 	
 }

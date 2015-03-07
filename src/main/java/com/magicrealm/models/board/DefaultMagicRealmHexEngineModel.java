@@ -1,6 +1,7 @@
 package com.magicrealm.models.board;
 
 import com.magicrealm.models.Dwelling;
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.NormalMapChitPlacementStrategy;
 import com.magicrealm.models.tiles.GameTile.TileType;
@@ -34,10 +35,10 @@ public class DefaultMagicRealmHexEngineModel extends MagicRealmHexEngineModel {
 		setValueAt(6, 1, new GameTile(TileType.CF, 0));
 		
 		// place dwellings
-		placeChit(TileType.DV, 5, new Dwelling(Dwelling.GUARD));
-		placeChit(TileType.CV, 5, new Dwelling(Dwelling.HOUSE));
-		placeChit(TileType.AV, 5, new Dwelling(Dwelling.CHAPEL));
-		placeChit(TileType.BV, 5, new Dwelling(Dwelling.INN));
+		placeChit(TileType.DV, 5, new Dwelling(dwelling.guard));
+		placeChit(TileType.CV, 5, new Dwelling(dwelling.house));
+		placeChit(TileType.AV, 5, new Dwelling(dwelling.chapel));
+		placeChit(TileType.BV, 5, new Dwelling(dwelling.inn));
 		
 		// place monsters
 //		placeChit(TileType.EV, 5, new Ghost());

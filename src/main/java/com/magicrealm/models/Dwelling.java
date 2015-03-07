@@ -16,20 +16,41 @@ public class Dwelling implements Serializable, Placeable {
 	public static final String GUARD = "guard";
 	public static final String CHAPEL = "chapel";
 
+	public enum dwelling { inn, house, guard, chapel }
 	
-	private String dwelling;
+	private dwelling dwellingType;
 	
-	public Dwelling(String dwelling) {
-		this.dwelling = dwelling;
+	public Dwelling(dwelling dwellingType) {
+		this.dwellingType = dwellingType;
 	}
 
 	@Override
 	public Image getImage() {
-		return ImageCache.getImage(dwelling);
+		return ImageCache.getImage(getImageName());
 	}
 	
 	@Override
 	public String getImageName() {
-		return dwelling;
+		return getImageString(dwellingType);
 	}
+
+	public dwelling getDwellingType() {
+		return dwellingType;
+	}
+	
+	private static String getImageString(dwelling type) {
+		switch (type) {
+		case inn:
+			return INN;
+		case chapel:
+			return CHAPEL;
+		case guard:
+			return GUARD;
+		case house:
+			return HOUSE;
+		default:
+			throw new RuntimeException("Invalid dwelling type");
+		}
+	}
+
 }

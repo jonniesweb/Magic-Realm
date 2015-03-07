@@ -47,7 +47,8 @@ public class ClientMain {
 		log.info("setting cheat mode to " + cheatMode);
 		instance.getCharacter().setCheatModeEnabled(cheatMode);
 		service.setCheatModeForCharacter(cheatMode);
-		instance.getModel().placeChit(selectCharacter.getTileType(), 5, instance.getCharacter());
+//		instance.getModel().placeChit(selectCharacter.getTileType(), 5, instance.getCharacter());
+		service.setStartingLocationForCharacter(selectCharacter.getStartingLocation());
 		instance.getModel().updateUI();
 		
 		try {
