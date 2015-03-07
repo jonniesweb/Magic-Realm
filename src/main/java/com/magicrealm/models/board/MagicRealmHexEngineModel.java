@@ -354,4 +354,16 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return null;
 	}
 	
+	public boolean isLocationsAdjacent(TileClearingLocation location1, TileClearingLocation location2) {
+		
+		TileClearing clearing = getClearing(location1);
+		return clearing.getConnectedClearings().contains(getClearing(location2));
+	}
+
+	private TileClearing getClearing(TileClearingLocation location1) {
+		GameTile tile = getTile(location1.getTileType());
+		TileClearing clearing = tile.getClearing(location1.getClearingNumber());
+		return clearing;
+	}
+	
 }

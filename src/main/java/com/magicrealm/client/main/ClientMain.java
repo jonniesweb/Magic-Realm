@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.magicrealm.GameState;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.gui.BoardView;
@@ -45,8 +44,6 @@ public class ClientMain {
 			// TODO Prompt user to select another character to play as
 			log.error(e);
 		}
-		
-		// get character and set it to GameState character to prevent NPE
 		
 		log.info("setting cheat mode to " + cheatMode);
 		instance.getCharacter().setCheatModeEnabled(cheatMode);
