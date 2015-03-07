@@ -16,6 +16,7 @@ import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.magicrealm.GameState;
 import com.magicrealm.models.Dwelling;
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.MapChit;
@@ -306,10 +307,10 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		
 	}
 	
-	public Map<Dwelling, TileClearingLocation> getDwellingLocations() {
-		Map<Dwelling, TileClearingLocation> dwellingsMap = new HashMap<>();
+	public Map<dwelling, TileClearingLocation> getDwellingLocations() {
+		Map<dwelling, TileClearingLocation> dwellingsMap = new HashMap<>();
 		for (Dwelling dwelling : dwellings) {
-			dwellingsMap.put(dwelling, getChitLocation(dwelling));
+			dwellingsMap.put(dwelling.getDwellingType(), getChitLocation(dwelling));
 		}
 		return dwellingsMap;
 	}

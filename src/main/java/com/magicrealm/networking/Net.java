@@ -116,9 +116,10 @@ class Net implements INet {
 	}
 
 	@Override
-	public void setStartingLocationForCharacter(dwelling dwellingType) {
+	public MRCharacter setStartingLocationForCharacter(dwelling dwellingType) {
 		MRCharacter character = gameState.getCharacter(clientId);
 		character.setStartingLocation(dwellingType);
+		return character;
 	}
 	
 }

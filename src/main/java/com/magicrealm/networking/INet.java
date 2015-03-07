@@ -34,5 +34,5 @@ public interface INet {
 	public boolean setCheatModeForCharacter(boolean cheatModeEnabled);
 	public void startGame() throws GameAlreadyStartedException;
 	public MagicRealmHexEngineModel getGameBoard();
-	public void setStartingLocationForCharacter(dwelling dwellingType);
+	public MRCharacter setStartingLocationForCharacter(dwelling dwellingType);
 }

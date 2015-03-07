@@ -28,6 +28,7 @@ import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
 import com.magicrealm.GameState;
+import com.magicrealm.models.ClientGameState;
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
@@ -106,7 +107,8 @@ public class BoardView implements Observer {
 		});
 		
 		// update gold
-		final MRCharacter character = GameState.getInstance().getCharacter();
+		// TODO: fix gold
+		final MRCharacter character = ClientGameState.getInstance().getCharacter();
 		character.getPropertyChangeSupport().addPropertyChangeListener("gold", new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {

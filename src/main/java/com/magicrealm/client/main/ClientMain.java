@@ -11,6 +11,7 @@ import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SelectCharacter;
 import com.magicrealm.models.ClientGameState;
+import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.INet;
@@ -38,17 +39,21 @@ public class ClientMain {
 		instance.setCharacter(selectCharacter.getSelectedCharacter());
 		
 		try {
-			service.selectCharacter(selectCharacter.getSelectedCharacter().getCharacterType());
+			MRCharacter character = service.selectCharacter(selectCharacter.getSelectedCharacter().getCharacterType());
+			instance.setCharacter(character);
 		} catch (CharacterAlreadyTakenException e) {
 			// TODO Prompt user to select another character to play as
 			log.error(e);
 		}
 		
+		// get character and set it to GameState character to prevent NPE
+		
 		log.info("setting cheat mode to " + cheatMode);
 		instance.getCharacter().setCheatModeEnabled(cheatMode);
 		service.setCheatModeForCharacter(cheatMode);
 //		instance.getModel().placeChit(selectCharacter.getTileType(), 5, instance.getCharacter());
-		service.setStartingLocationForCharacter(selectCharacter.getStartingLocation());
+		MRCharacter character = service.setStartingLocationForCharacter(selectCharacter.getStartingLocation());
+		instance.setCharacter(character);
 		instance.getModel().updateUI();
 		
 		try {

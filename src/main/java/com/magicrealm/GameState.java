@@ -3,6 +3,7 @@ package com.magicrealm;
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
+@Deprecated
 public class GameState {
 
 	private static GameState instance = new GameState();

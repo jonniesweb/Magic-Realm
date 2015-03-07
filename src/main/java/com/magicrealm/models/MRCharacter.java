@@ -42,7 +42,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	protected ArrayList<Activity> activities;
 //	private Person tradingRelationships;
 	private ArrayList<Discoverable> discoveries;
-	private transient PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private boolean cheatModeEnabled = false;
 	
 	public MRCharacter(character characterType) {
