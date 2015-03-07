@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 
 import com.magicrealm.GameState;
 import com.magicrealm.models.Activity;
+import com.magicrealm.models.ClientGameState;
+import com.magicrealm.models.Move;
 
 public class ActivityView extends JPanel {
 		
@@ -32,15 +34,19 @@ public class ActivityView extends JPanel {
 					return;
 				
 				if(option == JOptionPane.OK_OPTION) {
-					GameState.getInstance().getCharacter().addActivity(Activity.buildActivity(activity.getActivityType(), activity));
-					update(GameState.getInstance().getCharacter().getActivities());
+					Activity a = Activity.buildActivity(activity.getActivityType(), activity);
+					if(a instanceof Move) {
+						ClientGameState.getInstance().getActivities().setClearing(((Move) a).getLocation());
+					}
+					ClientGameState.getInstance().getActivities().getQueuedActivities().add(a);
+					update(ClientGameState.getInstance().getCharacter().getActivities());
 				}
 			}
 		});
 		execute = new JButton ("Daylight");
 		execute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				while(GameState.getInstance().getCharacter().executeActivity() > 0) {
+				while(ClientGameState.getInstance().getCharacter().executeActivity() > 0) {
 				}
 				clearActivities();
 			}

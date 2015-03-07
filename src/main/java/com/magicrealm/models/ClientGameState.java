@@ -12,9 +12,11 @@ private static ClientGameState instance;
 	private MRCharacter character;
 	BoardView view;
 	INet service;
+	BirdsongActivities activities;
 	
 	public ClientGameState() {
 	}
+	
 	
 	public static ClientGameState getInstance() {
 		if(instance == null)
@@ -53,7 +55,16 @@ private static ClientGameState instance;
 	public void setService(INet service) {
 		this.service = service;
 	}
-	
+
+
+	public BirdsongActivities getActivities() {
+		return activities;
+	}
+
+
+	public void setActivities(BirdsongActivities activities) {
+		this.activities = activities;
+	}
 	
 
 }
