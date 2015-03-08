@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import com.magicrealm.GameState;
-import com.magicrealm.models.Activity.ActivityType;
-import com.magicrealm.models.ClientGameState;
+import com.magicrealm.activity.Activity.ActivityType;
+import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;

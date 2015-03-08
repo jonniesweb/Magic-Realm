@@ -12,9 +12,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import com.magicrealm.characters.MRCharacter;
+import com.magicrealm.characters.MRCharacter.character;
 import com.magicrealm.models.Dwelling.dwelling;
-import com.magicrealm.models.MRCharacter;
-import com.magicrealm.models.MRCharacter.character;
 
 public class SelectCharacter extends JPanel {
 	

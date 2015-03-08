@@ -8,7 +8,7 @@ import java.rmi.server.UnicastRemoteObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.magicrealm.models.ClientGameState;
+import com.magicrealm.client.ClientGameState;
 
 /**
  * The client-side portion of the Server-calls-client rmi callback system. This

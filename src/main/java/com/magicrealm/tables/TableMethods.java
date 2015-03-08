@@ -1,4 +1,4 @@
-package com.magicrealm.models;
+package com.magicrealm.tables;
 
 public interface TableMethods {
 	

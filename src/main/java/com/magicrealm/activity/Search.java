@@ -1,7 +1,11 @@
-package com.magicrealm.models;
+package com.magicrealm.activity;
 
-import com.magicrealm.GameState;
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.gui.SimpleSelection;
+import com.magicrealm.tables.Locate;
+import com.magicrealm.tables.Loot;
+import com.magicrealm.tables.Peer;
+import com.magicrealm.tables.Table;
 import com.magicrealm.utils.ProbabilityCalculator;
 import com.magicrealm.utils.ProbabilityCalculator.Result;
 

@@ -1,10 +1,8 @@
-package com.magicrealm.models;
+package com.magicrealm.activity;
 
 import java.io.Serializable;
 
-import com.magicrealm.GameState;
 import com.magicrealm.gui.SelectActivityPane;
-import com.magicrealm.models.tiles.GameTile;
 
 public abstract class Activity implements Serializable, Executable {
 	

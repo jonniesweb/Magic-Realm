@@ -10,9 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import com.magicrealm.GameState;
-import com.magicrealm.models.Activity;
-import com.magicrealm.models.ClientGameState;
-import com.magicrealm.models.Move;
+import com.magicrealm.activity.Activity;
+import com.magicrealm.activity.Move;
+import com.magicrealm.client.ClientGameState;
 
 public class ActivityView extends JPanel {
 		

@@ -5,13 +5,13 @@ import javax.swing.JOptionPane;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.magicrealm.characters.MRCharacter;
+import com.magicrealm.client.ClientGameState;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SelectCharacter;
 import com.magicrealm.models.BirdsongActivities;
-import com.magicrealm.models.ClientGameState;
-import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.INet;

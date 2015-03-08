@@ -28,8 +28,8 @@ import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
 import com.magicrealm.GameState;
-import com.magicrealm.models.ClientGameState;
-import com.magicrealm.models.MRCharacter;
+import com.magicrealm.characters.MRCharacter;
+import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 public class BoardView implements Observer {

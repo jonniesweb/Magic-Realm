@@ -3,19 +3,23 @@ package com.magicrealm.networking;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.magicrealm.activity.Activity;
+import com.magicrealm.characters.MRCharacter;
+import com.magicrealm.characters.MRCharacter.character;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.exceptions.InappropriateStateException;
+import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.Dwelling.dwelling;
-import com.magicrealm.models.MRCharacter;
-import com.magicrealm.models.MRCharacter.character;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.server.ServerGameState;
+import com.magicrealm.server.state.BirdsongState;
 import com.magicrealm.server.state.PlayerConnectState;
 import com.magicrealm.utils.Config;
 
@@ -133,6 +137,8 @@ class Net implements INet {
 	@Override
 	public void setClientService(final RMIService service) {
 		
+		// create a handler that proxies calls from ClientService through
+		// the passed RMIService
 		InvocationHandler handler = new InvocationHandler() {
 			@Override
 			public Object invoke(Object paramObject, Method paramMethod,
@@ -141,10 +147,21 @@ class Net implements INet {
 			}
 		};
 		
+		// create a proxy of the IClientService and add it to the gamestate
+		// using the handler created above
 		IClientService clientService = (IClientService) Proxy.newProxyInstance(
 				this.getClass().getClassLoader(),
 				new Class[] { IClientService.class }, handler);
 		
 		gameState.addClientService(clientId, clientService);
+	}
+	
+	@Override
+	public void setActivities(BirdsongActivities activities) {
+		if (gameState.getState() instanceof BirdsongState) {
+			BirdsongState state = (BirdsongState) gameState.getState();
+			state.addActivities(clientId, activities);
+		} else
+			throw new RuntimeException("Invalid state to set activities");
 	}
 }

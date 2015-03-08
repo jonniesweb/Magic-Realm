@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.magicrealm.models.MRCharacter;
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.state.PlayerConnectState;

@@ -1,6 +1,6 @@
 package com.magicrealm;
 
-import com.magicrealm.models.MRCharacter;
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 @Deprecated

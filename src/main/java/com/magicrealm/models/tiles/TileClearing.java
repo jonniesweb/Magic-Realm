@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 import com.magicrealm.GameState;
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Discoverable;
-import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.tiles.GameTile.TileType;
 

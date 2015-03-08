@@ -1,9 +1,15 @@
-package com.magicrealm.models;
+package com.magicrealm.characters;
 
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import com.magicrealm.activity.Activity;
+import com.magicrealm.models.ActionChit;
+import com.magicrealm.models.Discoverable;
+import com.magicrealm.models.Dwelling;
+import com.magicrealm.models.Placeable;
+import com.magicrealm.models.Weight;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.weapons.Weapon;

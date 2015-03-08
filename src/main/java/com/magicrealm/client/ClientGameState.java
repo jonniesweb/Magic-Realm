@@ -1,6 +1,8 @@
-package com.magicrealm.models;
+package com.magicrealm.client;
 
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.gui.BoardView;
+import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.INet;
 

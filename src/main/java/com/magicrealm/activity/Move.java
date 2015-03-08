@@ -1,5 +1,6 @@
-package com.magicrealm.models;
+package com.magicrealm.activity;
 
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.TileClearingLocation;
 

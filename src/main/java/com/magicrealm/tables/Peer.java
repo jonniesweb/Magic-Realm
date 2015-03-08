@@ -1,4 +1,4 @@
-package com.magicrealm.models;
+package com.magicrealm.tables;
 
 import com.magicrealm.utils.GameLog;
 

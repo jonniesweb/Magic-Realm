@@ -2,6 +2,7 @@ package com.magicrealm.models;
 
 import java.util.ArrayList;
 
+import com.magicrealm.activity.Activity;
 import com.magicrealm.utils.TileClearingLocation;
 
 public class BirdsongActivities {

@@ -1,8 +1,10 @@
-package com.magicrealm.models;
+package com.magicrealm.activity;
 
 import javax.swing.JOptionPane;
 
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.gui.SelectObject;
+import com.magicrealm.models.ActionChit;
 import com.magicrealm.utils.GameLog;
 
 

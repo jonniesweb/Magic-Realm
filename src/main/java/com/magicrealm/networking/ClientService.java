@@ -2,7 +2,7 @@ package com.magicrealm.networking;
 
 import java.rmi.RemoteException;
 
-import com.magicrealm.models.ClientGameState;
+import com.magicrealm.client.ClientGameState;
 import com.magicrealm.utils.GameLog;
 
 /**

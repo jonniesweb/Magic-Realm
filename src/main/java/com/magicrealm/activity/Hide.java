@@ -1,4 +1,6 @@
-package com.magicrealm.models;
+package com.magicrealm.activity;
+
+import com.magicrealm.characters.MRCharacter;
 
 public class Hide extends Activity {
 	
