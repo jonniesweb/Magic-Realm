@@ -1,6 +1,9 @@
 package com.magicrealm.networking;
 
-import java.util.Collection;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,7 +75,7 @@ class Net implements INet {
 		}
 		
 		// throw error if the character is already chosen
-		Collection<MRCharacter> characters = getGameState().getCharacters();
+		Set<MRCharacter> characters = getGameState().getCharacters();
 		for (MRCharacter mrCharacter : characters) {
 			if (characterType.equals(mrCharacter.getName())) {
 				throw new CharacterAlreadyTakenException(characterType + " is already taken by another player");
@@ -122,4 +125,26 @@ class Net implements INet {
 		return character;
 	}
 	
+	/**
+	 * Set the callback object for calling methods to be invoked on the client's
+	 * side.
+	 * @param service
+	 */
+	@Override
+	public void setClientService(final RMIService service) {
+		
+		InvocationHandler handler = new InvocationHandler() {
+			@Override
+			public Object invoke(Object paramObject, Method paramMethod,
+					Object[] paramArrayOfObject) throws Throwable {
+				return service.invoke(paramMethod.getName(), paramMethod.getParameterTypes(), paramArrayOfObject, null);
+			}
+		};
+		
+		IClientService clientService = (IClientService) Proxy.newProxyInstance(
+				this.getClass().getClassLoader(),
+				new Class[] { IClientService.class }, handler);
+		
+		gameState.addClientService(clientId, clientService);
+	}
 }

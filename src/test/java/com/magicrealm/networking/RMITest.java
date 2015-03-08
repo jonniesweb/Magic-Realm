@@ -5,15 +5,18 @@ import static org.junit.Assert.*;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
 import java.util.Random;
+import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.Config;
 
 public class RMITest {
 	
 	private static INet service;
+	private static Set<IClientService> clientService;
 
 	@BeforeClass
 	public static void setup() throws RemoteException {
@@ -28,6 +31,7 @@ public class RMITest {
 		rmiClient.start();
 		
 		service = rmiClient.getService();
+		clientService = ServerGameState.getInstance().getClientServices();
 	}
 	
 	/**
@@ -48,6 +52,13 @@ public class RMITest {
 	@Test(expected=NullPointerException.class)
 	public void testThrowException() {
 		service.testThrow();
+	}
+	
+	@Test
+	public void testClientCallback() {
+		for (IClientService iClientService : clientService) {
+			assertEquals("abcdef123", iClientService.test("abcdef"));
+		}
 	}
 
 }

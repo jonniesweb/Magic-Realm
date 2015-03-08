@@ -3,7 +3,6 @@ package com.magicrealm.models.board;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,7 +17,6 @@ import com.magicrealm.GameState;
 import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Placeable;
-import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.tiles.GameTile;
@@ -27,8 +25,8 @@ import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.TileClearingLocation;
 
 /**
- * @author jon
- *
+ * The model for the hexagonal gameboard of Magic Realm. Contains the tiles,
+ * clearings, and any chits.
  */
 public class MagicRealmHexEngineModel extends Observable implements HexEngineModel<GameTile>, Serializable {
 	
@@ -339,10 +337,6 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return getChitClearing(GameState.getInstance().getCharacter());
 	}
 	
-	public GameTile getCharacterTile() {
-		return getChitTile(GameState.getInstance().getCharacter());
-	}
-	
 	public GameTile getTileFromClearing(TileClearing clearing) {
 		for(GameTile t: array) {
 			if(t == null)
@@ -354,12 +348,19 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return null;
 	}
 	
+	/**
+	 * Determines if the two {@link TileClearingLocation} are connected to each
+	 * other as a connected clearing. May not support hidden paths
+	 */
 	public boolean isLocationsAdjacent(TileClearingLocation location1, TileClearingLocation location2) {
 		
 		TileClearing clearing = getClearing(location1);
 		return clearing.getConnectedClearings().contains(getClearing(location2));
 	}
 
+	/**
+	 * Gets a {@link TileClearing} from a {@link TileClearingLocation}
+	 */
 	public TileClearing getClearing(TileClearingLocation location1) {
 		GameTile tile = getTile(location1.getTileType());
 		TileClearing clearing = tile.getClearing(location1.getClearingNumber());

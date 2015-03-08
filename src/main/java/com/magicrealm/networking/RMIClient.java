@@ -16,6 +16,8 @@ import com.magicrealm.utils.Config;
 
 public class RMIClient {
 	
+	private final Log log = LogFactory.getLog(RMIClient.class);
+	
 	private INet service;
 	private String host;
 	private Integer port;
@@ -45,6 +47,11 @@ public class RMIClient {
 	public void start() {
 		InvocationHandler handler = new RmiInvocationHandler();
 		setService((INet) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { INet.class }, handler));
+		try {
+			getService().setClientService(new ClientCallback());
+		} catch (RemoteException e) {
+			log.error("unable to send ClientService to server", e);
+		}
 	}
 	
 	public INet getService() {

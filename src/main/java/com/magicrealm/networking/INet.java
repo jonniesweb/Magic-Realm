@@ -35,4 +35,6 @@ public interface INet {
 	public void startGame() throws GameAlreadyStartedException;
 	public MagicRealmHexEngineModel getGameBoard();
 	public MRCharacter setStartingLocationForCharacter(dwelling dwellingType);
+	public void setClientService(RMIService service);
+	
 }

@@ -1,11 +1,13 @@
 package com.magicrealm.server;
 
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.state.PlayerConnectState;
 import com.magicrealm.server.state.ServerState;
 
@@ -17,7 +19,7 @@ public class ServerGameState {
 	private static ServerGameState instance;
 	
 	private MagicRealmHexEngineModel board;
-	private Map<String, MRCharacter> characters = new HashMap<>();
+	private Map<String, User> characters = new HashMap<>();
 	private ServerState state = new PlayerConnectState(this);
 	
 	protected ServerGameState() {
@@ -31,16 +33,39 @@ public class ServerGameState {
 		return board;
 	}
 	
-	public Collection<MRCharacter> getCharacters() {
-		return characters.values();
+	public Set<MRCharacter> getCharacters() {
+		Set<MRCharacter> set = new HashSet<>();
+		for (User user : characters.values()) {
+			if (user.character != null) {
+				set.add(user.character);
+			}
+		}
+		return set;
+	}
+	
+	public Set<IClientService> getClientServices() {
+		HashSet<IClientService> set = new HashSet<>();
+		for (User user : characters.values()) {
+			if (user.clientService != null) {
+				set.add(user.clientService);
+			}
+		}
+		return set;
 	}
 	
 	public MRCharacter getCharacter(String clientId) {
-		return characters.get(clientId);
+		return characters.get(clientId).character;
+	}
+	
+	public IClientService getClientService(String clientId) {
+		return characters.get(clientId).clientService;
 	}
 	
 	public void addCharacter(String clientId, MRCharacter character) {
-		characters.put(clientId, character);
+		if (characters.get(clientId) == null) {
+			characters.put(clientId, new User());
+		}
+		characters.get(clientId).character = character;
 	}
 	
 	public static ServerGameState getInstance() {
@@ -56,6 +81,18 @@ public class ServerGameState {
 	
 	public void setState(ServerState state) {
 		this.state = state;
+	}
+
+	public void addClientService(String clientId, IClientService service) {
+		if (characters.get(clientId) == null) {
+			characters.put(clientId, new User());
+		}
+		characters.get(clientId).clientService = service;
+	}
+	
+	private class User {
+		IClientService clientService;
+		MRCharacter character;
 	}
 
 }

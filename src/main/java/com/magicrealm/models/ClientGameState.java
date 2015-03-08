@@ -10,9 +10,9 @@ private static ClientGameState instance;
 	
 	private MagicRealmHexEngineModel model;
 	private MRCharacter character;
-	BoardView view;
-	INet service;
-	BirdsongActivities activities;
+	private BoardView view;
+	private INet service;
+	private BirdsongActivities activities;
 	
 	public ClientGameState() {
 	}

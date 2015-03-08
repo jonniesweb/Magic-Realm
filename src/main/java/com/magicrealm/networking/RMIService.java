@@ -1,7 +1,6 @@
 package com.magicrealm.networking;
 
 import java.rmi.Remote;
-import java.rmi.RemoteException;
 
 /**
  * Client-Server method reflection. 'nuff said.
