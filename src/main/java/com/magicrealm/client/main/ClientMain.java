@@ -9,6 +9,7 @@ import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SelectCharacter;
+import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.ClientGameState;
 import com.magicrealm.models.MRCharacter;
 import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
@@ -59,10 +60,10 @@ public class ClientMain {
 			e.printStackTrace();
 		}
 		
-		MagicRealmHexEngineModel model = service.getGameBoard();
+		instance.setModel(service.getGameBoard());
 		
-		new BoardView(model);
+		instance.setView(new BoardView(instance.getModel()));
 		
-		
+		instance.setActivities(new BirdsongActivities(instance.getModel().getChitLocation(instance.getCharacter())));
 	}
 }

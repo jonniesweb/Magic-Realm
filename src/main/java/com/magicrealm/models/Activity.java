@@ -12,11 +12,9 @@ public abstract class Activity implements Serializable, Executable {
 	public ActivityType activity;
 	
 	public static Activity buildActivity(ActivityType type, SelectActivityPane activity) {
-		GameTile tile;
 		switch (type) {
 		case MOVE:
-			tile = GameState.getInstance().getModel().getTile(activity.getTileType());
-			return new Move(tile, tile.getClearing(activity.getClearingNumber()));
+			return new Move(activity.getMoveLocation());
 		case HIDE:
 			return new Hide();
 		case REST:

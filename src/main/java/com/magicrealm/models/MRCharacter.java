@@ -3,13 +3,9 @@ package com.magicrealm.models;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import com.magicrealm.GameState;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.armors.Armor;
-import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.utils.GameLog;
 import com.magicrealm.utils.ProbabilityCalculator;
@@ -61,19 +57,6 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		if(activities.size() > 0)
 			activities.remove(0).execute(this);
 		return activities.size();
-	}
-	
-	public TileClearing getFutureClearing() {
-		Move m = null;
-		for(Activity a: activities) {
-			if(a instanceof Move)
-				m = (Move) a;
-		}
-		if(m == null) {
-			return GameState.getInstance().getModel().getCharacterClearing();
-		} else {
-			return m.getClearing();
-		}
 	}
 	
 	public void addDiscovery(Discoverable disc) {
