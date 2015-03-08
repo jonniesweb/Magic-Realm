@@ -12,6 +12,7 @@ import com.magicrealm.models.Placeable;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.WarningChit;
+import com.magicrealm.models.tiles.TileClearing.ClearingType;
 
 
 /**
@@ -208,7 +209,8 @@ public class GameTile implements Serializable {
 			setWarningChitPosition(248, 319);
 			break;
 		case B:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addClearing(1, 2, 3);
+			addCave(4, 5, 6);
 			addPath(1, 6);
 			addPath(2, 3);
 			addPath(3, 5);
@@ -250,7 +252,7 @@ public class GameTile implements Serializable {
 			setSiteSoundChitPosition(150, 347);
 			break;
 		case CS:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addCave(1, 2, 3, 4, 5, 6);
 			addPath(1, 6);
 			addPath(6, 4);
 			addPath(4, 2);
@@ -269,7 +271,8 @@ public class GameTile implements Serializable {
 			setSiteSoundChitPosition(403, 184);
 			break;
 		case HP:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addMountain(1, 2, 4, 5);
+			addCave(3, 6);
 			addPath(5, 1);
 			addPath(1, 4);
 			addPath(4, 2);
@@ -288,7 +291,8 @@ public class GameTile implements Serializable {
 			setSiteSoundChitPosition(146, 325);
 			break;
 		case R:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addClearing(1, 2, 3, 4, 5);
+			addCave(6);
 			addPath(1, 2);
 			addPath(1, 4);
 			addPath(4, 6);
@@ -309,7 +313,8 @@ public class GameTile implements Serializable {
 			setSiteSoundChitPosition(165, 53);
 			break;
 		case CF:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addClearing(2, 3, 5);
+			addMountain(1, 4, 6);
 			addPath(2, 3);
 			addPath(3, 5);
 			addPath(1, 6);
@@ -330,7 +335,7 @@ public class GameTile implements Serializable {
 			setSiteSoundChitPosition(432, 213);
 			break;
 		case CG:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addMountain(1, 2, 3, 4, 5, 6);
 			addPath(2, 5);
 			addPath(5, 3);
 			addPath(3, 6);
@@ -368,7 +373,8 @@ public class GameTile implements Serializable {
 			setSiteSoundChitPosition(330, 62);
 			break;
 		case L:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addClearing(1, 3, 4, 6);
+			addMountain(2, 5);
 			addPath(2, 5);
 			addPath(4, 1);
 			addPath(1, 6);
@@ -389,7 +395,8 @@ public class GameTile implements Serializable {
 			setSiteSoundChitPosition(120, 243);
 			break;
 		case M:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addClearing(2, 4);
+			addMountain(1, 3, 5, 6);
 			addPath(1, 3);
 			addPath(3, 6);
 			addPath(6, 5);
@@ -470,7 +477,18 @@ public class GameTile implements Serializable {
 		for (int j : i) {
 			clearings.put(j, new TileClearing(j));
 		}
-		
+	}
+	
+	protected void addCave(int ... i) {
+		for(int j : i) {
+			clearings.put(j, new TileClearing(j, ClearingType.CAVE));
+		}
+	}
+	
+	protected void addMountain(int ... i) {
+		for(int j : i) {
+			clearings.put(j, new TileClearing(j, ClearingType.MOUNTAIN));
+		}
 	}
 
 	public TileType getTileType() {
