@@ -231,7 +231,7 @@ public class GameTile implements Serializable {
 			setSiteSoundChitPosition(347, 355);
 			break;
 		case CN:
-			addClearing(1, 2, 3, 4, 5, 6);
+			addCave(1, 2, 3, 4, 5, 6);
 			addPath(1, 3);
 			addPath(2, 3);
 			addPath(3, 6);
