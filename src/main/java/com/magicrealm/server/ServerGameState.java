@@ -103,5 +103,9 @@ public class ServerGameState {
 		IClientService clientService;
 		MRCharacter character;
 	}
+	
+	public int getNumberOfPlayers() {
+		return characters.size();
+	}
 
 }

@@ -27,7 +27,7 @@ public class ClientMain {
 		
 		RMIClient rmiClient = new RMIClient("localhost", 1099);
 		rmiClient.start();
-		INet service = rmiClient.getService();
+		instance.setService(rmiClient.getService());
 		
 		boolean cheatMode = false;
 		int option = JOptionPane.showConfirmDialog(null, "Enable cheat mode?", "Mode", JOptionPane.YES_NO_OPTION);
@@ -39,7 +39,7 @@ public class ClientMain {
 		instance.setCharacter(selectCharacter.getSelectedCharacter());
 		
 		try {
-			MRCharacter character = service.selectCharacter(selectCharacter.getSelectedCharacter().getCharacterType());
+			MRCharacter character = instance.getService().selectCharacter(selectCharacter.getSelectedCharacter().getCharacterType());
 			instance.setCharacter(character);
 		} catch (CharacterAlreadyTakenException e) {
 			// TODO Prompt user to select another character to play as
@@ -48,19 +48,19 @@ public class ClientMain {
 		
 		log.info("setting cheat mode to " + cheatMode);
 		instance.getCharacter().setCheatModeEnabled(cheatMode);
-		service.setCheatModeForCharacter(cheatMode);
+		instance.getService().setCheatModeForCharacter(cheatMode);
 //		instance.getModel().placeChit(selectCharacter.getTileType(), 5, instance.getCharacter());
-		MRCharacter character = service.setStartingLocationForCharacter(selectCharacter.getStartingLocation());
+		MRCharacter character = instance.getService().setStartingLocationForCharacter(selectCharacter.getStartingLocation());
 		instance.setCharacter(character);
 		instance.getModel().updateUI();
 		
 		try {
-			service.startGame();
+			instance.getService().startGame();
 		} catch (GameAlreadyStartedException e) {
 			e.printStackTrace();
 		}
 		
-		instance.setModel(service.getGameBoard());
+		instance.setModel(instance.getService().getGameBoard());
 		
 		instance.setView(new BoardView(instance.getModel()));
 		

@@ -21,6 +21,7 @@ public class ActivityView extends JPanel {
 		private JButton execute;
 	
 	public ActivityView() {
+		final ClientGameState instance = ClientGameState.getInstance();
 		label = new JLabel("");
 		
 		selectActivity = new JButton("Select Activity");
@@ -36,18 +37,19 @@ public class ActivityView extends JPanel {
 				if(option == JOptionPane.OK_OPTION) {
 					Activity a = Activity.buildActivity(activity.getActivityType(), activity);
 					if(a instanceof Move) {
-						ClientGameState.getInstance().getActivities().setClearing(((Move) a).getLocation());
+						instance.getActivities().setClearing(((Move) a).getLocation());
 					}
-					ClientGameState.getInstance().getActivities().getQueuedActivities().add(a);
-					update(ClientGameState.getInstance().getActivities().getQueuedActivities());
+					instance.getActivities().getQueuedActivities().add(a);
+					update(instance.getActivities().getQueuedActivities());
 				}
 			}
 		});
 		execute = new JButton ("Daylight");
 		execute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				while(ClientGameState.getInstance().getCharacter().executeActivity() > 0) {
-				}
+				instance.getService().setActivities(instance.getActivities());
+				// for the future if needed
+//				ClientGameState.getInstance().setActivities(null);
 				clearActivities();
 			}
 		});

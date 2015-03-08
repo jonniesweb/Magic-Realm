@@ -43,6 +43,14 @@ public class BirdsongState extends ServerState {
 	public void addActivities(String clientId, BirdsongActivities activities) {
 		// TODO: verify that the activities are valid before adding it 
 		this.activities.put(clientId, activities);
+		
+		/*
+		 * Check if everyone has submitted their activities. If so, change the
+		 * state to a new one.
+		 */
+		if (this.activities.size() == getGameState().getNumberOfPlayers()) {
+			getGameState().setState(new DaylightState(getGameState(), this.activities));
+		}
 	}
 	
 }
