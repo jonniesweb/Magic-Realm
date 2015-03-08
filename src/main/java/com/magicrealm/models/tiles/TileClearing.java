@@ -46,8 +46,12 @@ public class TileClearing implements Serializable, Discoverable {
 	private int xpos;;
 	
 	public TileClearing(int clearingNumber) {
+		this(clearingNumber, ClearingType.WOODS);
+	}
+	
+	public TileClearing(int clearingNumber, ClearingType clearingType) {
 		this.setClearingNumber(clearingNumber);
-		this.clearingType = null;
+		this.clearingType = clearingType;
 	}
 
 	public void addPath(TileClearing tileClearing) {
