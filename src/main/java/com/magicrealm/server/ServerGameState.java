@@ -21,6 +21,7 @@ public class ServerGameState {
 	private MagicRealmHexEngineModel board;
 	private Map<String, User> characters = new HashMap<>();
 	private ServerState state = new PlayerConnectState(this);
+	private boolean cheatMode = false;
 	
 	protected ServerGameState() {
 	}
@@ -90,6 +91,14 @@ public class ServerGameState {
 		characters.get(clientId).clientService = service;
 	}
 	
+	public boolean isCheatMode() {
+		return cheatMode;
+	}
+
+	public void setCheatMode(boolean cheatMode) {
+		this.cheatMode = cheatMode;
+	}
+
 	private class User {
 		IClientService clientService;
 		MRCharacter character;
