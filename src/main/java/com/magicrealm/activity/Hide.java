@@ -2,6 +2,9 @@ package com.magicrealm.activity;
 
 import com.magicrealm.characters.MRCharacter;
 
+import com.magicrealm.utils.GameLog;
+import com.magicrealm.utils.ProbabilityCalculator;
+
 public class Hide extends Activity {
 	
 	public Hide() {
@@ -11,7 +14,12 @@ public class Hide extends Activity {
 	@Override
 	public void execute(MRCharacter player) {
 		// TODO Auto-generated method stub
-		player.attemptHide();
+		if(ProbabilityCalculator.calculateHide()) {
+			player.hide();
+			GameLog.log("Character Hidden");
+		}
+		else
+			GameLog.log("Character failed to hide");
 	}
 
 }

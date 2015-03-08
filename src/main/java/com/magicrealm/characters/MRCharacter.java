@@ -13,8 +13,6 @@ import com.magicrealm.models.Weight;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.weapons.Weapon;
-import com.magicrealm.utils.GameLog;
-import com.magicrealm.utils.ProbabilityCalculator;
 
 public abstract class MRCharacter implements Serializable, Placeable {
 	
@@ -69,13 +67,6 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		discoveries.add(disc);
 	}
 	
-	public void attemptHide() {
-		if(ProbabilityCalculator.calculateHide())
-			this.hide();
-		else
-			GameLog.log("Character failed to hide");
-	}
-	
 	public void move() {
 
 	}
@@ -88,12 +79,11 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		chit.restoreCharge();
 	}
 	
-	private void hide() {
-		GameLog.log("Character Hidden");
+	public void hide() {
 		hidden = true;
 	}
 	
-	private void reveal() {
+	public void reveal() {
 		hidden = false;
 	}
 
