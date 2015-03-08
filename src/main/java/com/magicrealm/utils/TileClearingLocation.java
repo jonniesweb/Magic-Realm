@@ -40,4 +40,8 @@ public class TileClearingLocation implements Serializable {
 		this.clearingNumber = clearingNumber;
 	}
 	
+	public String toString() {
+		return tileType.name()+clearingNumber;
+	}
+	
 }

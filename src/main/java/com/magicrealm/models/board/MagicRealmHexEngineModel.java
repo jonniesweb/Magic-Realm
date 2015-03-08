@@ -360,10 +360,14 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return clearing.getConnectedClearings().contains(getClearing(location2));
 	}
 
-	private TileClearing getClearing(TileClearingLocation location1) {
+	public TileClearing getClearing(TileClearingLocation location1) {
 		GameTile tile = getTile(location1.getTileType());
 		TileClearing clearing = tile.getClearing(location1.getClearingNumber());
 		return clearing;
+	}
+	
+	public TileClearingLocation getTileClearingLocation(TileClearing clearing) {
+		return new TileClearingLocation(getTileFromClearing(clearing).getTileType(), clearing.getClearingNumber());
 	}
 	
 }

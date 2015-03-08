@@ -39,7 +39,7 @@ public class ActivityView extends JPanel {
 						ClientGameState.getInstance().getActivities().setClearing(((Move) a).getLocation());
 					}
 					ClientGameState.getInstance().getActivities().getQueuedActivities().add(a);
-					update(ClientGameState.getInstance().getCharacter().getActivities());
+					update(ClientGameState.getInstance().getActivities().getQueuedActivities());
 				}
 			}
 		});

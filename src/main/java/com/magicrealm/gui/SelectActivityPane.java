@@ -2,8 +2,11 @@ package com.magicrealm.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Enumeration;
 
 import javax.swing.AbstractButton;
@@ -13,11 +16,13 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import com.magicrealm.GameState;
 import com.magicrealm.models.Activity.ActivityType;
 import com.magicrealm.models.ClientGameState;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.utils.TileClearingLocation;
 
 public class SelectActivityPane extends JPanel{
 	
@@ -29,7 +34,7 @@ public class SelectActivityPane extends JPanel{
 	private JPanel activityButtons;
 	private JComboBox<String> tileBox;
 	private JComboBox<String> clearingBox;
-	private TileClearing selectedClearing;
+	private TileClearingLocation selectedClearing;
 	
 	public SelectActivityPane() {
 		setLayout(new BorderLayout());
@@ -43,8 +48,14 @@ public class SelectActivityPane extends JPanel{
 		move.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!ClientGameState.getInstance().getCharacter().isCheatModeEnabled()) {
-					SimpleSelection clearing = new SimpleSelection(ClientGameState.getInstance().getCharacter().getFutureClearing().getPlayerConnectedClearings(), "Select a clearing");
-					selectedClearing = (TileClearing) clearing.getSelected();
+					TileClearingLocation futureLocation = ClientGameState.getInstance().getActivities().getClearing();
+					TileClearing futureClearing = ClientGameState.getInstance().getModel().getClearing(futureLocation);
+					ArrayList<TileClearingLocation> locations = new ArrayList<TileClearingLocation>();
+					for(TileClearing tc: futureClearing.getPlayerConnectedClearings(ClientGameState.getInstance().getCharacter())) {
+						locations.add(ClientGameState.getInstance().getModel().getTileClearingLocation(tc));
+					}
+					SimpleSelection clearing = new SimpleSelection(locations.toArray(new TileClearingLocation[0]), "Select a clearing");
+					selectedClearing = (TileClearingLocation) clearing.getSelected();
 				}
 			}
 		});
@@ -92,17 +103,14 @@ public class SelectActivityPane extends JPanel{
 	public ActivityType getActivityType() {
 		return group.getSelectedActivityType();
 	}
-
-	public TileType getTileType() {
-		if(ClientGameState.getInstance().getCharacter().isCheatModeEnabled())
-			return TileType.valueOf((String) tileBox.getSelectedItem());
-		return ClientGameState.getInstance().getModel().getTileFromClearing(selectedClearing).getTileType();
-	}
-
-	public int getClearingNumber() {
-		if(ClientGameState.getInstance().getCharacter().isCheatModeEnabled())
-			return Integer.parseInt((String) clearingBox.getSelectedItem());
-		return selectedClearing.getClearingNumber();
+	
+	public TileClearingLocation getMoveLocation() {
+		if(ClientGameState.getInstance().getCharacter().isCheatModeEnabled()) {
+			TileType t = TileType.valueOf((String) tileBox.getSelectedItem());
+			int c = Integer.parseInt((String) clearingBox.getSelectedItem());
+			return new TileClearingLocation(t, c);
+		}
+		return selectedClearing;
 	}
 	
 	private class ActivityButton extends JToggleButton {

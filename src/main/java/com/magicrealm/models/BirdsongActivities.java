@@ -9,8 +9,9 @@ public class BirdsongActivities {
 	private TileClearingLocation clearing;
 	private ArrayList<Activity> queuedActivities;
 	
-	public BirdsongActivities() {
+	public BirdsongActivities(TileClearingLocation clearing) {
 		queuedActivities = new ArrayList<Activity>();
+		this.clearing = clearing;
 	}
 
 	public TileClearingLocation getClearing() {
