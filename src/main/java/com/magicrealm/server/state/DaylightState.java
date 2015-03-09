@@ -3,6 +3,8 @@ package com.magicrealm.server.state;
 import java.util.Map;
 
 import com.magicrealm.models.BirdsongActivities;
+import com.magicrealm.networking.ClientService;
+import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
 
 public class DaylightState extends ServerState {
@@ -12,6 +14,9 @@ public class DaylightState extends ServerState {
 	public DaylightState(ServerGameState instance, Map<String, BirdsongActivities> activities) {
 		super(instance);
 		this.activities = activities;
+		for (IClientService iterable_element : ServerGameState.getInstance().getClientServices()) {
+			iterable_element.clientSelect(new String[]{"dog", "cat", "raccooon"}, "choose rodent");
+		}
 	}
 	
 	/**

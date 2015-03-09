@@ -3,6 +3,7 @@ package com.magicrealm.networking;
 import java.rmi.RemoteException;
 
 import com.magicrealm.client.ClientGameState;
+import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.utils.GameLog;
 
 /**
@@ -48,6 +49,12 @@ public class ClientService implements IClientService {
 	@Override
 	public Object test(String string) {
 		return string + 123;
+	}
+
+	@Override
+	public Object clientSelect(Object[] objArray, String message) {
+		SimpleSelection selectObj = new SimpleSelection(objArray, message);
+		return selectObj.getSelected();
 	}
 	
 }

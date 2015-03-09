@@ -26,6 +26,8 @@ public interface IClientService {
 	 * @param message
 	 */
 	void sendMessage(String message);
+	
+	public Object clientSelect(Object[] objArray, String message);
 
 	public Object test(String string);
 }
