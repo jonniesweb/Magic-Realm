@@ -177,4 +177,12 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	}
 
 	public abstract dwelling[] getPossibleStartingLocations();
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof MRCharacter) {
+			return characterType.equals(((MRCharacter) obj).getCharacterType());
+		} else
+			return false;
+	}
 }

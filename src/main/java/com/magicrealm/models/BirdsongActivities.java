@@ -1,12 +1,14 @@
 package com.magicrealm.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import com.magicrealm.activity.Activity;
 import com.magicrealm.utils.TileClearingLocation;
 
-public class BirdsongActivities {
+public class BirdsongActivities implements Serializable {
 	
+	private static final long serialVersionUID = -7701152441111645549L;
 	private TileClearingLocation clearing;
 	private ArrayList<Activity> queuedActivities;
 	

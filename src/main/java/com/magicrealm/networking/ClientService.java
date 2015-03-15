@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SimpleSelection;
+import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.utils.GameLog;
 
@@ -34,11 +35,18 @@ public class ClientService implements IClientService {
 	
 	@Override
 	public void gameStarted(MagicRealmHexEngineModel model) {
-		/*
-		 * Client is waiting for the game to start. 
-		 */
+			/*
+			 * Client is waiting for the game to start. 
+			 */
+			// hide the StartGameFrame if its open
+		if (getGameState().getStartGameFrame() != null)
+			getGameState().getStartGameFrame().dispose();
+		
+		// show the board
 		gameState.setView(new BoardView(model));
 		gameState.setModel(model);
+		
+		getGameState().setActivities(new BirdsongActivities(model.getChitLocation(getGameState().getCharacter())));
 	}
 
 	@Override

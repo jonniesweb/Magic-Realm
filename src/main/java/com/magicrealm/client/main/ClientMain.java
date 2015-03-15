@@ -11,6 +11,7 @@ import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SelectCharacter;
+import com.magicrealm.gui.StartGameFrame;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
@@ -54,16 +55,10 @@ public class ClientMain {
 		instance.setCharacter(character);
 		instance.getModel().updateUI();
 		
-		try {
-			instance.getService().startGame();
-		} catch (GameAlreadyStartedException e) {
-			e.printStackTrace();
-		}
+		// show the waiting for players/start game window
+		StartGameFrame startGameFrame = new StartGameFrame(instance);
+		instance.setStartGameFrame(startGameFrame);
+		startGameFrame.setVisible(true);
 		
-		instance.setModel(instance.getService().getGameBoard());
-		
-		instance.setView(new BoardView(instance.getModel()));
-		
-		instance.setActivities(new BirdsongActivities(instance.getModel().getChitLocation(instance.getCharacter())));
 	}
 }

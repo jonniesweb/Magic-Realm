@@ -8,6 +8,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.UUID;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -92,6 +93,7 @@ public class RMIClient {
 		
 		private final Log log = LogFactory.getLog(RmiInvocationHandler.class);
 		private RMIService rmiService;
+		private String clientId = UUID.randomUUID().toString();
 		
 		@Override
 		public Object invoke(Object proxy, Method method, Object[] args)
@@ -106,7 +108,7 @@ public class RMIClient {
 		}
 		
 		private String getClient() {
-			return "clientabc";
+			return clientId;
 		}
 		
 		/**

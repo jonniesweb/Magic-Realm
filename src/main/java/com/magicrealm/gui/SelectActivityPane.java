@@ -24,7 +24,7 @@ import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.TileClearingLocation;
 
-public class SelectActivityPane extends JPanel{
+public class SelectActivityPane extends JPanel {
 	
 	private ActivityButton move;
 	private ActivityButton hide;
@@ -47,13 +47,17 @@ public class SelectActivityPane extends JPanel{
 		move = new ActivityButton("Move", ActivityType.MOVE);
 		move.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(!ClientGameState.getInstance().getCharacter().isCheatModeEnabled()) {
-					TileClearingLocation futureLocation = ClientGameState.getInstance().getActivities().getClearing();
-					TileClearing futureClearing = ClientGameState.getInstance().getModel().getClearing(futureLocation);
+				ClientGameState instance = ClientGameState.getInstance();
+				
+				if(!instance.getCharacter().isCheatModeEnabled()) {
+					TileClearingLocation futureLocation = instance.getActivities().getClearing();
+					TileClearing futureClearing = instance.getModel().getClearing(futureLocation);
+					
 					ArrayList<TileClearingLocation> locations = new ArrayList<TileClearingLocation>();
-					for(TileClearing tc: futureClearing.getPlayerConnectedClearings(ClientGameState.getInstance().getCharacter())) {
-						locations.add(ClientGameState.getInstance().getModel().getTileClearingLocation(tc));
+					for(TileClearing tc: futureClearing.getPlayerConnectedClearings(instance.getCharacter())) {
+						locations.add(instance.getModel().getTileClearingLocation(tc));
 					}
+					
 					SimpleSelection clearing = new SimpleSelection(locations.toArray(new TileClearingLocation[0]), "Select a clearing");
 					selectedClearing = (TileClearingLocation) clearing.getSelected();
 				}

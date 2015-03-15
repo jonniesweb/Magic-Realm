@@ -1,7 +1,10 @@
 package com.magicrealm.client;
 
+import javax.swing.JFrame;
+
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.gui.BoardView;
+import com.magicrealm.gui.StartGameFrame;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.INet;
@@ -15,6 +18,7 @@ private static ClientGameState instance;
 	private BoardView view;
 	private INet service;
 	private BirdsongActivities activities;
+	private JFrame startGameFrame;
 	
 	public ClientGameState() {
 	}
@@ -66,6 +70,15 @@ private static ClientGameState instance;
 
 	public void setActivities(BirdsongActivities activities) {
 		this.activities = activities;
+	}
+
+
+	public void setStartGameFrame(StartGameFrame startGameFrame) {
+		this.startGameFrame = startGameFrame;
+	}
+	
+	public JFrame getStartGameFrame() {
+		return startGameFrame;
 	}
 	
 
