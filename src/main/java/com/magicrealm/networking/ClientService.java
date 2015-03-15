@@ -50,11 +50,12 @@ public class ClientService implements IClientService {
 	@Override
 	public void birdsongStarted(MagicRealmHexEngineModel model) {
 		gameState.setModel(model);
+		sendMessage("Birdsong has begun");
 	}
 
 	@Override
 	public void daylightStarted() {
-		
+		sendMessage("Daylight has begun");
 	}
 	
 	@Override

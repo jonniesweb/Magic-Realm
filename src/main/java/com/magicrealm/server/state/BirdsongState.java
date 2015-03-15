@@ -24,7 +24,6 @@ public class BirdsongState extends ServerState {
 		// notify clients of birdsong
 		for (IClientService service : getGameState().getClientServices()) {
 			service.birdsongStarted(getGameState().getBoard());
-			service.sendMessage("Birdsong has begun");
 		}
 	}
 	
@@ -45,7 +44,7 @@ public class BirdsongState extends ServerState {
 		if (this.activities.size() == getGameState().getNumberOfPlayers()) {
 			DaylightState state = new DaylightState(getGameState(), this.activities);
 			getGameState().setState(state);
-			state.runActivities();
+			state.init();
 		}
 	}
 	

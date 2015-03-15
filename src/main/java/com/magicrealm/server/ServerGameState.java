@@ -10,6 +10,9 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.IClientService;
@@ -21,6 +24,7 @@ import com.magicrealm.server.state.ServerState;
  */
 public class ServerGameState {
 	
+	private final Log log = LogFactory.getLog(ServerGameState.class);
 	private static ServerGameState instance;
 	
 	private MagicRealmHexEngineModel board;
@@ -95,7 +99,9 @@ public class ServerGameState {
 	}
 	
 	public void setState(ServerState state) {
+		ServerState old = this.state;
 		this.state = state;
+		log.info("Switching state from " + old + " to " + state);
 	}
 
 	public void addClientService(String clientId, IClientService service) {

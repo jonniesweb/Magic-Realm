@@ -53,8 +53,8 @@ public class BoardView implements Observer {
 		gameState.getPcs().addPropertyChangeListener("model", new PropertyChangeListener() {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
-				// call updateModel
-				updateModel(BoardView.this.model);
+				// call updateModel with the new model from gamestate
+				updateModel(BoardView.this.gameState.getModel());
 			}
 		});
 		
