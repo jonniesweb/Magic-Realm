@@ -2,10 +2,8 @@ package com.magicrealm.utils;
 
 import java.util.Random;
 
-import com.magicrealm.GameState;
 import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.tables.Loot;
 
 public abstract class ProbabilityCalculator {
 	

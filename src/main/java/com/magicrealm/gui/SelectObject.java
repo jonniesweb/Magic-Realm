@@ -5,8 +5,6 @@ import java.awt.BorderLayout;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-import com.magicrealm.models.ActionChit;
-
 public class SelectObject extends JPanel {
 	
 	private JComboBox<Object> objBox;

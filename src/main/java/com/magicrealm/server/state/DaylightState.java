@@ -7,10 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.magicrealm.activity.Activity;
-import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.BirdsongActivities;
-import com.magicrealm.networking.ClientService;
-import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
 
 public class DaylightState extends ServerState {
@@ -38,6 +35,10 @@ public class DaylightState extends ServerState {
 				activity.execute(getGameState(), clientId);
 			}
 		}
+		
+		BirdsongState birdsongState = new BirdsongState(getGameState());
+		getGameState().setState(birdsongState);
+		birdsongState.init();
 		
 	}
 	

@@ -3,8 +3,8 @@ package com.magicrealm.models.board;
 import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.tiles.GameTile;
-import com.magicrealm.models.tiles.NormalMapChitPlacementStrategy;
 import com.magicrealm.models.tiles.GameTile.TileType;
+import com.magicrealm.models.tiles.NormalMapChitPlacementStrategy;
 import com.magicrealm.models.treasure.BasicTreasaurePlacementStrategy;
 
 public class DefaultMagicRealmHexEngineModel extends MagicRealmHexEngineModel {

@@ -1,7 +1,6 @@
 package com.magicrealm.tables;
 
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.utils.GameLog;
 
 public class Peer extends Table {
 	

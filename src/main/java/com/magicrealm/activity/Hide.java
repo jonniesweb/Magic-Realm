@@ -3,7 +3,6 @@ package com.magicrealm.activity;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.utils.GameLog;
 import com.magicrealm.utils.ProbabilityCalculator;
 
 public class Hide extends Activity {

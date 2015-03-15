@@ -2,16 +2,11 @@ package com.magicrealm.tables;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.magicrealm.GameState;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Discoverable;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.treasure.TreasureChit;
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.utils.GameLog;
 
 public class Loot extends Table {
 	

@@ -5,12 +5,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.chits.ClearingMapChit;
-import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.tiles.TileClearing.ClearingType;
 

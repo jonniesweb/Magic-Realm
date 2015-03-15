@@ -7,11 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -23,11 +20,8 @@ import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
 
-import com.igormaznitsa.jhexed.engine.DefaultIntegerHexModel;
 import com.igormaznitsa.jhexed.engine.HexEngine;
-import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
-import com.magicrealm.GameState;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;

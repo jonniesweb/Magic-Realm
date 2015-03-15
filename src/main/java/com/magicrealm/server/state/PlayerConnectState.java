@@ -1,7 +1,6 @@
 package com.magicrealm.server.state;
 
 import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
-import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
 
 public class PlayerConnectState extends ServerState {

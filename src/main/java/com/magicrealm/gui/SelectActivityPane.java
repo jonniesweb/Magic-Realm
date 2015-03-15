@@ -2,10 +2,8 @@ package com.magicrealm.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -16,7 +14,6 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
-import com.magicrealm.GameState;
 import com.magicrealm.activity.Activity.ActivityType;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.tiles.GameTile;

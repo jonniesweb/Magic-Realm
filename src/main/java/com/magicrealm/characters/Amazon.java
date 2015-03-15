@@ -3,10 +3,8 @@ package com.magicrealm.characters;
 import java.awt.Image;
 
 import com.magicrealm.models.ActionChit;
-import com.magicrealm.models.Dwelling;
-import com.magicrealm.models.Weight;
-import com.magicrealm.models.ActionChit.Action;
 import com.magicrealm.models.Dwelling.dwelling;
+import com.magicrealm.models.Weight;
 import com.magicrealm.models.weapons.ShortSword;
 import com.magicrealm.utils.ImageCache;
 

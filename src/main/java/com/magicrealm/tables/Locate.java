@@ -2,7 +2,6 @@ package com.magicrealm.tables;
 
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.utils.GameLog;
 
 public class Locate extends Table {
 

@@ -13,7 +13,6 @@ import java.util.Set;
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.HexEngineModel;
 import com.igormaznitsa.jhexed.engine.misc.HexPosition;
-import com.magicrealm.GameState;
 import com.magicrealm.models.Dwelling;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Placeable;
@@ -331,11 +330,6 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		}
 		
 		return list;
-	}
-	
-	@Deprecated
-	public TileClearing getCharacterClearing() {
-		return getChitClearing(GameState.getInstance().getCharacter());
 	}
 	
 	public GameTile getTileFromClearing(TileClearing clearing) {

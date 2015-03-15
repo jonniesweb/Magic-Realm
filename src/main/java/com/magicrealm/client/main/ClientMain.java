@@ -8,14 +8,8 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
-import com.magicrealm.exceptions.GameAlreadyStartedException;
-import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SelectCharacter;
 import com.magicrealm.gui.StartGameFrame;
-import com.magicrealm.models.BirdsongActivities;
-import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
-import com.magicrealm.models.board.MagicRealmHexEngineModel;
-import com.magicrealm.networking.INet;
 import com.magicrealm.networking.RMIClient;
 
 public class ClientMain {
@@ -24,8 +18,6 @@ public class ClientMain {
 	
 	public static void main(String[] args) {
 		ClientGameState instance = ClientGameState.getInstance();
-		instance.setModel(new DefaultMagicRealmHexEngineModel(0, 0));
-		
 		RMIClient rmiClient = new RMIClient("localhost", 1099);
 		rmiClient.start();
 		instance.setService(rmiClient.getService());

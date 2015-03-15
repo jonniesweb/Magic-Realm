@@ -7,11 +7,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.magicrealm.GameState;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Discoverable;
 import com.magicrealm.models.Placeable;
-import com.magicrealm.models.tiles.GameTile.TileType;
 
 public class TileClearing implements Serializable, Discoverable {
 	
@@ -90,15 +88,6 @@ public class TileClearing implements Serializable, Discoverable {
 		return secretPath;
 	}
 	
-	@Deprecated
-	public TileClearing[] getPlayerConnectedClearings() {
-		Set<TileClearing> clearings = getConnectedClearings();
-		if(GameState.getInstance().getCharacter().getDiscoveries().contains(secretPath)) {
-			clearings.add(secretPath);
-		}
-		return clearings.toArray(new TileClearing[0]);
-	}
-	
 	public TileClearing[] getPlayerConnectedClearings(MRCharacter player) {
 		Set<TileClearing> clearings = getConnectedClearings();
 		if(player.getDiscoveries().contains(secretPath)) {
@@ -125,11 +114,6 @@ public class TileClearing implements Serializable, Discoverable {
 
 	public ClearingType getClearingType() {
 		return clearingType;
-	}
-	
-	public String toString() {
-		TileType t = GameState.getInstance().getModel().getTileFromClearing(this).getTileType();
-		return t.name()+getClearingNumber()+"";
 	}
 	
 }

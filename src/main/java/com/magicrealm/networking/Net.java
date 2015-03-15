@@ -3,13 +3,11 @@ package com.magicrealm.networking;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.magicrealm.activity.Activity;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.characters.MRCharacter.character;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;

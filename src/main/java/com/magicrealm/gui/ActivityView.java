@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import com.magicrealm.GameState;
 import com.magicrealm.activity.Activity;
 import com.magicrealm.activity.Move;
 import com.magicrealm.client.ClientGameState;
