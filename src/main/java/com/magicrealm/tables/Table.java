@@ -1,15 +1,11 @@
 package com.magicrealm.tables;
 
-import com.magicrealm.GameState;
 import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.tiles.TileClearing.ClearingType;
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.utils.GameLog;
 import com.magicrealm.utils.ProbabilityCalculator.Result;
-import com.magicrealm.utils.TileClearingLocation;
 
 public abstract class Table implements TableMethods {
 	
@@ -64,9 +60,9 @@ public abstract class Table implements TableMethods {
 		TileClearing secret = getClearing().getConnectedSecretClearing();
 		if(secret != null) {
 			getGameState().getCharacter(getClientId()).addDiscovery(secret);
-			GameLog.log("You Discovered a secret path, this path is now accessible");
+			gameState.getClientService(clientId).sendMessage("You Discovered a secret path, this path is now accessible");
 		} else {
-			GameLog.log("no secret paths");
+			gameState.getClientService(clientId).sendMessage("no secret paths");
 		}
 	}
 	
@@ -82,14 +78,14 @@ public abstract class Table implements TableMethods {
 	public void clues() {
 		ClearingMapChit chit = getChitAtLocation();
 		if(chit != null) {			
-			GameLog.log("You found clues of " + chit.getType());
+			gameState.getClientService(clientId).sendMessage("You found clues of " + chit.getType());
 		} else {
-			GameLog.log("You found nothing of value");
+			gameState.getClientService(clientId).sendMessage("You found nothing of value");
 		}
 	}
 	
 	public void nothing() {
-		GameLog.log("Nothing");
+		gameState.getClientService(clientId).sendMessage("Nothing");
 	}
 	
 	public String toString() {

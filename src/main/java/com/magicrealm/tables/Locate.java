@@ -32,9 +32,9 @@ public class Locate extends Table {
 		ClearingMapChit chit = getChitAtLocation();
 		if(chit != null) {
 			getGameState().getCharacter(getClientId()).addDiscovery(chit);
-			GameLog.log("You discovered site " + chit.getType());
+			getGameState().getClientService(getClientId()).sendMessage("You discovered site " + chit.getType());
 		} else {
-			GameLog.log("You found nothing of value");
+			getGameState().getClientService(getClientId()).sendMessage("You found nothing of value");
 		}
 	}
 

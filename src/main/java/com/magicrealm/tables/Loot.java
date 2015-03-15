@@ -18,8 +18,6 @@ public class Loot extends Table {
 	public Loot(ServerGameState gameState, String clientId) {
 		super(gameState, clientId);
 	}
-
-	private Log log = LogFactory.getLog(Loot.class);
 	
 	@Override
 	public void one() {
@@ -69,13 +67,12 @@ public class Loot extends Table {
 		for (Discoverable disc : character.getDiscoveries()) {
 			if (getChitAtLocation() != null && getChitAtLocation().equals(disc) && disc instanceof SiteChit) {
 				site = (SiteChit) getChitAtLocation();
-				log.info("found site chit at characters location " + site);
 				break;
 			}
 		}
 		
 		if (site == null) {
-			GameLog.log("Noting found when Looting", "did not find a site chit when looting");
+			getGameState().getClientService(getClientId()).sendMessage("Noting found when Looting");
 			return;
 		}
 		
@@ -92,7 +89,7 @@ public class Loot extends Table {
 			character.setGold(character.getGold() + treasure.getGold());
 		}
 		
-		GameLog.log("Looted " + treasure.getGold() + " gold", "found treasure: " + treasure.getGold() + " " + treasure);
+		getGameState().getClientService(getClientId()).sendMessage("Looted " + treasure.getGold() + " gold");
 	}
 	
 }

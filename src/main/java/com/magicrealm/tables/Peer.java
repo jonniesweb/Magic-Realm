@@ -28,7 +28,7 @@ public class Peer extends Table {
 
 	@Override
 	public void four() {
-		GameLog.log("No hidden enemies here");
+		getGameState().getClientService(getClientId()).sendMessage("No hidden enemies here");
 	}
 
 	@Override
