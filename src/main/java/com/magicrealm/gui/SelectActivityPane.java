@@ -14,6 +14,7 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import com.magicrealm.activity.Activity;
 import com.magicrealm.activity.Activity.ActivityType;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.tiles.GameTile;
@@ -23,10 +24,6 @@ import com.magicrealm.utils.TileClearingLocation;
 
 public class SelectActivityPane extends JPanel {
 	
-	private ActivityButton move;
-	private ActivityButton hide;
-	private ActivityButton search;
-	private ActivityButton rest;
 	private ActivityGroup group;
 	private JPanel activityButtons;
 	private JComboBox<String> tileBox;
@@ -41,39 +38,35 @@ public class SelectActivityPane extends JPanel {
 		activityButtons = new JPanel();
 		activityButtons.setLayout(new GridLayout(1, 5));
 		
-		move = new ActivityButton("Move", ActivityType.MOVE);
-		move.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ClientGameState instance = ClientGameState.getInstance();
-				
-				if(!instance.getCharacter().isCheatModeEnabled()) {
-					TileClearingLocation futureLocation = instance.getActivities().getClearing();
-					TileClearing futureClearing = instance.getModel().getClearing(futureLocation);
-					
-					ArrayList<TileClearingLocation> locations = new ArrayList<TileClearingLocation>();
-					for(TileClearing tc: futureClearing.getPlayerConnectedClearings(instance.getCharacter())) {
-						locations.add(instance.getModel().getTileClearingLocation(tc));
+		ArrayList<ActivityButton> activities = new ArrayList<SelectActivityPane.ActivityButton>();
+		
+		ActivityType[] activityTypes = Activity.ActivityType.values();
+		
+		ActivityButton ab;
+		for(ActivityType at: activityTypes) {
+			ab = new ActivityButton(at.name().toLowerCase(), at);
+			if(at == ActivityType.MOVE)
+				ab.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ClientGameState instance = ClientGameState.getInstance();
+						
+						if(!instance.getCharacter().isCheatModeEnabled()) {
+							TileClearingLocation futureLocation = instance.getActivities().getClearing();
+							TileClearing futureClearing = instance.getModel().getClearing(futureLocation);
+							
+							ArrayList<TileClearingLocation> locations = new ArrayList<TileClearingLocation>();
+							for(TileClearing tc: futureClearing.getPlayerConnectedClearings(instance.getCharacter())) {
+								locations.add(instance.getModel().getTileClearingLocation(tc));
+							}
+							
+							SimpleSelection clearing = new SimpleSelection(locations.toArray(new TileClearingLocation[0]), "Select a clearing");
+							selectedClearing = (TileClearingLocation) clearing.getSelected();
+						}
 					}
-					
-					SimpleSelection clearing = new SimpleSelection(locations.toArray(new TileClearingLocation[0]), "Select a clearing");
-					selectedClearing = (TileClearingLocation) clearing.getSelected();
-				}
-			}
-		});
-		group.add(move);
-		activityButtons.add(move);
-		
-		hide = new ActivityButton("Hide", ActivityType.HIDE);
-		group.add(hide);
-		activityButtons.add(hide);
-		
-		search = new ActivityButton("Search", ActivityType.SEARCH);
-		group.add(search);
-		activityButtons.add(search);
-		
-		rest = new ActivityButton("Rest", ActivityType.REST);
-		group.add(rest);
-		activityButtons.add(rest);
+				});
+			group.add(ab);
+			activityButtons.add(ab);
+		}
 		
 		this.add(activityButtons, BorderLayout.NORTH);
 			
