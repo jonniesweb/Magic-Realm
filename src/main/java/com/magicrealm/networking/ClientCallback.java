@@ -35,7 +35,7 @@ public class ClientCallback extends UnicastRemoteObject implements RMIService {
 						+ methodName + "] with values [" + args + "]");
 			}
 			
-			IClientService service = new ClientService(ClientGameState.getInstance());
+			IClientService service = getClientService();
 			
 			Method method = service.getClass().getMethod(methodName, methodParameterTypes);
 			return method.invoke(service, args);
@@ -56,6 +56,10 @@ public class ClientCallback extends UnicastRemoteObject implements RMIService {
 				throw e;
 			}
 		}
+	}
+
+	protected IClientService getClientService() throws RemoteException {
+		return new ClientService(ClientGameState.getInstance());
 	}
 	
 }
