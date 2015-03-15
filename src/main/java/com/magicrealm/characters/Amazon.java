@@ -15,6 +15,7 @@ public class Amazon extends MRCharacter {
 		name = "Amazon";
 		vulnerability = Weight.MEDIUM;
 		weapons.add(new ShortSword());
+		weapons.get(0).activate();
 		setupActionChits();
 	}
 	
