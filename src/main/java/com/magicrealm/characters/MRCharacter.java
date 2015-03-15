@@ -12,6 +12,7 @@ import com.magicrealm.models.Placeable;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.weapons.Weapon;
+import com.magicrealm.server.ServerGameState;
 
 public abstract class MRCharacter implements Serializable, Placeable {
 	
@@ -141,6 +142,11 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		return pcs;
 	}
 
+	
+	/**
+	 * @return
+	 * @deprecated Use {@link ServerGameState#isCheatMode()} instead
+	 */
 	public boolean isCheatModeEnabled() {
 		return cheatModeEnabled;
 	}

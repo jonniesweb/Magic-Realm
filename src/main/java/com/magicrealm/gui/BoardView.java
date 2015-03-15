@@ -20,6 +20,9 @@ import javax.swing.JScrollPane;
 
 import net.miginfocom.swing.MigLayout;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
 import com.magicrealm.characters.MRCharacter;
@@ -30,12 +33,32 @@ public class BoardView implements Observer {
 
 	private MagicRealmHexEngineModel model;
 	private ConsoleLog consoleLogFrame = new ConsoleLog();
+	private HexEngine<Graphics2D> engine;
 	private JComponent gameboardComponent;
 	private JLabel lblGold = new JLabel("Gold");
+	private final Log log = LogFactory.getLog(BoardView.class);
+	private ClientGameState gameState;
 	
-	public BoardView(MagicRealmHexEngineModel model) {
+	/**
+	 * View for the Client.
+	 * It is assumed that the model exists at the creation of this object.
+	 * @param gameState
+	 * @param model
+	 */
+	public BoardView(ClientGameState gameState, MagicRealmHexEngineModel model) {
+		this.gameState = gameState;
 		this.model = model;
-		model.addObserver(this);
+		
+		// set property change support for the ClientGameState's model
+		gameState.getPcs().addPropertyChangeListener("model", new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				// call updateModel
+				updateModel(BoardView.this.model);
+			}
+		});
+		
+		// init the view
 		run();
 	}
 
@@ -45,7 +68,7 @@ public class BoardView implements Observer {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout());
 
-		final HexEngine<Graphics2D> engine = new HexEngine<Graphics2D>(200, 200, 0.25f, HexEngine.ORIENTATION_HORIZONTAL);
+		engine = new HexEngine<Graphics2D>(200, 200, 0.25f, HexEngine.ORIENTATION_HORIZONTAL);
 		engine.setModel(model);
 		
 		engine.setRenderer(new HexImageRenderer());
@@ -119,9 +142,19 @@ public class BoardView implements Observer {
 		frame.setVisible(true);
 	}
 
+	/* 
+	 * Repaints the gameboard
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		engine.setModel(model);
 		gameboardComponent.repaint();
-		
+		log.debug("Repainting the gameboard");
+	}
+	
+	public void updateModel(MagicRealmHexEngineModel model) {
+		log.debug("updating the model");
+		this.model = model;
+		update(null, null);
 	}
 }

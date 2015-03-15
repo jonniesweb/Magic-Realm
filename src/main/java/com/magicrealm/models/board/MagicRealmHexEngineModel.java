@@ -189,7 +189,7 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		moveChitTo(location.getTileType(), location.getClearingNumber(), placeable);
 	}
 	
-	public void moveChitTo(TileType tile, int clearingNumber, Placeable placeable) {
+	private void moveChitTo(TileType tile, int clearingNumber, Placeable placeable) {
 		removeChit(placeable);
 		placeChit(tile, clearingNumber, placeable);
 		this.updateUI();

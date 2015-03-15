@@ -1,5 +1,7 @@
 package com.magicrealm.client;
 
+import java.beans.PropertyChangeSupport;
+
 import javax.swing.JFrame;
 
 import com.magicrealm.characters.MRCharacter;
@@ -19,6 +21,7 @@ private static ClientGameState instance;
 	private INet service;
 	private BirdsongActivities activities;
 	private JFrame startGameFrame;
+	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	
 	public ClientGameState() {
 	}
@@ -35,7 +38,10 @@ private static ClientGameState instance;
 	}
 
 	public void setModel(MagicRealmHexEngineModel model) {
+		MagicRealmHexEngineModel old = this.model;
 		this.model = model;
+		// update the view on change
+		pcs.firePropertyChange("model", old, model);
 	}
 	
 	public MRCharacter getCharacter() {
@@ -43,7 +49,9 @@ private static ClientGameState instance;
 	}
 	
 	public void setCharacter(MRCharacter character) {
+		MRCharacter old = this.character;
 		this.character = character;
+		pcs.firePropertyChange("character", old, character);
 	}
 
 	public BoardView getView() {
@@ -80,6 +88,9 @@ private static ClientGameState instance;
 	public JFrame getStartGameFrame() {
 		return startGameFrame;
 	}
-	
 
+
+	public PropertyChangeSupport getPcs() {
+		return pcs;
+	}
 }

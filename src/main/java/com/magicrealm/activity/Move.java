@@ -1,5 +1,6 @@
 package com.magicrealm.activity;
 
+import com.magicrealm.characters.Amazon;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.TileClearingLocation;
@@ -20,7 +21,7 @@ public class Move extends Activity {
 		if (!gameState.isCheatMode()) {
 			// TODO: validate move, throw exception if invalid
 		}
-		gameState.getBoard().moveChitTo(location.getTileType(), location.getClearingNumber(), character);
+		gameState.getBoard().moveChitTo(location, character);
 	}
 	
 	public TileClearingLocation getLocation() {

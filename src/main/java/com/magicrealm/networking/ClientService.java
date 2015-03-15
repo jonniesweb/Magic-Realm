@@ -35,23 +35,21 @@ public class ClientService implements IClientService {
 	
 	@Override
 	public void gameStarted(MagicRealmHexEngineModel model) {
-			/*
-			 * Client is waiting for the game to start. 
-			 */
 			// hide the StartGameFrame if its open
 		if (getGameState().getStartGameFrame() != null)
-			getGameState().getStartGameFrame().dispose();
+			getGameState().getStartGameFrame().setVisible(false);
 		
 		// show the board
-		gameState.setView(new BoardView(model));
 		gameState.setModel(model);
-		
+		gameState.setView(new BoardView(getGameState(), model));
+
+		// initialize the birdsong activities
 		getGameState().setActivities(new BirdsongActivities(model.getChitLocation(getGameState().getCharacter())));
 	}
 
 	@Override
-	public void birdsongStarted() {
-		
+	public void birdsongStarted(MagicRealmHexEngineModel model) {
+		gameState.setModel(model);
 	}
 
 	@Override

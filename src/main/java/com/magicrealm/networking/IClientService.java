@@ -19,8 +19,9 @@ public interface IClientService {
 	public void gameStarted(MagicRealmHexEngineModel model);
 	/**
 	 * Notify the client that the birdsong stage has started
+	 * @param model 
 	 */
-	public void birdsongStarted();
+	public void birdsongStarted(MagicRealmHexEngineModel model);
 
 	/**
 	 * Notify the client that the daylight stage has started

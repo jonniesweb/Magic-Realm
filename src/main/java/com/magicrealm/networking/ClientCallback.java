@@ -25,6 +25,9 @@ public class ClientCallback extends UnicastRemoteObject implements RMIService {
 	@Override
 	public Object invoke(String methodName, Class<?>[] methodParameterTypes,
 			Object[] args, String client) throws Throwable {
+		if (methodName.equals("hashcode")) {
+			System.out.println();
+		}
 		try {
 			// log method call
 			if (log.isDebugEnabled()) {

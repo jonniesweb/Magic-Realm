@@ -21,18 +21,9 @@ public class BirdsongState extends ServerState {
 	}
 
 	public void init() {
-		// place the characters
-		Set<MRCharacter> characters = getGameState().getCharacters();
-		MagicRealmHexEngineModel board = getGameState().getBoard();
-		Map<dwelling, TileClearingLocation> dwellingLocations = board.getDwellingLocations();
-		for (MRCharacter c : characters) {
-			board.placeChit(dwellingLocations.get(c.getStartingLocation()), c);
-		}
-		
 		// notify clients of birdsong
 		for (IClientService service : getGameState().getClientServices()) {
-			service.gameStarted(board);
-			service.birdsongStarted();
+			service.birdsongStarted(getGameState().getBoard());
 			service.sendMessage("Birdsong has begun");
 		}
 	}

@@ -46,10 +46,15 @@ public class ActivityView extends JPanel {
 		execute = new JButton ("Daylight");
 		execute.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				instance.getService().setActivities(instance.getActivities());
-				// for the future if needed
-//				ClientGameState.getInstance().setActivities(null);
-				clearActivities();
+				new Thread(new Runnable() {
+					public void run() {
+						instance.getService().setActivities(
+								instance.getActivities());
+						// for the future if needed
+						//				ClientGameState.getInstance().setActivities(null);
+						clearActivities();
+					}
+				}).start();
 			}
 		});
 		

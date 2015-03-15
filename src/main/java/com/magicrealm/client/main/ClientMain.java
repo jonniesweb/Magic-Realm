@@ -10,6 +10,7 @@ import com.magicrealm.client.ClientGameState;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.gui.SelectCharacter;
 import com.magicrealm.gui.StartGameFrame;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.RMIClient;
 
 public class ClientMain {
@@ -45,7 +46,6 @@ public class ClientMain {
 //		instance.getModel().placeChit(selectCharacter.getTileType(), 5, instance.getCharacter());
 		MRCharacter character = instance.getService().setStartingLocationForCharacter(selectCharacter.getStartingLocation());
 		instance.setCharacter(character);
-		instance.getModel().updateUI();
 		
 		// show the waiting for players/start game window
 		StartGameFrame startGameFrame = new StartGameFrame(instance);
