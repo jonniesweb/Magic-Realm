@@ -18,8 +18,9 @@ public class PlayerConnectState extends ServerState {
 		getGameState().setBoard(new DefaultMagicRealmHexEngineModel(0, 0));
 		
 		// set state to birdsong
-		getGameState().setState(new BirdsongState(getGameState()));
-		
+		BirdsongState state = new BirdsongState(getGameState());
+		getGameState().setState(state);
+		state.init();
 	}
 	
 }

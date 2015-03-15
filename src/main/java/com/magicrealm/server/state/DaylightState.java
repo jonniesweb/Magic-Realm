@@ -17,11 +17,6 @@ public class DaylightState extends ServerState {
 	public DaylightState(ServerGameState instance, Map<String, BirdsongActivities> activities) {
 		super(instance);
 		this.activities = activities;
-		for (IClientService iterable_element : ServerGameState.getInstance().getClientServices()) {
-			iterable_element.clientSelect(new String[]{"dog", "cat", "raccooon"}, "choose rodent");
-		}
-		
-		runActivities();
 	}
 	
 	/**

@@ -24,7 +24,7 @@ public class Search extends Activity {
 		IClientService clientService = gameState.getClientService(clientId);
 
 		search selectedSearch = (search) clientService.clientSelect(search.values(), "Select a search method");
-		Table table = getTableFromSearchType(selectedSearch);
+		Table table = getTableFromSearchType(selectedSearch, gameState, clientId);
 		Result result = ProbabilityCalculator.getResult();
 		
 		if(result == Result.ONE && !(table instanceof Loot)) {
@@ -48,14 +48,14 @@ public class Search extends Activity {
 //		}
 	}
 
-	private Table getTableFromSearchType(search selectedSearch) {
+	private Table getTableFromSearchType(search selectedSearch, ServerGameState state, String clientId) {
 		switch (selectedSearch) {
 		case Locate:
-			return new Locate();
+			return new Locate(state, clientId);
 		case Loot:
-			return new Loot();
+			return new Loot(state, clientId);
 		case Peer:
-			return new Peer();
+			return new Peer(state, clientId);
 		default:
 			throw new RuntimeException("unable to create table for search type " + selectedSearch); 
 		}

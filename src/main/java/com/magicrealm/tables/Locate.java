@@ -2,9 +2,14 @@ package com.magicrealm.tables;
 
 import com.magicrealm.GameState;
 import com.magicrealm.models.chits.ClearingMapChit;
+import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.GameLog;
 
 public class Locate extends Table {
+
+	public Locate(ServerGameState gameState, String clientId) {
+		super(gameState, clientId);
+	}
 
 	@Override
 	public void one() {

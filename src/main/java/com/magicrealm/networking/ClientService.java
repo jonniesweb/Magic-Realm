@@ -3,6 +3,7 @@ package com.magicrealm.networking;
 import java.rmi.RemoteException;
 
 import com.magicrealm.client.ClientGameState;
+import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.utils.GameLog;
@@ -30,7 +31,15 @@ public class ClientService implements IClientService {
 	public int getDiceRoll() {
 		return 0;
 	}
-
+	
+	@Override
+	public void gameStarted(MagicRealmHexEngineModel model) {
+		/*
+		 * Client is waiting for the game to start. 
+		 */
+		gameState.setView(new BoardView(model));
+		gameState.setModel(model);
+	}
 
 	@Override
 	public void birdsongStarted() {

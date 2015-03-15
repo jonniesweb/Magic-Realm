@@ -10,10 +10,15 @@ import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Discoverable;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.treasure.TreasureChit;
+import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.GameLog;
 
 public class Loot extends Table {
 	
+	public Loot(ServerGameState gameState, String clientId) {
+		super(gameState, clientId);
+	}
+
 	private Log log = LogFactory.getLog(Loot.class);
 	
 	@Override

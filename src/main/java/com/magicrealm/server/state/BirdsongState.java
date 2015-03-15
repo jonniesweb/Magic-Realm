@@ -18,10 +18,12 @@ public class BirdsongState extends ServerState {
 
 	public BirdsongState(ServerGameState instance) {
 		super(instance);
-		
+	}
+
+	public void init() {
 		// place the characters
-		Set<MRCharacter> characters = instance.getCharacters();
-		MagicRealmHexEngineModel board = instance.getBoard();
+		Set<MRCharacter> characters = getGameState().getCharacters();
+		MagicRealmHexEngineModel board = getGameState().getBoard();
 		Map<dwelling, TileClearingLocation> dwellingLocations = board.getDwellingLocations();
 		for (MRCharacter c : characters) {
 			board.placeChit(dwellingLocations.get(c.getStartingLocation()), c);
@@ -29,6 +31,7 @@ public class BirdsongState extends ServerState {
 		
 		// notify clients of birdsong
 		for (IClientService service : getGameState().getClientServices()) {
+			service.gameStarted(board);
 			service.birdsongStarted();
 			service.sendMessage("Birdsong has begun");
 		}
@@ -49,7 +52,9 @@ public class BirdsongState extends ServerState {
 		 * state to a new one.
 		 */
 		if (this.activities.size() == getGameState().getNumberOfPlayers()) {
-			getGameState().setState(new DaylightState(getGameState(), this.activities));
+			DaylightState state = new DaylightState(getGameState(), this.activities);
+			getGameState().setState(state);
+			state.runActivities();
 		}
 	}
 	

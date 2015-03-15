@@ -1,9 +1,14 @@
 package com.magicrealm.tables;
 
+import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.GameLog;
 
 public class Peer extends Table {
 	
+	public Peer(ServerGameState gameState, String clientId) {
+		super(gameState, clientId);
+	}
+
 	@Override
 	public void one() {
 		nothing();

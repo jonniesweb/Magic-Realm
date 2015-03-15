@@ -14,6 +14,10 @@ public interface IClientService {
 	public int getDiceRoll();
 
 	/**
+	 * Notify the client that the game has started
+	 */
+	public void gameStarted(MagicRealmHexEngineModel model);
+	/**
 	 * Notify the client that the birdsong stage has started
 	 */
 	public void birdsongStarted();
