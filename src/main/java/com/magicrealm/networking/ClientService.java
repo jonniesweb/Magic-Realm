@@ -41,10 +41,14 @@ public class ClientService implements IClientService {
 		
 		// show the board
 		gameState.setModel(model);
-		gameState.setView(new BoardView(getGameState(), model));
+		setView(model);
 
 		// initialize the birdsong activities
 		getGameState().setActivities(new BirdsongActivities(model.getChitLocation(getGameState().getCharacter())));
+	}
+
+	protected void setView(MagicRealmHexEngineModel model) {
+		gameState.setView(new BoardView(getGameState(), model));
 	}
 
 	@Override

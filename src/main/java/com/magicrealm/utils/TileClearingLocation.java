@@ -44,4 +44,14 @@ public class TileClearingLocation implements Serializable {
 		return tileType.name()+clearingNumber;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof TileClearingLocation) {
+			TileClearingLocation other = (TileClearingLocation) obj;
+			return tileType.equals(other.tileType)
+					&& clearingNumber == other.clearingNumber;
+		} else
+			return false;
+	}
+	
 }

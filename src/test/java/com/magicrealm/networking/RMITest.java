@@ -3,36 +3,10 @@ package com.magicrealm.networking;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
-import java.rmi.RemoteException;
-import java.util.Random;
-import java.util.Set;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.magicrealm.server.ServerGameState;
-import com.magicrealm.utils.Config;
-
-public class RMITest {
-	
-	private static INet service;
-	private static Set<IClientService> clientService;
-
-	@BeforeClass
-	public static void setup() throws RemoteException {
-		Config.setTestMode(true);
-		
-		int port = new Random().nextInt(1000) + 60000;
-		RMIClient rmiClient = new RMIClient("localhost", port);
-		
-		RMIServer rmiServer = new RMIServer(port);
-		
-		rmiServer.start();
-		rmiClient.start();
-		
-		service = rmiClient.getService();
-		clientService = ServerGameState.getInstance().getClientServices();
-	}
+public class RMITest extends AbstractMRTest {
 	
 	/**
 	 * Creates a client and a server, then calls a few methods from the client.

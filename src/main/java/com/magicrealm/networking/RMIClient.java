@@ -49,10 +49,14 @@ public class RMIClient {
 		InvocationHandler handler = new RmiInvocationHandler();
 		setService((INet) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[] { INet.class }, handler));
 		try {
-			getService().setClientService(new ClientCallback());
+			getService().setClientService(getClientCallback());
 		} catch (RemoteException e) {
 			log.error("unable to send ClientService to server", e);
 		}
+	}
+
+	protected RMIService getClientCallback() throws RemoteException {
+		return new ClientCallback();
 	}
 	
 	public INet getService() {

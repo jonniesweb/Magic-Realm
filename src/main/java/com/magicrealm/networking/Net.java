@@ -129,7 +129,7 @@ class Net implements INet {
 	
 	/**
 	 * Set the callback object for calling methods to be invoked on the client's
-	 * side.
+	 * side. Automatically called by {@link RMIClient#start()}
 	 * @param service
 	 */
 	@Override
