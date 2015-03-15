@@ -24,42 +24,42 @@ public class Loot extends Table {
 	@Override
 	public void one() {
 		// take top treasure in pile
-		MRCharacter character = GameState.getInstance().getCharacter();
+		MRCharacter character = getGameState().getCharacter(getClientId());
 		takeTreasure(character, 1);
 	}
 
 	@Override
 	public void two() {
 		// take 2nd treasure in pile
-		MRCharacter character = GameState.getInstance().getCharacter();
+		MRCharacter character = getGameState().getCharacter(getClientId());
 		takeTreasure(character, 2);
 	}
 	
 	@Override
 	public void three() {
 		// take 3rd treasure in pile	
-		MRCharacter character = GameState.getInstance().getCharacter();
+		MRCharacter character = getGameState().getCharacter(getClientId());
 		takeTreasure(character, 3);
 	}
 	
 	@Override
 	public void four() {
 		// take 4th treasure in pile
-		MRCharacter character = GameState.getInstance().getCharacter();
+		MRCharacter character = getGameState().getCharacter(getClientId());
 		takeTreasure(character, 4);
 	}
 	
 	@Override
 	public void five() {
 		// take 5th treasure in pile
-		MRCharacter character = GameState.getInstance().getCharacter();
+		MRCharacter character = getGameState().getCharacter(getClientId());
 		takeTreasure(character, 5);
 	}
 	
 	@Override
 	public void six() {
 		// take 6th treasure in pile
-		MRCharacter character = GameState.getInstance().getCharacter();
+		MRCharacter character = getGameState().getCharacter(getClientId());
 		takeTreasure(character, 6);
 	}
 

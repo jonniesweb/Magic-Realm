@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.magicrealm.GameState;
 import com.magicrealm.gui.SimpleSelection;
+import com.magicrealm.server.ServerGameState;
 import com.magicrealm.tables.Loot;
 
 public abstract class ProbabilityCalculator {
@@ -19,12 +20,12 @@ public abstract class ProbabilityCalculator {
 	public static final int FOUR_PROBABILITY = 15;
 	public static final int FIVE_PROBABILITY = 24;
 	
-	public static boolean calculateHide() {
-		return getResult() != Result.SIX;
+	public static boolean calculateHide(String clientId) {
+		return getResult(clientId) != Result.SIX;
 	}
 	
-	public static Result getResult() {
-		if(GameState.getInstance().getCharacter().isCheatModeEnabled()) {
+	public static Result getResult(String clientId) {
+		if(ServerGameState.getInstance().getCharacter(clientId).isCheatModeEnabled()) {
 			Result[] choices = Result.values();
 			SimpleSelection selectResult = new SimpleSelection(choices, "Select A Result");
 			return (Result) selectResult.getSelected();

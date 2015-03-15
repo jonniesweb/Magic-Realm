@@ -17,7 +17,7 @@ public class Hide extends Activity {
 		MRCharacter character = gameState.getCharacter(clientId);
 		IClientService clientService = gameState.getClientService(clientId);
 		
-		if(ProbabilityCalculator.calculateHide()) {
+		if(ProbabilityCalculator.calculateHide(clientId)) {
 			character.hide();
 			clientService.sendMessage("Character Hidden");
 		}

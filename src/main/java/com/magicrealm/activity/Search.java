@@ -25,7 +25,7 @@ public class Search extends Activity {
 
 		search selectedSearch = (search) clientService.clientSelect(search.values(), "Select a search method");
 		Table table = getTableFromSearchType(selectedSearch, gameState, clientId);
-		Result result = ProbabilityCalculator.getResult();
+		Result result = ProbabilityCalculator.getResult(clientId);
 		
 		if(result == Result.ONE && !(table instanceof Loot)) {
 			Result[] choices = (table instanceof Loot) ? Result.values() : ProbabilityCalculator.getResultChoices();

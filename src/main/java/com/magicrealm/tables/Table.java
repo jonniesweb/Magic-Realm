@@ -1,6 +1,7 @@
 package com.magicrealm.tables;
 
 import com.magicrealm.GameState;
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.tiles.TileClearing;
@@ -8,6 +9,7 @@ import com.magicrealm.models.tiles.TileClearing.ClearingType;
 import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.GameLog;
 import com.magicrealm.utils.ProbabilityCalculator.Result;
+import com.magicrealm.utils.TileClearingLocation;
 
 public abstract class Table implements TableMethods {
 	
@@ -50,10 +52,10 @@ public abstract class Table implements TableMethods {
 	}
 	
 	public TileClearing getClearing() {
-		TileClearing playerTile = GameState.getInstance().getModel().getCharacterClearing();
+		MRCharacter character = getGameState().getCharacter(getClientId());
+		TileClearing playerTile = getGameState().getBoard().getChitClearing(character);
 		if((Object) this instanceof Peer && playerTile.getClearingType() == ClearingType.MOUNTAIN) {
-			SimpleSelection selectClearing = new SimpleSelection(playerTile.getPlayerConnectedClearings(), "Select A Clearing to Peer");
-			return (TileClearing) selectClearing.getSelected();
+			return (TileClearing) getGameState().getClientService(getClientId()).clientSelect(playerTile.getPlayerConnectedClearings(character), "Select A Clearing to Peer");
 		}
 		return playerTile;
 	}
@@ -61,7 +63,7 @@ public abstract class Table implements TableMethods {
 	public void secretPath() {
 		TileClearing secret = getClearing().getConnectedSecretClearing();
 		if(secret != null) {
-			GameState.getInstance().getCharacter().addDiscovery(secret);
+			getGameState().getCharacter(getClientId()).addDiscovery(secret);
 			GameLog.log("You Discovered a secret path, this path is now accessible");
 		} else {
 			GameLog.log("no secret paths");
@@ -69,7 +71,8 @@ public abstract class Table implements TableMethods {
 	}
 	
 	public ClearingMapChit getChitAtLocation() {
-		ClearingMapChit chit = GameState.getInstance().getModel().getChitTile(GameState.getInstance().getCharacter()).getSiteSoundChit();
+		MRCharacter character = getGameState().getCharacter(getClientId());
+		ClearingMapChit chit = getGameState().getBoard().getChitTile(character).getSiteSoundChit();
 		if(chit != null && chit.getClearing() == getClearing().getClearingNumber()) {			
 			return chit;
 		}

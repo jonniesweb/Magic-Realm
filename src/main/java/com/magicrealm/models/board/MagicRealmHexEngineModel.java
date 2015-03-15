@@ -333,6 +333,7 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return list;
 	}
 	
+	@Deprecated
 	public TileClearing getCharacterClearing() {
 		return getChitClearing(GameState.getInstance().getCharacter());
 	}
