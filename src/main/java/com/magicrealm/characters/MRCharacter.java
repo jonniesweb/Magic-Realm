@@ -34,11 +34,8 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	private dwelling startingLocation;
 	protected boolean hidden;
 	protected boolean blocked;
-	protected Weapon activeWeapon;
-	protected Armor activeSuit;
-	protected Armor activeHelmet;
-	protected Armor activeBreastplate;
-	protected Armor activeShield;
+	protected ArrayList<Weapon> weapons;
+	protected ArrayList<Armor> armors;
 	protected ArrayList<Activity> activities;
 //	private Person tradingRelationships;
 	private ArrayList<Discoverable> discoveries;
@@ -51,6 +48,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		moveChits = new ArrayList<ActionChit>();
 		activities = new ArrayList<Activity>();
 		discoveries = new ArrayList<Discoverable>();
+		weapons = new ArrayList<Weapon>();
 	}
 	
 	public void addActivity(Activity activity) {
@@ -86,12 +84,28 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	}
 
 	public Weapon getActiveWeapon() {
-		return activeWeapon;
+		for (Weapon weapon : weapons) {
+			if(weapon.isActive())
+				return weapon;
+		}
+		return null;
 	}
 
-	public void setActiveWeapon(Weapon activeWeapon) {
-		this.activeWeapon = activeWeapon;
-		this.activeWeapon.activate();
+	public void activateWeapon(Weapon activeWeapon) {
+		int i = weapons.indexOf(activeWeapon);
+		
+		if(i == -1)
+			return;
+		
+		Weapon newWep = weapons.get(i);
+
+		Weapon oldWep = getActiveWeapon();
+		if(oldWep != null) {
+			oldWep.sleep();
+			oldWep.deactivate();
+		}
+		newWep.activate();
+		newWep.sleep();
 	}
 
 	public ArrayList<ActionChit> getFightChits() {

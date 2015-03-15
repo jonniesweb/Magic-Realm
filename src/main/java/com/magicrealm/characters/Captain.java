@@ -14,8 +14,7 @@ public class Captain extends MRCharacter {
 		super(character.captain);
 		name = "Captain";
 		vulnerability = Weight.MEDIUM;
-		setActiveWeapon(new ShortSword());
-//		startingLocation =
+		weapons.add(new ShortSword());
 		setupActionChits();
 	}
 	
