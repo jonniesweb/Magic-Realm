@@ -14,8 +14,8 @@ public class Swordsman extends MRCharacter {
 		super(character.swordsman);
 		name = "Swordsman";
 		vulnerability = Weight.MEDIUM;
-		setActiveWeapon(new ThrustingSword());
-//		startingLocation =
+		weapons.add(new ThrustingSword());
+		weapons.get(0).activate();
 		setupActionChits();
 	}
 	

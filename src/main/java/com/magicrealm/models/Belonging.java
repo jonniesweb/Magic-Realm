@@ -13,5 +13,9 @@ public abstract class Belonging implements Serializable {
 	public void deactivate() {
 		this.active = false;
 	}
+	
+	public boolean isActive() {
+		return active;
+	}
 
 }

@@ -6,7 +6,7 @@ import com.magicrealm.gui.SelectActivityPane;
 
 public abstract class Activity implements Serializable, Executable {
 	
-	public enum ActivityType {MOVE, HIDE, REST, SEARCH};
+	public enum ActivityType {MOVE, HIDE, REST, SEARCH, ALERT};
 	public ActivityType activity;
 	
 	public static Activity buildActivity(ActivityType type, SelectActivityPane activity) {
@@ -19,6 +19,8 @@ public abstract class Activity implements Serializable, Executable {
 			return new Rest();
 		case SEARCH:
 			return new Search();
+		case ALERT:
+			return new Alert();
 		}
 		return null;
 	}
