@@ -14,9 +14,13 @@ public class Move extends Activity {
 	}
 	
 	@Override
-	public void execute(MRCharacter player) {
-		// TODO Auto-generated method stub
-		ServerGameState.getInstance().getBoard().moveChitTo(location.getTileType(), location.getClearingNumber(), player);
+	public void execute(ServerGameState gameState, String clientId) {
+		MRCharacter character = gameState.getCharacter(clientId);
+
+		if (!gameState.isCheatMode()) {
+			// TODO: validate move, throw exception if invalid
+		}
+		gameState.getBoard().moveChitTo(location.getTileType(), location.getClearingNumber(), character);
 	}
 	
 	public TileClearingLocation getLocation() {

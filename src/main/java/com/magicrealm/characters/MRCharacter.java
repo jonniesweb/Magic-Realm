@@ -57,12 +57,6 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		activities.add(activity);
 	}
 	
-	public int executeActivity() {
-		if(activities.size() > 0)
-			activities.remove(0).execute(this);
-		return activities.size();
-	}
-	
 	public void addDiscovery(Discoverable disc) {
 		discoveries.add(disc);
 	}

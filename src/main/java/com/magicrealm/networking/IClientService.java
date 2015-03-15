@@ -1,5 +1,7 @@
 package com.magicrealm.networking;
 
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
+
 
 /**
  * Operations to be invoked on the client-side.
@@ -30,4 +32,6 @@ public interface IClientService {
 	public Object clientSelect(Object[] objArray, String message);
 
 	public Object test(String string);
+
+	public void updateBoard(MagicRealmHexEngineModel board);
 }

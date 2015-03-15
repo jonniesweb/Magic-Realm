@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.gui.SimpleSelection;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.utils.GameLog;
 
 /**
@@ -57,4 +58,8 @@ public class ClientService implements IClientService {
 		return selectObj.getSelected();
 	}
 	
+	@Override
+	public void updateBoard(MagicRealmHexEngineModel board) {
+		gameState.setModel(board);
+	}
 }

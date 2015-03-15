@@ -1,8 +1,13 @@
 package com.magicrealm.server;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Set;
 
 import com.magicrealm.characters.MRCharacter;
@@ -28,6 +33,15 @@ public class ServerGameState {
 	
 	public void setBoard(MagicRealmHexEngineModel board) {
 		this.board = board;
+		
+		board.addObserver(new Observer() {
+			@Override
+			public void update(Observable o, Object arg) {
+				for (IClientService clientService : getClientServices()) {
+					clientService.updateBoard(ServerGameState.this.board);
+				}
+			}
+		});
 	}
 	
 	public MagicRealmHexEngineModel getBoard() {
@@ -106,6 +120,15 @@ public class ServerGameState {
 	
 	public int getNumberOfPlayers() {
 		return characters.size();
+	}
+	
+	public List<String> getPlayerOrder() {
+		// randomly determine the order that players take their turn.
+		// for the future: create a player order strategy class for each player
+		
+		ArrayList<String> list = new ArrayList<>(characters.keySet());
+		Collections.shuffle(list);
+		return list;
 	}
 
 }

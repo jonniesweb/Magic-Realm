@@ -3,6 +3,7 @@ package com.magicrealm.activity;
 import java.io.Serializable;
 
 import com.magicrealm.gui.SelectActivityPane;
+import com.magicrealm.server.ServerGameState;
 
 public abstract class Activity implements Serializable, Executable {
 	
