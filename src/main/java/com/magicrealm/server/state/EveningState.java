@@ -31,9 +31,21 @@ public class EveningState extends ServerState {
 		ArrayList<TileClearingLocation> locations = new ArrayList<TileClearingLocation>();
 		Collections.shuffle(locations);
 		
+		ArrayList<MRCharacter> characters = new ArrayList<MRCharacter>();
+		
 		while(!locations.isEmpty()) {			
 			TileClearing clearing = getGameState().getBoard().getClearing(locations.remove(0));
 			List<Placeable> chits = clearing.getChits();
+			
+			for(Placeable p: chits) {
+				if(p instanceof MRCharacter) {
+					characters.add((MRCharacter) p);
+				}
+			}
+			
+			if(characters.size() > 1) {
+				// FIGHT
+			}
 			
 		}
 		

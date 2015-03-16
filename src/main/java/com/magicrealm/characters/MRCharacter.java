@@ -38,11 +38,11 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	protected ArrayList<Weapon> weapons;
 	protected ArrayList<Armor> armors;
 	protected ArrayList<Activity> activities;
-	
-	//	private Person tradingRelationships;
+
 	private ArrayList<Discoverable> discoveries;
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private boolean cheatModeEnabled = false;
+	private boolean foundHidden;
 	
 	public MRCharacter(character characterType) {
 		this.characterType = characterType;
@@ -76,10 +76,6 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	
 	public void reveal() {
 		hidden = false;
-	}
-	
-	public boolean isHidden() {
-		return hidden;
 	}
 
 	public ArrayList<Activity> getActivities() {
@@ -229,5 +225,17 @@ public abstract class MRCharacter implements Serializable, Placeable {
 			return characterType.equals(((MRCharacter) obj).getCharacterType());
 		} else
 			return false;
+	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public boolean isFoundHidden() {
+		return foundHidden;
+	}
+
+	public void setFoundHidden(boolean foundHidden) {
+		this.foundHidden = foundHidden;
 	}
 }
