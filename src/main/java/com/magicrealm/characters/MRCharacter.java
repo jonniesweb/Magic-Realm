@@ -49,6 +49,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		activities = new ArrayList<Activity>();
 		discoveries = new ArrayList<Discoverable>();
 		weapons = new ArrayList<Weapon>();
+		armors = new ArrayList<Armor>();
 	}
 	
 	public void addActivity(Activity activity) {
@@ -106,6 +107,29 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		}
 		newWep.activate();
 		newWep.sleep();
+	}
+	
+	public Armor getActiveArmor(Class<?> c) {
+		for (Armor armor : armors) {
+			if(armor.isActive() && armor.getClass() == c)
+				return armor;
+		}
+		return null;
+	}
+	
+	public void activateArmor(Armor activeArmor) {
+		int i = armors.indexOf(activeArmor);
+		
+		if(i == -1)
+			return;
+		
+		Armor newArm = armors.get(i);
+		
+		Armor oldArm = getActiveArmor(newArm.getClass());
+		if(oldArm != null) {
+			oldArm.deactivate();
+		}
+		newArm.activate();
 	}
 
 	public ArrayList<ActionChit> getFightChits() {
