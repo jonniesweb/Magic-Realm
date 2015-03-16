@@ -4,7 +4,7 @@ import com.magicrealm.models.Weight;
 
 public class Helmet extends Armor {
 
-	protected Helmet() {
+	public Helmet() {
 		super("Helmet", Slot.HELMET, Weight.MEDIUM, Protection.SMASH);
 		// TODO Auto-generated constructor stub
 	}
@@ -20,7 +20,6 @@ public class Helmet extends Armor {
 	public void setDamagedPrice() {
 		// TODO Auto-generated method stub
 		price = 3;
-		state = State.DAMAGED;
 	}
 
 	@Override

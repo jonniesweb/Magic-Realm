@@ -4,7 +4,7 @@ import com.magicrealm.models.Weight;
 
 public class Shield extends Armor {
 
-	protected Shield() {
+	public Shield() {
 		super("Shield", Slot.SHIELD, Weight.MEDIUM, Protection.ONE);
 		// TODO Auto-generated constructor stub
 	}
