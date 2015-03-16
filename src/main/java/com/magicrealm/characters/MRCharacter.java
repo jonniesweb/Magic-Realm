@@ -11,6 +11,7 @@ import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.armors.Armor;
+import com.magicrealm.models.armors.Armor.Slot;
 import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.server.ServerGameState;
 
@@ -109,9 +110,9 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		newWep.sleep();
 	}
 	
-	public Armor getActiveArmor(Class<?> c) {
+	public Armor getActiveArmor(Slot s) {
 		for (Armor armor : armors) {
-			if(armor.isActive() && armor.getClass() == c)
+			if(armor.isActive() && armor.getSlot() == s)
 				return armor;
 		}
 		return null;
@@ -125,7 +126,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		
 		Armor newArm = armors.get(i);
 		
-		Armor oldArm = getActiveArmor(newArm.getClass());
+		Armor oldArm = getActiveArmor(newArm.getSlot());
 		if(oldArm != null) {
 			oldArm.deactivate();
 		}

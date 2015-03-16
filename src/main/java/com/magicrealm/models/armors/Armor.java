@@ -37,6 +37,32 @@ public abstract class Armor extends Belonging {
 		state = State.DESTROYED;
 		setDestroyedPrice();
 	}
+	
+	
+
+	public int getPrice() {
+		return price;
+	}
+
+	public Protection getProtection() {
+		return protection;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public Slot getSlot() {
+		return slot;
+	}
+
+	public Weight getWeight() {
+		return weight;
+	}
+
+	public String getName() {
+		return name;
+	}
 
 	public abstract void setIntactPrice();
 	
