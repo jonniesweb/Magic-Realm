@@ -71,14 +71,14 @@ public final class HexImageRenderer extends ColorHexRender {
 		
 	}
 	
-	private static Point scaleCoordinates(HexEngine<Graphics2D> engine, Point point) {
+	public static Point scaleCoordinates(HexEngine<Graphics2D> engine, Point point) {
 		double xMagnitude = point.getX() / (double) GameTile.MAX_X;
 		double yMagnitude = point.getY() / (double) GameTile.MAX_Y;
 		
 		return new Point((int) (xMagnitude * engine.getCellWidth()), (int) (yMagnitude * engine.getCellHeight()));
 	}
 	
-	private void drawMapChit(Graphics2D graphic, HexEngine<Graphics2D> engine, float x, float y, GameTile tile, Point point, MapChit chit) {
+	public void drawMapChit(Graphics2D graphic, HexEngine<Graphics2D> engine, float x, float y, GameTile tile, Point point, MapChit chit) {
 
 		BufferedImage mapChit = getMapChit(chit);
 		Point scaledRotatedCoords = scaleCoordinates(engine, rotateCoordinates(point, tile.getRotation()));
@@ -178,11 +178,11 @@ public final class HexImageRenderer extends ColorHexRender {
 		}
 	}
 	
-	private static Point rotateCoordinates(Point point, int rotation) {
+	public static Point rotateCoordinates(Point point, int rotation) {
 		return rotateCoordinates((int) point.getX(), (int) point.getY(), rotation);
 	}
 	
-	private static Point rotateCoordinates(int x, int y, int rotation) {
+	public static Point rotateCoordinates(int x, int y, int rotation) {
 		if (rotation == 0)
 			return new Point(x, y);
 		
