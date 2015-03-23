@@ -5,17 +5,17 @@ import com.magicrealm.models.Weight;
 
 public abstract class Armor extends Belonging {
 	
-	public enum Protection {SWING, SMASH, ONE, ALL};
+	public enum Protection {SWING, THRUST, SMASH, ONE};
 	public enum State {INTACT, DAMAGED, DESTROYED};
 	public enum Slot {SUIT, BREASTPLATE, HELMET, SHIELD}
 	protected int price;
-	protected Protection protection;
+	protected Protection[] protection;
 	protected State state;
 	protected Slot slot;
 	protected Weight weight;
 	protected String name;
 	
-	protected Armor(String name, Slot slot, Weight weight, Protection protection) {
+	protected Armor(String name, Slot slot, Weight weight, Protection[] protection) {
 		this.slot = slot;
 		this.name = name;
 		this.weight = weight;
@@ -37,14 +37,12 @@ public abstract class Armor extends Belonging {
 		state = State.DESTROYED;
 		setDestroyedPrice();
 	}
-	
-	
 
 	public int getPrice() {
 		return price;
 	}
 
-	public Protection getProtection() {
+	public Protection[] getProtection() {
 		return protection;
 	}
 

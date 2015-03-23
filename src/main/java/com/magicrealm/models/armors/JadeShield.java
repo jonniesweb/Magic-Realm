@@ -1,12 +1,13 @@
 package com.magicrealm.models.armors;
 
 import com.magicrealm.models.Weight;
+import com.magicrealm.models.armors.Armor.Protection;
 
 
 public class JadeShield extends Armor {
 
 	protected JadeShield() {
-		super("Jade Shield", Slot.SHIELD, Weight.HEAVY, Protection.ONE);
+		super("Jade Shield", Slot.SHIELD, Weight.HEAVY, new Protection[]{Protection.ONE});
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -11,6 +11,7 @@ import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.armors.Armor;
+import com.magicrealm.models.armors.Armor.Protection;
 import com.magicrealm.models.armors.Armor.Slot;
 import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.server.ServerGameState;
@@ -130,6 +131,14 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		newArm.activate();
 	}
 
+	public ArrayList<Weapon> getWeapons() {
+		return weapons;
+	}
+
+	public ArrayList<Armor> getArmors() {
+		return armors;
+	}
+
 	public ArrayList<ActionChit> getFightChits() {
 		return fightChits;
 	}
@@ -237,5 +246,9 @@ public abstract class MRCharacter implements Serializable, Placeable {
 
 	public void setFoundHidden(boolean foundHidden) {
 		this.foundHidden = foundHidden;
+	}
+
+	public Weight getVulnerability() {
+		return vulnerability;
 	}
 }
