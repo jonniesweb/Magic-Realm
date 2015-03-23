@@ -25,11 +25,6 @@ public class Dwelling implements Serializable, Placeable {
 	}
 
 	@Override
-	public Image getImage() {
-		return ImageCache.getImage(getImageName());
-	}
-	
-	@Override
 	public String getImageName() {
 		return getImageString(dwellingType);
 	}

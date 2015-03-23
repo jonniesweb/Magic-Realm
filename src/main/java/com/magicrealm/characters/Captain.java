@@ -1,7 +1,5 @@
 package com.magicrealm.characters;
 
-import java.awt.Image;
-
 import com.magicrealm.models.ActionChit;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Weight;
@@ -10,7 +8,6 @@ import com.magicrealm.models.armors.Breastplate;
 import com.magicrealm.models.armors.Helmet;
 import com.magicrealm.models.armors.Shield;
 import com.magicrealm.models.weapons.ShortSword;
-import com.magicrealm.utils.ImageCache;
 
 public class Captain extends MRCharacter {
 	
@@ -48,14 +45,7 @@ public class Captain extends MRCharacter {
 	}
 
 	@Override
-	public Image getImage() {
-		// TODO Auto-generated method stub
-		return ImageCache.getImage("captain");
-	}
-
-	@Override
 	public String getImageName() {
-		// TODO Auto-generated method stub
 		return "captain";
 	}
 

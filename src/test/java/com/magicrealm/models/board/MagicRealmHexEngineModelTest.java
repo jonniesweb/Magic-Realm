@@ -70,10 +70,11 @@ public class MagicRealmHexEngineModelTest {
 		GameTile adjacentTile = model.getTileAdjacentToEdge(bv, 4);
 		TileClearing tileClearing = adjacentTile.getTileExits().get(adjacentTile.rotatedToNormal(MagicRealmHexEngineModel.getOppositeEdge(4)));
 		assertEquals(model.getTile(TileType.HP).getClearing(3), tileClearing);
-		
-		
-		
-		
-		
 	}
+	
+//	@Test
+//	public void testGhostsExistOnBoard() throws Exception {
+//		
+//	}
+	
 }

@@ -1,16 +1,20 @@
 package com.magicrealm.gui;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+
+import javax.swing.JComponent;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.renders.swing.ColorHexRender;
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.WarningChit;
@@ -37,27 +41,19 @@ public final class HexImageRenderer extends ColorHexRender {
 		log.trace("drawing tile " + filename);
 		
 		// get tile from cache and rotate
-		BufferedImage image = rotateImage(tile, ImageCache.getImage(filename));
+		BufferedImage image = rotateGameTile(tile, ImageCache.getImage(filename));
 		
 		// draw the tile onto the gameboard
 		graphic.drawImage(image, (int) x, (int) y, (int) engine.getCellWidth(), (int) engine.getCellHeight(), null);
 		
 		if (tile.getTileType() == TileType.EV) {
 			// show 2 ghosts on 5
-			drawChitImage(graphic, x, y, getX(engine, image, 143f), getY(engine, image, 143f), "ghost");
-			drawChitImage(graphic, x, y, getX(engine, image, 133f), getY(engine, image, 133f), "ghost");
+			drawImageFromString(graphic, x, y, getX(engine, image, 143f), getY(engine, image, 143f), "ghost");
+			drawImageFromString(graphic, x, y, getX(engine, image, 133f), getY(engine, image, 133f), "ghost");
 		}
 		
 		// draw all chits from the clearings
-		for (TileClearing clearing : tile.getClearings()) {
-			for (Placeable chit : clearing.getChits()) {
-				Point rotatedPoint = rotateCoordinates(clearing.getXPosition(), clearing.getYPosition(), tile.getRotation());
-				
-				Point scaleCoordinates = scaleCoordinates(engine, rotatedPoint);
-				
-				drawChitImage(graphic, x, y, scaleCoordinates.x, scaleCoordinates.y, chit.getImageName());
-			}
-		}
+		drawClearing(engine, graphic, x, y, tile);
 		
 		// draw all map chits
 		if (tile.getWarningChit() != null && tile.getWarningChitPosition() != null) {
@@ -70,7 +66,55 @@ public final class HexImageRenderer extends ColorHexRender {
 		}
 		
 	}
+
+	private void drawClearing(HexEngine<Graphics2D> engine, Graphics2D graphic,
+			float x, float y, GameTile tile) {
+		for (TileClearing clearing : tile.getClearings()) {
+			
+			Point rotatedPoint = rotateCoordinates(clearing.getXPosition(), clearing.getYPosition(), tile.getRotation());
+			Point scaleCoordinates = scaleCoordinates(engine, rotatedPoint);
+
+			for (Placeable chit : clearing.getChits()) {
+				JComponent chitComponent = getChitComponent(chit);
+				
+				drawImageFromString(graphic, x, y, scaleCoordinates.x, scaleCoordinates.y, chit.getImageName());
+				
+				if (chitComponent != null) {
+					// convert to BufferedImage and draw
+					BufferedImage image = componentToImage(chitComponent);
+					drawImage(graphic, x, y, scaleCoordinates.x, scaleCoordinates.y, image);
+				}
+			}
+		}
+	}
 	
+	/**
+	 * Creates an image from a component
+	 * @param component
+	 * @return
+	 */
+	private static BufferedImage componentToImage(Component component) {
+		BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_ARGB);
+		component.paint(image.createGraphics());
+		return image;
+	}
+	
+	private JComponent getChitComponent(Placeable chit) {
+		if (chit instanceof MRCharacter) {
+			MRCharacter character = (MRCharacter) chit;
+			return new CharacterChitComponent(character, character.isHidden());
+		}
+		return null;
+	}
+
+	/**
+	 * Scale the Cartesian coordinate to the scale specified by the
+	 * {@link HexEngine}
+	 * 
+	 * @param engine
+	 * @param point
+	 * @return
+	 */
 	public static Point scaleCoordinates(HexEngine<Graphics2D> engine, Point point) {
 		double xMagnitude = point.getX() / (double) GameTile.MAX_X;
 		double yMagnitude = point.getY() / (double) GameTile.MAX_Y;
@@ -78,6 +122,10 @@ public final class HexImageRenderer extends ColorHexRender {
 		return new Point((int) (xMagnitude * engine.getCellWidth()), (int) (yMagnitude * engine.getCellHeight()));
 	}
 	
+	/**
+	 * Draw the given {@link MapChit} on the specified {@link GameTile}
+	 * according to {@link GameTile}'s specific positions
+	 */
 	public void drawMapChit(Graphics2D graphic, HexEngine<Graphics2D> engine, float x, float y, GameTile tile, Point point, MapChit chit) {
 
 		BufferedImage mapChit = getMapChit(chit);
@@ -89,9 +137,21 @@ public final class HexImageRenderer extends ColorHexRender {
 		graphic.drawImage(mapChit, (int) x + sx - 10, (int) y + sy - 10, 20, 20, null);
 	}
 
-	private void drawChitImage(Graphics2D graphic, double x, double y,
+	/**
+	 * Draw an image represented by the string <code>imageName</code>
+	 */
+	private void drawImageFromString(Graphics2D graphic, double x, double y,
 			double d, double e, String imageName) {
-		graphic.drawImage(ImageCache.getImage(imageName), (int) (x + d - 25),
+		BufferedImage image = ImageCache.getImage(imageName);
+		drawImage(graphic, x, y, d, e, image);
+	}
+
+	/**
+	 * Draw an image directly from parameter <code>image</code>
+	 */
+	private void drawImage(Graphics2D graphic, double x, double y, double d,
+			double e, BufferedImage image) {
+		graphic.drawImage(image, (int) (x + d - 25),
 				(int) (y + e - 25), 50, 50, null);
 	}
 
@@ -109,7 +169,13 @@ public final class HexImageRenderer extends ColorHexRender {
 		return zx;
 	}
 
-	private BufferedImage rotateImage(GameTile tile, BufferedImage image) {
+	/**
+	 * Rotate a the BufferedImage based on the rotation in the GameTile
+	 * @param tile
+	 * @param image
+	 * @return
+	 */
+	private BufferedImage rotateGameTile(GameTile tile, BufferedImage image) {
 		// create a blank image for the rotation
 		BufferedImage rotatedImage = new BufferedImage(image.getWidth(),
 				image.getHeight(), BufferedImage.TYPE_4BYTE_ABGR);
@@ -182,6 +248,14 @@ public final class HexImageRenderer extends ColorHexRender {
 		return rotateCoordinates((int) point.getX(), (int) point.getY(), rotation);
 	}
 	
+	/**
+	 * Rotate the given xy coordinates clockwise in increments of 60 degrees as
+	 * specified by <code>rotation</code>.
+	 * @param x
+	 * @param y
+	 * @param rotation 0 to 5. where rotation * 60 degrees is the amount rotated
+	 * @return
+	 */
 	public static Point rotateCoordinates(int x, int y, int rotation) {
 		if (rotation == 0)
 			return new Point(x, y);
@@ -201,6 +275,11 @@ public final class HexImageRenderer extends ColorHexRender {
 		
 	}
 	
+	/**
+	 * Get a BufferedImage representing the given {@link MapChit}
+	 * @param chit
+	 * @return
+	 */
 	private BufferedImage getMapChit(MapChit chit) {
 		
 		BufferedImage image = new BufferedImage(20, 20, BufferedImage.TYPE_4BYTE_ABGR);

@@ -34,6 +34,7 @@ import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.igormaznitsa.jhexed.engine.misc.HexRect2D;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.client.ClientGameState;
+import com.magicrealm.models.Placeable;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.TileClearing;
@@ -99,6 +100,7 @@ public class BoardView implements Observer {
 		
 		// add a listener for finding the clearing that the cursor clicked on
 		gameboardComponent.addMouseListener(new MouseAdapter() {
+			TileClearing closest = null;
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -106,6 +108,9 @@ public class BoardView implements Observer {
 				if (engine.getModel().isPositionValid(position)) {
 					final MagicRealmHexEngineModel model = (MagicRealmHexEngineModel) engine.getModel();
 					GameTile tile = model.getValueAt(position);
+					if (tile == null) {
+						return;
+					}
 					
 					// hex tile anchor point
 					float hexx = engine.calculateX(position.getColumn(), position.getRow());
@@ -115,7 +120,6 @@ public class BoardView implements Observer {
 					float ihexx = e.getX() - hexx;
 					float ihexy = e.getY() - hexy;
 					
-					TileClearing closest = null;
 					double distance = 100000000000000d; // big number
 					Point scaledClearingCoords = null;
 					
@@ -127,16 +131,16 @@ public class BoardView implements Observer {
 						Point rotatedPoint = HexImageRenderer.rotateCoordinates(clearing.getXPosition(), clearing.getYPosition(), tile.getRotation());
 						scaledClearingCoords = HexImageRenderer.scaleCoordinates(engine, rotatedPoint);
 						
-						log.info("point coords " + clearing.getClearingNumber() + " "+ scaledClearingCoords);
+						log.trace("point coords " + clearing.getClearingNumber() + " "+ scaledClearingCoords);
 						double distanceToClearing = scaledClearingCoords.distance(ihexx, ihexy);
 						if (distanceToClearing < distance) {
-							log.info("found closer " + distanceToClearing);
+							log.trace("found closer " + distanceToClearing);
 							closest = clearing;
 							distance = distanceToClearing;
 						}
 					}
 					
-					log.info("tile "
+					log.trace("tile "
 							+ tile.getTileType()
 							+ " x "
 							+ e.getX()
@@ -150,13 +154,25 @@ public class BoardView implements Observer {
 							+ ihexx
 							+ " ihy "
 							+ ihexy);
-					log.info("closest "
+					log.trace("closest "
 							+ closest.getClearingNumber()
 							+ " distance "
 							+ scaledClearingCoords);
+					
+					if (closest != null) {
+						for (Placeable placeable : closest.getChits()) {
+							log.debug("chit in clearing: " + placeable);
+						}
+					}
 				}
 			}
-			
+		});
+		
+		gameboardComponent.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				
+			}
 		});
 		
 		JScrollPane jScrollPane = new JScrollPane(gameboardComponent,
@@ -207,6 +223,16 @@ public class BoardView implements Observer {
 		layeredPane.add(mouseLabel, JLayeredPane.DRAG_LAYER);
 		mouseLabel.setBounds(0, 0, gameboardComponent.getWidth(), gameboardComponent.getHeight());
 		mouseLabel.setVisible(true);
+		
+//		gameboardComponent.addMouseMotionListener(new MouseMotionAdapter() {
+//			@Override
+//			public void mouseMoved(MouseEvent e) {
+//				System.out.println("move");
+//				mouseLabel.x = e.getX();
+//				mouseLabel.y = e.getY();
+//				mouseLabel.repaint();
+//			}
+//		});
 		
 	}
 	

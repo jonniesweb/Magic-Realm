@@ -1,7 +1,5 @@
 package com.magicrealm.characters;
 
-import java.awt.Image;
-
 import com.magicrealm.models.ActionChit;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Weight;
@@ -10,7 +8,6 @@ import com.magicrealm.models.armors.Breastplate;
 import com.magicrealm.models.armors.Helmet;
 import com.magicrealm.models.armors.Shield;
 import com.magicrealm.models.weapons.ShortSword;
-import com.magicrealm.utils.ImageCache;
 
 public class Amazon extends MRCharacter {
 	
@@ -46,11 +43,6 @@ public class Amazon extends MRCharacter {
 		//move chits
 		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 3, 5));
 		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 4, 3));
-	}
-
-	@Override
-	public Image getImage() {
-		return ImageCache.getImage("amazon");
 	}
 
 	@Override

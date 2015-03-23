@@ -23,7 +23,9 @@ public class ImageCache {
 		BufferedImage image = cache.get(name);
 		try {
 			if (image == null) {
-				return loadImage(name);
+				BufferedImage loadedImage = loadImage(name);
+				cache.put(name, loadedImage);
+				image = loadedImage;
 			}
 			return image;
 			
@@ -42,7 +44,6 @@ public class ImageCache {
 	 */
 	private static BufferedImage loadImage(String name) throws IOException {
 		BufferedImage image = ImageIO.read(ImageCache.class.getClassLoader().getResource(name + ".gif"));
-		cache.put(name, image);
 		return image;
 	}
 }

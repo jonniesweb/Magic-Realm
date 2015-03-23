@@ -11,7 +11,7 @@ import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.Config;
 
-public class AbstractMRTest {
+public abstract class AbstractMRTest {
 	
 	protected static INet service;
 	protected static Set<IClientService> clientService;
@@ -36,9 +36,6 @@ public class AbstractMRTest {
 		
 	}
 	
-	/**
-	 * Overrides a lot of classes
-	 */
 	private static RMIClient getTestRMIClient(String host, int port) {
 		return new RMIClient(host, port) {
 			@Override

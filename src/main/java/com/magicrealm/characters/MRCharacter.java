@@ -33,7 +33,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	// give 10 to allow character to buy stuff
 	protected int gold = 10;
 	private dwelling startingLocation;
-	protected boolean hidden;
+	protected boolean hidden = false;
 	protected boolean blocked;
 	protected ArrayList<Weapon> weapons;
 	protected ArrayList<Armor> armors;
@@ -61,10 +61,6 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		discoveries.add(disc);
 	}
 	
-	public void move() {
-
-	}
-	
 	public void block() {
 		blocked = true;
 	}
@@ -79,6 +75,10 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	
 	public void reveal() {
 		hidden = false;
+	}
+	
+	public boolean isHidden() {
+		return hidden;
 	}
 
 	public ArrayList<Activity> getActivities() {

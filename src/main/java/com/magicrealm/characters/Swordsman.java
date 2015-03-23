@@ -1,12 +1,9 @@
 package com.magicrealm.characters;
 
-import java.awt.Image;
-
 import com.magicrealm.models.ActionChit;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.weapons.ThrustingSword;
-import com.magicrealm.utils.ImageCache;
 
 public class Swordsman extends MRCharacter {
 	
@@ -38,14 +35,7 @@ public class Swordsman extends MRCharacter {
 	}
 
 	@Override
-	public Image getImage() {
-		// TODO Auto-generated method stub
-		return ImageCache.getImage("swordsman");
-	}
-
-	@Override
 	public String getImageName() {
-		// TODO Auto-generated method stub
 		return "swordsman";
 	}
 
