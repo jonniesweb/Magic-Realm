@@ -16,6 +16,7 @@ import com.igormaznitsa.jhexed.engine.HexEngine;
 import com.igormaznitsa.jhexed.renders.swing.ColorHexRender;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Placeable;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.tiles.GameTile;
@@ -32,7 +33,8 @@ public final class HexImageRenderer extends ColorHexRender {
 	public void renderHexCell(HexEngine<Graphics2D> engine, Graphics2D graphic,
 			float x, float y, int col, int row) {
 		
-		GameTile tile = (GameTile) engine.getModel().getValueAt(col, row);
+		MagicRealmHexEngineModel model = (MagicRealmHexEngineModel) engine.getModel();
+		GameTile tile = model.getValueAt(col, row);
 		// ignore all empty spaces on the gameboard
 		if (tile == null)
 			return;
