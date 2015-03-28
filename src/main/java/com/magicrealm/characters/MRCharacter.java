@@ -38,7 +38,8 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	protected ArrayList<Weapon> weapons;
 	protected ArrayList<Armor> armors;
 	protected ArrayList<Activity> activities;
-//	private Person tradingRelationships;
+	
+	//	private Person tradingRelationships;
 	private ArrayList<Discoverable> discoveries;
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private boolean cheatModeEnabled = false;
