@@ -43,10 +43,19 @@ public class TileClearing implements Serializable, Discoverable {
 
 	private int xpos;;
 	
+	/**
+	 * Create a clearing, defaulting to type <code>ClearingType.WOODS</code>
+	 * @param clearingNumber
+	 */
 	public TileClearing(int clearingNumber) {
 		this(clearingNumber, ClearingType.WOODS);
 	}
 	
+	/**
+	 * Create a clearing with the given clearingNumber and clearingType
+	 * @param clearingNumber
+	 * @param clearingType
+	 */
 	public TileClearing(int clearingNumber, ClearingType clearingType) {
 		this.setClearingNumber(clearingNumber);
 		this.clearingType = clearingType;

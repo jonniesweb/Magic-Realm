@@ -38,6 +38,7 @@ import com.magicrealm.models.Placeable;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.utils.TileClearingLocation;
 
 public class BoardView implements Observer {
 
@@ -48,6 +49,7 @@ public class BoardView implements Observer {
 	private JLabel lblGold = new JLabel("Gold");
 	private final Log log = LogFactory.getLog(BoardView.class);
 	private ClientGameState gameState;
+	private UIMediator mediator;
 	
 	/**
 	 * View for the Client.
@@ -104,8 +106,11 @@ public class BoardView implements Observer {
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				// get the hex tile position of the tile that was clicked on
 				final HexPosition position = engine.pointToHex(e.getX(), e.getY());
 				if (engine.getModel().isPositionValid(position)) {
+					
+					// get the hex tile from the hex position
 					final MagicRealmHexEngineModel model = (MagicRealmHexEngineModel) engine.getModel();
 					GameTile tile = model.getValueAt(position);
 					if (tile == null) {
@@ -139,6 +144,8 @@ public class BoardView implements Observer {
 							distance = distanceToClearing;
 						}
 					}
+					TileClearingLocation location = new TileClearingLocation(tile.getTileType(), closest.getClearingNumber());
+					mediator.clearingSelected(location, closest);
 					
 					log.trace("tile "
 							+ tile.getTileType()

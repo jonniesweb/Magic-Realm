@@ -1,21 +1,18 @@
 package com.magicrealm.gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.utils.ImageCache;
 
 public class CharacterChitComponent extends ChitComponent {
 
 	private static final Color TAN = new Color(210, 180, 140);
-	private BufferedImage image = null;
 	private boolean hidden = false;
-	private int preferredSize;
+	
 
 
 	/**
@@ -25,11 +22,7 @@ public class CharacterChitComponent extends ChitComponent {
 		super(chit);
 		this.hidden = hidden;
 		
-		image = ImageCache.getImage(chit.getImageName());
-
-		preferredSize = Math.max(image.getWidth(), image.getHeight()) + 15;
 		
-		setMaximumSize(new Dimension(preferredSize, preferredSize));
 	}
 	
 	@Override
@@ -39,6 +32,7 @@ public class CharacterChitComponent extends ChitComponent {
 		
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g2.setColor(Color.BLACK);
+		int preferredSize = getWidth();
 		// draw circle background
 		g2.fillOval(0, 0, preferredSize, preferredSize);
 		if (hidden) {
@@ -46,28 +40,16 @@ public class CharacterChitComponent extends ChitComponent {
 		} else {
 			g2.setColor(TAN);
 		}
-		g2.fillOval(2, 2, preferredSize-4, preferredSize-4);
+		g2.fillOval(2, 2, preferredSize - 4, preferredSize - 4);
 		
 		// draw character image
-		float center = preferredSize/2;
+		float center = preferredSize / 2;
+		BufferedImage image = getImage();
 		float cx = center - (image.getWidth() / 2);
 		float cy = center - (image.getHeight() / 2);
 		g2.drawImage(image, (int) cx, (int) cy, image.getWidth(), image.getHeight(), null);
 	}
 	
-	@Override
-	public Dimension getPreferredSize() {
-		return new Dimension(preferredSize, preferredSize);
-	}
 	
-	@Override
-	public int getWidth() {
-		return preferredSize;
-	}
-	
-	@Override
-	public int getHeight() {
-		return preferredSize;
-	}
 	
 }
