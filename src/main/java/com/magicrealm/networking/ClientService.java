@@ -3,8 +3,8 @@ package com.magicrealm.networking;
 import java.rmi.RemoteException;
 
 import com.magicrealm.client.ClientGameState;
-import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.SimpleSelection;
+import com.magicrealm.gui.UIMediator;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.utils.GameLog;
@@ -48,7 +48,9 @@ public class ClientService implements IClientService {
 	}
 
 	protected void setView(MagicRealmHexEngineModel model) {
-		gameState.setView(new BoardView(getGameState(), model));
+		UIMediator uiMediator = new UIMediator();
+		uiMediator.createWidgets(model);
+		gameState.setUiMediator(uiMediator);
 	}
 
 	@Override

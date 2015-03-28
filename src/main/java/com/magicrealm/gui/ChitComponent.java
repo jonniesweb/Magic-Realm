@@ -22,6 +22,7 @@ public abstract class ChitComponent extends JComponent {
 	private Placeable chit;
 	private int preferredSize;
 	
+	
 	/**
 	 * Create the panel.
 	 */

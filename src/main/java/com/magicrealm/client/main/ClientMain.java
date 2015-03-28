@@ -10,7 +10,6 @@ import com.magicrealm.client.ClientGameState;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.gui.SelectCharacter;
 import com.magicrealm.gui.StartGameFrame;
-import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.RMIClient;
 
 public class ClientMain {

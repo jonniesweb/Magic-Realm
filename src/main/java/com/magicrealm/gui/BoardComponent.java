@@ -40,14 +40,14 @@ import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.TileClearingLocation;
 
-public class BoardView implements Observer {
+public class BoardComponent {
 
 	private MagicRealmHexEngineModel model;
 	private ConsoleLog consoleLogFrame = new ConsoleLog();
 	private HexEngine<Graphics2D> engine;
 	private JComponent gameboardComponent;
 	private JLabel lblGold = new JLabel("Gold");
-	private final Log log = LogFactory.getLog(BoardView.class);
+	private final Log log = LogFactory.getLog(BoardComponent.class);
 	private ClientGameState gameState;
 	private UIMediator mediator;
 	
@@ -57,7 +57,7 @@ public class BoardView implements Observer {
 	 * @param gameState
 	 * @param model
 	 */
-	public BoardView(ClientGameState gameState, MagicRealmHexEngineModel model) {
+	public BoardComponent(ClientGameState gameState, MagicRealmHexEngineModel model) {
 		this.gameState = gameState;
 		this.model = model;
 		
@@ -66,7 +66,7 @@ public class BoardView implements Observer {
 			@Override
 			public void propertyChange(PropertyChangeEvent evt) {
 				// call updateModel with the new model from gamestate
-				updateModel(BoardView.this.gameState.getModel());
+				updateModel(BoardComponent.this.gameState.getModel());
 			}
 		});
 		
@@ -86,7 +86,7 @@ public class BoardView implements Observer {
 		engine.setRenderer(new HexImageRenderer());
 		
 		
-		gameboardComponent = new JComponent(){
+		gameboardComponent = new JComponent() {
 			
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -258,20 +258,12 @@ public class BoardView implements Observer {
 			g.drawString(s, x, y);
 		}
 	}
-
-	/* 
-	 * Repaints the gameboard
-	 */
-	@Override
-	public void update(Observable o, Object arg) {
-		engine.setModel(model);
-		gameboardComponent.repaint();
-		log.debug("Repainting the gameboard");
-	}
 	
 	public void updateModel(MagicRealmHexEngineModel model) {
 		log.debug("updating the model");
 		this.model = model;
-		update(null, null);
+		engine.setModel(model);
+		gameboardComponent.repaint();
+		log.debug("Repainting the gameboard");
 	}
 }

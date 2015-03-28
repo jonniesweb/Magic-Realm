@@ -5,8 +5,8 @@ import java.beans.PropertyChangeSupport;
 import javax.swing.JFrame;
 
 import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.gui.BoardView;
 import com.magicrealm.gui.StartGameFrame;
+import com.magicrealm.gui.UIMediator;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.INet;
@@ -17,7 +17,7 @@ private static ClientGameState instance;
 	
 	private MagicRealmHexEngineModel model;
 	private MRCharacter character;
-	private BoardView view;
+	private UIMediator uiMediator;
 	private INet service;
 	private BirdsongActivities activities;
 	private JFrame startGameFrame;
@@ -53,14 +53,7 @@ private static ClientGameState instance;
 		this.character = character;
 		pcs.firePropertyChange("character", old, character);
 	}
-
-	public BoardView getView() {
-		return view;
-	}
-
-	public void setView(BoardView view) {
-		this.view = view;
-	}
+	
 
 	public INet getService() {
 		return service;
@@ -92,5 +85,15 @@ private static ClientGameState instance;
 
 	public PropertyChangeSupport getPcs() {
 		return pcs;
+	}
+
+
+	public UIMediator getUiMediator() {
+		return uiMediator;
+	}
+
+
+	public void setUiMediator(UIMediator uiMediator) {
+		this.uiMediator = uiMediator;
 	}
 }
