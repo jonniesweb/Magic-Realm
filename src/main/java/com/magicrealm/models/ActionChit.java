@@ -7,12 +7,14 @@ public class ActionChit extends Belonging {
 	private int totalCharges; //extra effort in game rules
 	private int charges;
 	private int time;
+	private int cost;
 	private Weight strength;
 	private boolean wounded;
 	
-	public ActionChit(Weight s, Action a, int t, int e) {
+	public ActionChit(Weight s, Action a, int t, int e, int c) {
 		action = a;
 		totalCharges = e;
+		cost = c;
 		charges = totalCharges;
 		time = t;
 		strength = s;
@@ -23,14 +25,14 @@ public class ActionChit extends Belonging {
 		if(charges == 0)
 			wounded = true;
 		else
-			-- charges;
+			charges -= cost;
 	}
 	
 	public void restoreCharge() {
 		if(wounded)
 			wounded = false;
 		else
-			++ charges;
+			charges += cost;
 	}
 	
 	public Action getAction() {

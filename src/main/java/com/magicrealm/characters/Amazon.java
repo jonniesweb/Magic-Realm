@@ -32,17 +32,17 @@ public class Amazon extends MRCharacter {
 	public void setupActionChits() {
 		
 		//fight chits
-		fightChits.add(new ActionChit(Weight.HEAVY, ActionChit.Action.FIGHT, 4, 2));
+		fightChits.add(new ActionChit(Weight.HEAVY, ActionChit.Action.FIGHT, 4, 2, 2));
 		
-		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 5, 0));
-		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 3, 5));
-		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 4, 3));
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 5, 0, 0));
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 3, 5, 2));
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 4, 3, 1));
 		
-		fightChits.add(new ActionChit(Weight.LIGHT, ActionChit.Action.FIGHT, 4, 0));
+		fightChits.add(new ActionChit(Weight.LIGHT, ActionChit.Action.FIGHT, 4, 0, 0));
 		
 		//move chits
-		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 3, 5));
-		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 4, 3));
+		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 3, 5, 1));
+		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 4, 3, 1));
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package com.magicrealm.models;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.magicrealm.characters.MRCharacter;
@@ -15,16 +16,32 @@ import com.magicrealm.server.ServerGameState;
 public class Combat {
 	
 	List<Combatant> combatants = new ArrayList<Combat.Combatant>();
+	List<Combatant> dead = new ArrayList<Combat.Combatant>();
 	ServerGameState gameState;
 	
 	public Combat(ServerGameState gameState, List<MRCharacter> characters) {
 		for(MRCharacter c: characters) {
 			combatants.add(new Combatant(c));
 		}
-		for(Combatant c: combatants) {
-			c.setAttackers(getAttackers(c));
-		}
 		this.gameState = gameState;
+		multiRound();
+	}
+	
+	public void multiRound() {
+		while(true) {
+			setupRound();
+			setAllAttackers();
+			if(combatants.size() < 2) {
+				break;
+			} else {
+				encounter();
+				if(anyAttack()) {
+					break;
+				}
+				melee();
+				fatigue();
+			}
+		}
 	}
 	
 	// targeting
@@ -43,6 +60,9 @@ public class Combat {
 		
 		// choose attack
 		for(Combatant c: combatants) {
+			if(c.target == null) {
+				continue;
+			}
 			IClientService client = gameState.getClientService(c.character.getCharacterType());
 			c.fightChit = (ActionChit) client.clientSelect(c.character.getFightChits().toArray(new ActionChit[0]), "Choose a fight chit");
 			c.attackDirection = (Protection) client.clientSelect(Protection.values(), "Choose an attack");
@@ -50,10 +70,57 @@ public class Combat {
 			c.defenseDirection = (Protection) client.clientSelect(Protection.values(), "Choose a defense");
 		}
 		
+		dead.clear();
+		
 		// attack
-		for(Combatant c: combatants) {
-			c.attack();
+		Iterator<Combatant> it = combatants.iterator();
+		while(it.hasNext()) {
+			Combatant c = (Combatant) it.next();
+			if(dead.contains(c)) {
+				it.remove();
+			} else {
+				c.attack();				
+			}
 		}
+	}
+	
+	public void fatigue() {
+		// fatigue 1 of the 2 chits
+		for(Combatant c: combatants) {
+			if(c.fightChit != null && c.moveChit != null) {
+				IClientService client = gameState.getClientService(c.character.getCharacterType());
+				ActionChit ac = (ActionChit) client.clientSelect(new ActionChit[]{c.fightChit, c.moveChit}, "Choose a chit to fatigue");
+				c.character.getActionChits().get(c.character.getActionChits().indexOf(ac));
+			}
+		}
+	}
+	
+	public void setupRound() {
+		for(Combatant c: combatants) {
+			c.target = null;
+			c.fightChit = null;
+			c.moveChit = null;
+			c.defenseDirection = null;
+			c.attackDirection = null;
+			c.attackers.clear();
+		}
+	}
+	
+	public void setAllAttackers() {
+		for(Combatant c: combatants) {
+			c.setAttackers(getAttackers(c));
+		}
+	}
+	
+	public boolean anyAttack() {
+		boolean b = false;
+		for(Combatant c: combatants) {
+			if(c.target != null) {
+				b = true;
+				break;
+			}
+		}
+		return b;
 	}
 	
 	public List<Combatant> getAttackers(Combatant attacker) {
@@ -63,7 +130,8 @@ public class Combat {
 			if((character.isFoundHidden() || !c.character.isHidden()) && c != attacker)
 				newList.add(c);
 		}
-//		newList.add(null);
+		if(attacker.character.isHidden())
+			newList.add(null);
 		return newList;
 	}
 	
@@ -75,7 +143,6 @@ public class Combat {
 		Protection attackDirection;
 		ActionChit moveChit;
 		Protection defenseDirection;
-		Armor armors[];
 		
 		public Combatant(MRCharacter character) {
 			this.character = character;
@@ -90,6 +157,9 @@ public class Combat {
 		}
 		
 		public void attack() {
+			if(target == null) {
+				return;
+			}
 			IClientService client = gameState.getClientService(character.getCharacterType());
 			Weight harm = getTotalHarm();
 			Armor blockingArmor;
@@ -121,9 +191,9 @@ public class Combat {
 				}
 			} else if(harm.compareTo(target.character.getVulnerability()) > 0) {
 				// TODO add following:
-				// drop belongings
 				// handle dead character
-				combatants.remove(target);
+				// drop belongings
+				dead.add(target);
 			}
 		}
 		
