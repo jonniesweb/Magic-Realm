@@ -93,6 +93,10 @@ public class ServerGameState {
 		}
 		return instance;
 	}
+	
+	protected static void setInstance(ServerGameState state) {
+		instance = state;
+	}
 
 	public ServerState getState() {
 		return state;
@@ -135,6 +139,17 @@ public class ServerGameState {
 		ArrayList<String> list = new ArrayList<>(characters.keySet());
 		Collections.shuffle(list);
 		return list;
+	}
+	
+	/**
+	 * Used in testing for resetting a singleton back to its new self.
+	 */
+	protected void reset() {
+		
+		getInstance().board = null;
+		instance.characters = new HashMap<>();
+		instance.state = new PlayerConnectState(this);
+		instance.cheatMode = false;
 	}
 
 }

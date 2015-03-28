@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.util.Random;
 import java.util.Set;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import com.magicrealm.client.ClientGameState;
@@ -30,6 +31,23 @@ public abstract class AbstractMRTest {
 		
 		service = rmiClient.getService();
 		clientService = ServerGameState.getInstance().getClientServices();
+	}
+	
+	@AfterClass
+	public static void teardown() {
+		// reset ServerGameState singleton to its new self
+		new ServerGameState() {
+			public void teardown() {
+				reset();
+			}
+		}.teardown();
+		
+		// reset ClientGameState singleton to its new self
+		new ClientGameState() {
+			public void teardown() {
+				reset();
+			}
+		}.teardown();
 	}
 	
 	public static void addDefaultCharacter() {

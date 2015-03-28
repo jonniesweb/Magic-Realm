@@ -96,4 +96,17 @@ private static ClientGameState instance;
 	public void setUiMediator(UIMediator uiMediator) {
 		this.uiMediator = uiMediator;
 	}
+	
+	/**
+	 * Used in testing for resetting a singleton back to its new self.
+	 */
+	protected void reset() {
+		getInstance().model = null;
+		instance.character = null;
+		instance.uiMediator = null;
+		instance.service = null;
+		instance.activities = null;
+		instance.startGameFrame = null;
+		instance.pcs = new PropertyChangeSupport(instance);
+	}
 }

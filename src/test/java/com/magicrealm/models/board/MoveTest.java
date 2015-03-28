@@ -1,6 +1,6 @@
 package com.magicrealm.models.board;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
@@ -37,6 +37,7 @@ public class MoveTest extends AbstractMRTest {
 		System.out.println(firstLocation);
 		
 		TileClearingLocation secondLocation = service.getGameBoard().getChitLocation(new Amazon());
+		System.out.println(secondLocation);
 		assertNotEquals(secondLocation, firstLocation);
 	}
 
