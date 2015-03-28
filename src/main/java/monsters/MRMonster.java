@@ -22,7 +22,7 @@ public abstract class MRMonster implements Serializable, Placeable {
 	/*       	associated with the serialized UID. This set of variables     */
 	/*			support identification and type of the object.				  */
 	/**************************************************************************/
-	final 	long 	serialVersionUID = -56577940207485900L;
+	private static	final long 	serialVersionUID = -56577940207485900L;
 	public	enum	monster { goblin, viper, ghost, demon };
 	public	monster	monsterType;
 
