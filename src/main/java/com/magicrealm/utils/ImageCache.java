@@ -43,7 +43,15 @@ public class ImageCache {
 	 * @throws IOException
 	 */
 	private static BufferedImage loadImage(String name) throws IOException {
-		BufferedImage image = ImageIO.read(ImageCache.class.getClassLoader().getResource(name + ".gif"));
-		return image;
+		if (name.isEmpty())
+			return ImageIO.read(ImageCache.class.getClassLoader().getResource("question.gif"));
+		
+		// catch error if the image failed to load, return the default image instead
+		try {
+			return ImageIO.read(ImageCache.class.getClassLoader().getResource(name + ".gif"));
+		} catch (Exception e) {
+			log.error("Failed to load image [" + name + ".gif]");
+			return getImage("");
+		}
 	}
 }
