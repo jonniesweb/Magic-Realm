@@ -22,10 +22,10 @@ public class ActionChit extends Belonging {
 	}
 	
 	public void fatigue() {
-		if(charges == 0)
+		if(charges == 0 || cost == 0)
 			wounded = true;
 		else
-			charges -= cost;
+			charges = Math.max(charges - cost, 0);
 	}
 	
 	public void restoreCharge() {
@@ -63,6 +63,17 @@ public class ActionChit extends Belonging {
 		String s = this.action.name().charAt(0)+"";
 		s += this.time+"";
 		return s;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		ActionChit ac;
+		if(obj instanceof ActionChit)
+			ac = (ActionChit) obj;
+		else
+			return false;
+		return this.action == ac.action && this.strength == ac.strength && this.time == ac.time;
 	}
 
 }

@@ -11,7 +11,6 @@ import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.armors.Armor;
-import com.magicrealm.models.armors.Armor.Protection;
 import com.magicrealm.models.armors.Armor.Slot;
 import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.server.ServerGameState;
@@ -33,6 +32,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	
 	// give 10 to allow character to buy stuff
 	protected int gold = 10;
+	protected int health = 2;
 	private dwelling startingLocation;
 	protected boolean hidden = false;
 	protected boolean blocked;
@@ -43,7 +43,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	private ArrayList<Discoverable> discoveries;
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private boolean cheatModeEnabled = false;
-	private boolean foundHidden;
+	private boolean hiddenEnemiesFound;
 	
 	public MRCharacter(character characterType) {
 		this.characterType = characterType;
@@ -154,6 +154,16 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		return all;
 	}
 	
+	public ArrayList<ActionChit> getNonWoundedActionChits() {
+		ArrayList<ActionChit> chits = new ArrayList<ActionChit>();
+		for(ActionChit c: getActionChits()) {
+			if(!c.isWounded()) {
+				chits.add(c);
+			}
+		}
+		return chits;
+	}
+	
 	public ActionChit[] getFatiguedChits() {
 		ArrayList<ActionChit> chits = new ArrayList<ActionChit>();
 		for(ActionChit c: getActionChits()) {
@@ -162,6 +172,10 @@ public abstract class MRCharacter implements Serializable, Placeable {
 			}
 		}
 		return chits.toArray(new ActionChit[0]);
+	}
+	
+	public void fatigueChit(ActionChit ac) {
+		getActionChits().get(getActionChits().indexOf(ac)).fatigue();
 	}
 	
 	public ArrayList<Discoverable> getDiscoveries() {
@@ -240,15 +254,30 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		return hidden;
 	}
 
-	public boolean isFoundHidden() {
-		return foundHidden;
+	public boolean isHiddenEnemiesFound() {
+		return hiddenEnemiesFound;
 	}
 
-	public void setFoundHidden(boolean foundHidden) {
-		this.foundHidden = foundHidden;
+	public void setHiddenEnemiesFound(boolean hiddenEnemiesFound) {
+		this.hiddenEnemiesFound = hiddenEnemiesFound;
 	}
 
 	public Weight getVulnerability() {
 		return vulnerability;
 	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public void increaseHealth(int increase) {
+		this.health = Math.min(health + increase, 10);
+	}
+	
+	public void decreaseHealth(int decrease) {
+		System.out.println("reduce health to"+ (health - decrease));
+		this.health = Math.max(health - decrease, 0);
+		System.out.println(this.health);
+	}
+
 }

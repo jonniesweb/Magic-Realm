@@ -48,11 +48,10 @@ public class DaylightState extends ServerState {
 			}
 		}
 		
-		// switch state to birdsong
-		BirdsongState birdsongState = new BirdsongState(getGameState());
-		getGameState().setState(birdsongState);
-		birdsongState.init();
-		
+		// switch state to evening
+		EveningState eveningState = new EveningState(getGameState());
+		getGameState().setState(eveningState);
+		eveningState.init();
 	}
 
 	private void sendBoardToClients() {

@@ -8,16 +8,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.magicrealm.characters.MRCharacter;
+import com.magicrealm.models.Combat;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.TileClearingLocation;
 
 public class EveningState extends ServerState {
 	
 	public Set<TileClearingLocation> relevantLocations = new HashSet<TileClearingLocation>();
-
+	private final Log log = LogFactory.getLog(EveningState.class);
+	
 	public EveningState(ServerGameState instance) {
 		super(instance);
 		Set<MRCharacter> characters = getGameState().getCharacters();
@@ -27,14 +33,26 @@ public class EveningState extends ServerState {
 		}
 	}
 	
-	public void combatPhase() {
-		ArrayList<TileClearingLocation> locations = new ArrayList<TileClearingLocation>();
+	public void init() {
+		for (IClientService clientService : getGameState().getClientServices()) {
+			clientService.eveningStarted();
+		}
+		
+		runCombatPhase();
+		changePhase();
+	}
+	
+	// Handles the combat phase for all clearings
+	public void runCombatPhase() {
+		List<TileClearingLocation> locations = new ArrayList<TileClearingLocation>(relevantLocations);
 		Collections.shuffle(locations);
 		
-		ArrayList<MRCharacter> characters = new ArrayList<MRCharacter>();
+		List<MRCharacter> characters = new ArrayList<MRCharacter>();
 		
-		while(!locations.isEmpty()) {			
-			TileClearing clearing = getGameState().getBoard().getClearing(locations.remove(0));
+		Iterator it = locations.iterator();
+		
+		while(it.hasNext()) {			
+			TileClearing clearing = getGameState().getBoard().getClearing((TileClearingLocation) it.next());
 			List<Placeable> chits = clearing.getChits();
 			
 			for(Placeable p: chits) {
@@ -44,12 +62,22 @@ public class EveningState extends ServerState {
 			}
 			
 			if(characters.size() > 1) {
-				// FIGHT
+				for(MRCharacter c: characters) {
+					IClientService client = getGameState().getClientService(c.getCharacterType());
+					client.sendMessage("You have entered combat!");
+				}
+				new Combat(getGameState(), characters);
 			}
-			
+			characters.clear();
 		}
 		
-		
+	}
+	
+	public void changePhase() {
+		// switch state to birdsong
+		BirdsongState birdsongState = new BirdsongState(getGameState());
+		getGameState().setState(birdsongState);
+		birdsongState.init();
 	}
 
 }

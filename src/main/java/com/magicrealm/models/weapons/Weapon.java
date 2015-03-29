@@ -67,6 +67,15 @@ public abstract class Weapon extends Belonging {
 	public Weight getInflictedHarm() {
 		return this.harm.increment(sharpness);
 	}
+	
+	public Weight getInflictedHarmThroughArmor() {
+		int newSharpness = sharpness - 1;
+		if(sharpness > 0)
+			return this.harm.increment(newSharpness);
+		else if(sharpness < 0)
+			return this.harm.decrement(newSharpness);
+		return this.harm;
+	}
 
 	public String getName() {
 		return name;

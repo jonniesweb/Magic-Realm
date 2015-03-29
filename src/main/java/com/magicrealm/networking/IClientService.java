@@ -27,6 +27,11 @@ public interface IClientService {
 	 * Notify the client that the daylight stage has started
 	 */
 	public abstract void daylightStarted();
+	
+	/**
+	 * Notify the client that the evening stage has started
+	 */
+	public void eveningStarted();
 
 	/**
 	 * Displays a message to the client
@@ -34,6 +39,12 @@ public interface IClientService {
 	 */
 	void sendMessage(String message);
 	
+	/**
+	 * Prompts client to select an item
+	 * @param objArray
+	 * @param message
+	 * @return selected item from array
+	 */
 	public Object clientSelect(Object[] objArray, String message);
 
 	public Object test(String string);
