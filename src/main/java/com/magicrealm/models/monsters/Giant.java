@@ -20,7 +20,7 @@ public class Giant extends MRMonster {
 		setVulnerability ( Weight.TREMENDOUS );
 		setFame			 ( 8 );
 		setNotoriety	 ( 8 );
-		addWeapon 		 ( new Club() );	/* NOTE: change to club weapon */
+		addWeapon 		 ( new Club() );
 	}
 
 	@Override
