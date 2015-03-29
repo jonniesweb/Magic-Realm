@@ -25,7 +25,7 @@ public abstract class MRMonster implements Serializable, Placeable {
 	/*			support identification and type of the object.				  */
 	/**************************************************************************/
 	private static	final long 	serialVersionUID = -56577940207485900L;
-	public	enum	monster { giant, wolf, ogre };
+	public	enum	monster { giant, wolf, ogre, ghost };
 	public	monster	monsterType;
 
 
@@ -290,9 +290,11 @@ public abstract class MRMonster implements Serializable, Placeable {
 			case giant:
 				return ( new Giant () );
 			case wolf:
-				return ( new Wolf () );
+				return ( new Wolf  () );
 			case ogre:
-				return ( new Ogre () );
+				return ( new Ogre  () );
+			case ghost:
+				return ( new Ghost () );
 				
 			default:
 				throw new RuntimeException ( "Invalid monster type" );
