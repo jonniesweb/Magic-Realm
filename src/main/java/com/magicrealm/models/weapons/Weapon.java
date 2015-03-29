@@ -44,6 +44,27 @@ public abstract class Weapon extends Belonging {
 		this.alerted = false;
 	}
 	
+	public void setAttack ( Attack a )
+	{
+		attack = a;
+	}
+	public void setPrice ( int p )
+	{
+		price = p;
+	}
+	public void setWeight ( Weight w )
+	{
+		weight = w;
+	}
+	public void setSpeed ( int s )
+	{
+		speed = s;
+	}
+	public void setSharpness ( int s )
+	{
+		sharpness = s;
+	}
+	
 	public abstract void setAlertStats();
 	
 	public abstract void setSleepStats();

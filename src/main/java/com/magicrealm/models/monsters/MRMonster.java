@@ -44,6 +44,7 @@ public abstract class MRMonster implements Serializable, Placeable {
 	private Weight					vulnerability;
 	private int 					fame;
 	private int 					notoriety;
+	private int						movementSpeed;
 	private ArrayList	<Weapon>	weapons;			
 	private ArrayList	<Armor>		armors;				
 		
@@ -106,6 +107,14 @@ public abstract class MRMonster implements Serializable, Placeable {
 	protected void setNotoriety ( int n )
 	{
 		notoriety = n;
+	}
+	public int getMovementSpeed ()
+	{
+		return movementSpeed;
+	}
+	protected void setMovementSpeed ( int mSpeed )
+	{
+		movementSpeed = mSpeed;
 	}
 	/* END OF OBJECT RELATED ATTRIBUTES - GET/SET *****************************/
 	

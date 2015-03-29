@@ -7,12 +7,12 @@ public class Giant extends MRMonster {
 
 	public Giant ()
 	{
-		/* Call inherited constructor */
+		/* Call inherited constructor *****************************************/
 		super ( monster.giant );
 		
 		setAttentionChit ( true );
 		
-		/* Set Object Related Attributes */
+		/* Set Object Related Attributes **************************************/
 		setName 		 ( "giant" );
 		setDescription 	 ( "This is a giant. He is tremendous. But he took" +
 						   " an arrow to the knee. Don't worry the adoring" +
@@ -21,9 +21,9 @@ public class Giant extends MRMonster {
 		setFame			 ( 8 );
 		setNotoriety	 ( 8 );
 		
-		Club c = new Club ();
-		addWeapon 	   ( c );
-		activateWeapon ( c );
+		Club club = new Club ();
+		addWeapon 	   ( club );
+		activateWeapon ( club );
 	}
 
 	@Override
