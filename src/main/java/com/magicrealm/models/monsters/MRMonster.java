@@ -25,7 +25,7 @@ public abstract class MRMonster implements Serializable, Placeable {
 	/*			support identification and type of the object.				  */
 	/**************************************************************************/
 	private static	final long 	serialVersionUID = -56577940207485900L;
-	public	enum	monster { giant, wolf };
+	public	enum	monster { giant, wolf, ogre };
 	public	monster	monsterType;
 
 
@@ -176,6 +176,28 @@ public abstract class MRMonster implements Serializable, Placeable {
 		
 		return null;
 	}
+	public <T extends Weapon > ArrayList<Weapon> getWeaponsOfClass ( Class<T> wClass )
+	{
+		ArrayList<Weapon> wList = new ArrayList<Weapon> ();
+		
+		for ( Weapon w : getWeaponsAttr () )
+		{
+			if ( w.getClass() == wClass )
+			{
+				wList.add( w );
+			}
+		}
+		
+		return wList;
+	}
+	public <T extends Weapon > Weapon getWeaponOfClass ( Class<T> wClass, int i)
+	{
+		return getWeaponsOfClass ( wClass ).get ( i );
+	}
+	public <T extends Weapon > Weapon getFirstWeaponOfClass ( Class<T> wClass )
+	{
+		return getWeaponOfClass ( wClass, 0 );
+	}
 	/* END OF WEAPONS *********************************************************/
 	
 	/* ARMOR ******************************************************************/
@@ -269,6 +291,8 @@ public abstract class MRMonster implements Serializable, Placeable {
 				return ( new Giant () );
 			case wolf:
 				return ( new Wolf () );
+			case ogre:
+				return ( new Ogre () );
 				
 			default:
 				throw new RuntimeException ( "Invalid monster type" );
