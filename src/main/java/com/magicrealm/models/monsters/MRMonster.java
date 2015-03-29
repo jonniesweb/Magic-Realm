@@ -10,6 +10,8 @@ import com.magicrealm.models.Weight;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.armors.Armor.Slot;
 import com.magicrealm.models.weapons.Weapon;
+import com.magicrealm.models.weapons.Claw;
+import com.magicrealm.models.weapons.Tooth;
 
 
 public abstract class MRMonster implements Serializable, Placeable {
@@ -23,7 +25,7 @@ public abstract class MRMonster implements Serializable, Placeable {
 	/*			support identification and type of the object.				  */
 	/**************************************************************************/
 	private static	final long 	serialVersionUID = -56577940207485900L;
-	public	enum	monster { goblin, viper, ghost, demon, giant };
+	public	enum	monster { giant, wolf };
 	public	monster	monsterType;
 
 
@@ -265,7 +267,9 @@ public abstract class MRMonster implements Serializable, Placeable {
 		{
 			case giant:
 				return ( new Giant () );
-			
+			case wolf:
+				return ( new Wolf () );
+				
 			default:
 				throw new RuntimeException ( "Invalid monster type" );
 		}
@@ -282,7 +286,11 @@ public abstract class MRMonster implements Serializable, Placeable {
 		armors	= new ArrayList<Armor>();
 		
 		/* Assign Defaults */
-		
+		Claw  c = new Claw ();
+		Tooth t	= new Tooth ();
+		addWeapon ( c );
+		addWeapon ( t );	
+		activateWeapon ( t );
 	}
 		
 }
