@@ -55,7 +55,7 @@ public final class HexImageRenderer extends ColorHexRender {
 		}
 		
 		// draw all chits from the clearings
-		drawClearing(engine, graphic, x, y, tile);
+		drawClearings(engine, graphic, x, y, tile);
 		
 		// draw all map chits
 		if (tile.getWarningChit() != null && tile.getWarningChitPosition() != null) {
@@ -69,23 +69,30 @@ public final class HexImageRenderer extends ColorHexRender {
 		
 	}
 
-	private void drawClearing(HexEngine<Graphics2D> engine, Graphics2D graphic,
+	/**
+	 * Draw all of the clearings contents in the tile to the graphic
+	 */
+	private void drawClearings(HexEngine<Graphics2D> engine, Graphics2D graphic,
 			float x, float y, GameTile tile) {
 		for (TileClearing clearing : tile.getClearings()) {
 			
+			// rotate and scale the coordinates of the clearing location
 			Point rotatedPoint = rotateCoordinates(clearing.getXPosition(), clearing.getYPosition(), tile.getRotation());
 			Point scaleCoordinates = scaleCoordinates(engine, rotatedPoint);
 
+			// draw each chit in the clearing
 			for (Placeable chit : clearing.getChits()) {
-				JComponent chitComponent = getChitComponent(chit);
 				
-				drawImageFromString(graphic, x, y, scaleCoordinates.x, scaleCoordinates.y, chit.getImageName());
+				// create a ChitComponent from the given chit
+				JComponent chitComponent = getChitComponent(chit);
 				
 				if (chitComponent != null) {
 					// convert to BufferedImage and draw
 					BufferedImage image = componentToImage(chitComponent);
 					drawImage(graphic, x, y, scaleCoordinates.x, scaleCoordinates.y, image);
-				}
+				} else
+					// fallback drawing method
+					drawImageFromString(graphic, x, y, scaleCoordinates.x, scaleCoordinates.y, chit.getImageName());
 			}
 		}
 	}
@@ -96,6 +103,7 @@ public final class HexImageRenderer extends ColorHexRender {
 	 * @return
 	 */
 	private static BufferedImage componentToImage(Component component) {
+		component.setSize(component.getPreferredSize());
 		BufferedImage image = new BufferedImage(component.getWidth(), component.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		component.paint(image.createGraphics());
 		return image;
@@ -141,6 +149,10 @@ public final class HexImageRenderer extends ColorHexRender {
 
 	/**
 	 * Draw an image represented by the string <code>imageName</code>
+	 * 
+	 * @deprecated Get the {@link ChitComponent} from the chit, convert to an
+	 *             image then use
+	 *             {@link #drawImage(Graphics2D, double, double, double, double, BufferedImage)}
 	 */
 	private void drawImageFromString(Graphics2D graphic, double x, double y,
 			double d, double e, String imageName) {

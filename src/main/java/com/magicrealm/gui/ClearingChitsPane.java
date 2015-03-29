@@ -1,7 +1,9 @@
 package com.magicrealm.gui;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -21,9 +23,7 @@ public class ClearingChitsPane extends JPanel {
 	 * Create the panel.
 	 */
 	public ClearingChitsPane() {
-		add(new CharacterChitComponent(new Amazon(), true));
-		add(new CharacterChitComponent(new Swordsman(), false));
-		add(new CharacterChitComponent(new Captain(), false));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 	}
 
 	public static void main(String[] args) {
@@ -36,8 +36,7 @@ public class ClearingChitsPane extends JPanel {
 				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				frame.setVisible(true);
 				frame.setSize(200, 400);
-				frame.getContentPane()
-						.add(clearingChitsPane);
+				frame.getContentPane().add(clearingChitsPane);
 				frame.repaint();
 			}
 		});
@@ -53,6 +52,8 @@ public class ClearingChitsPane extends JPanel {
 				clearing.addChit(new Helmet());
 				
 				clearingChitsPane.update(new TileClearingLocation(TileType.B, 5), clearing);
+				clearingChitsPane.validate();
+				clearingChitsPane.repaint();
 			}
 		});
 	}
@@ -63,9 +64,25 @@ public class ClearingChitsPane extends JPanel {
 	 * @param closest
 	 */
 	public void update(TileClearingLocation location, TileClearing closest) {
-		removeAll();
+		
+		// remove all current chits from the panel
+		removeAllChits();
+		
+		// add all chits from the given clearing
 		for (Placeable chit : closest.getChits()) {
 			add(ChitComponent.create(chit));
 		}
+		validate();
+		repaint();
+	}
+
+	private void removeAllChits() {
+		removeAll();
+	}
+	
+	@Override
+	public Dimension getPreferredSize() {
+		// set preferred width for showing
+		return new Dimension(75, 100);
 	}
 }

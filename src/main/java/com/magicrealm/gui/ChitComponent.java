@@ -20,7 +20,7 @@ public abstract class ChitComponent extends JComponent {
 	
 	private BufferedImage image;
 	private Placeable chit;
-	private int preferredSize;
+	protected int preferredSize;
 	
 	
 	/**
@@ -49,21 +49,6 @@ public abstract class ChitComponent extends JComponent {
 		g2.drawImage(image, (int) cx, (int) cy, image.getWidth(), image.getHeight(), null);
 	}
 	
-	@Override
-	public Dimension getPreferredSize() {
-		return new Dimension(preferredSize, preferredSize);
-	}
-	
-	@Override
-	public int getWidth() {
-		return preferredSize;
-	}
-	
-	@Override
-	public int getHeight() {
-		return preferredSize;
-	}
-	
 	protected BufferedImage getImage() {
 		return image;
 	}
@@ -83,5 +68,15 @@ public abstract class ChitComponent extends JComponent {
 			// default case
 			return new ItemChitComponent(chit);
 		}
+	}
+	
+	@Override
+	public Dimension getMinimumSize() {
+		return new Dimension(50, 50);
+	}
+
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(preferredSize, preferredSize);
 	}
 }

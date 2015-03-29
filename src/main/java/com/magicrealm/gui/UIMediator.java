@@ -10,12 +10,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.TileClearingLocation;
 
 public class UIMediator {
+	
+	private final Log log = LogFactory.getLog(UIMediator.class);
 	
 	private ClientGameState gameState = ClientGameState.getInstance();
 	private NewBoardComponent newBoardComponent;
@@ -45,6 +50,7 @@ public class UIMediator {
 	 * @param closest
 	 */
 	public void clearingSelected(final TileClearingLocation location, final TileClearing closest) {
+		log.debug("updating clearingChitPane");
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -87,6 +93,8 @@ public class UIMediator {
 		gameFrame.add(topPanel, BorderLayout.NORTH);
 		
 		gameFrame.add(consoleLog, BorderLayout.SOUTH);
+		
+		gameFrame.add(clearingChitsPane, BorderLayout.EAST);
 		
 		gameFrame.pack();
 		gameFrame.setVisible(true);
