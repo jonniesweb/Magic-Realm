@@ -54,4 +54,10 @@ public class TileClearingLocation implements Serializable {
 			return false;
 	}
 	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return clearingNumber | tileType.hashCode();
+	}
+	
 }

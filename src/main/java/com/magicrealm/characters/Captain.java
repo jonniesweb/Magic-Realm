@@ -12,7 +12,7 @@ import com.magicrealm.models.weapons.ShortSword;
 public class Captain extends MRCharacter {
 	
 	public Captain() {
-		super(character.captain);
+		super(CharacterType.captain);
 		name = "Captain";
 		vulnerability = Weight.MEDIUM;
 		weapons.add(new ShortSword());

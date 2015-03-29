@@ -14,7 +14,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.characters.MRCharacter.character;
+import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.state.PlayerConnectState;
@@ -81,7 +81,7 @@ public class ServerGameState {
 		return characters.get(clientId).clientService;
 	}
 	
-	public IClientService getClientService(character type) {
+	public IClientService getClientService(CharacterType type) {
 		for(User u: characters.values()) {
 			if(u.character.characterType == type) {
 				return u.clientService;

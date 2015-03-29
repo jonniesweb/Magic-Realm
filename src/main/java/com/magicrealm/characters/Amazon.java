@@ -12,7 +12,7 @@ import com.magicrealm.models.weapons.ShortSword;
 public class Amazon extends MRCharacter {
 	
 	public Amazon() {
-		super(character.amazon);
+		super(CharacterType.amazon);
 		name = "Amazon";
 		vulnerability = Weight.MEDIUM;
 		weapons.add(new ShortSword());

@@ -1,7 +1,7 @@
 package com.magicrealm.networking;
 
 import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.characters.MRCharacter.character;
+import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.models.BirdsongActivities;
@@ -19,11 +19,11 @@ public interface INet {
 	/**
 	 * Select a character to play as. Cannot choose a character that is already
 	 * chosen by another player.
-	 * @param character
+	 * @param CharacterType
 	 * @return The character the player has chosen
 	 * @throws CharacterAlreadyTakenException
 	 */
-	public MRCharacter selectCharacter(character characterType)
+	public MRCharacter selectCharacter(CharacterType characterType)
 			throws CharacterAlreadyTakenException;
 	
 	/**

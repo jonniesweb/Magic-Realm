@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.magicrealm.characters.MRCharacter;
+import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.models.armors.Armor.Protection;
 import com.magicrealm.models.weapons.Weapon;
+import com.magicrealm.server.ServerGameState;
 
 public class Combatant implements Serializable {
-	private MRCharacter character;
+	private MRCharacter.CharacterType character;
 	private List<Combatant> attackers;
 	private Combatant target;
 	private ActionChit fightChit;
@@ -17,7 +19,7 @@ public class Combatant implements Serializable {
 	private Protection defenseDirection;
 	
 	public Combatant(MRCharacter character) {
-		this.character = character;
+		this.character = character.getCharacterType();
 	}
 	
 	public void setTarget(Combatant target) {
@@ -28,31 +30,22 @@ public class Combatant implements Serializable {
 		this.attackers = attackers;
 	}
 	
-	public Weight getTotalHarm(boolean hitsArmor) {
-		Weapon wep = character.getActiveWeapon();
-		Weight harm;
-		
-		if(hitsArmor)
-			harm = wep.getInflictedHarmThroughArmor();
-		else
-			harm = wep.getInflictedHarm();
-		
-		if(fightChit.getStrength().compareTo(wep.getHarm()) > 0)
-			harm.increment(1);
-		return harm;
-	}
-	
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		return character.equals(obj);
+		Combatant charObj;
+		if(obj instanceof Combatant) {
+			charObj = (Combatant) obj;
+		} else
+			return false;
+		return character.equals(charObj.getCharacter());
 	}
 
-	public MRCharacter getCharacter() {
+	public CharacterType getCharacter() {
 		return character;
 	}
 
-	public void setCharacter(MRCharacter character) {
+	public void setCharacter(CharacterType character) {
 		this.character = character;
 	}
 
@@ -95,4 +88,5 @@ public class Combatant implements Serializable {
 	public Combatant getTarget() {
 		return target;
 	}
+
 }

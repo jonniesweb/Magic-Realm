@@ -27,8 +27,8 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	protected ArrayList<ActionChit> fightChits;
 	protected ArrayList<ActionChit> moveChits;
 	
-	public enum character { amazon, captain, swordsman };
-	public character characterType;
+	public enum CharacterType { amazon, captain, swordsman };
+	public CharacterType characterType;
 	
 	// give 10 to allow character to buy stuff
 	protected int gold = 10;
@@ -45,7 +45,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	private boolean cheatModeEnabled = false;
 	private boolean hiddenEnemiesFound;
 	
-	public MRCharacter(character characterType) {
+	public MRCharacter(CharacterType characterType) {
 		this.characterType = characterType;
 		fightChits = new ArrayList<ActionChit>();
 		moveChits = new ArrayList<ActionChit>();
@@ -214,7 +214,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		this.cheatModeEnabled = cheatModeEnabled;
 	}
 	
-	public static MRCharacter createCharacter(character characterType) {
+	public static MRCharacter createCharacter(CharacterType characterType) {
 		switch (characterType) {
 		case amazon:
 			return new Amazon();
@@ -228,7 +228,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		}
 	}
 
-	public character getCharacterType() {
+	public CharacterType getCharacterType() {
 		return characterType;
 	}
 
@@ -275,9 +275,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	}
 	
 	public void decreaseHealth(int decrease) {
-		System.out.println("reduce health to"+ (health - decrease));
 		this.health = Math.max(health - decrease, 0);
-		System.out.println(this.health);
 	}
 
 }

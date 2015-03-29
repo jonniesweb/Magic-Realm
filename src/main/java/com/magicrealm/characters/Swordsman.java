@@ -8,7 +8,7 @@ import com.magicrealm.models.weapons.ThrustingSword;
 public class Swordsman extends MRCharacter {
 	
 	public Swordsman() {
-		super(character.swordsman);
+		super(CharacterType.swordsman);
 		name = "Swordsman";
 		vulnerability = Weight.MEDIUM;
 		weapons.add(new ThrustingSword());

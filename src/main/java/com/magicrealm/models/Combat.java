@@ -1,14 +1,17 @@
 package com.magicrealm.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hamcrest.core.CombinableMatcher.CombinableEitherMatcher;
 
 import com.magicrealm.characters.MRCharacter;
+import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.armors.Armor.Protection;
 import com.magicrealm.models.armors.Armor.Slot;
@@ -23,13 +26,16 @@ public class Combat {
 	private final Log log = LogFactory.getLog(Combat.class);
 	
 	List<Combatant> combatants = new ArrayList<Combatant>();
+	Map<CharacterType, MRCharacter> characters;
 	List<Combatant> dead = new ArrayList<Combatant>();
 	ServerGameState gameState;
 	
 	public Combat(ServerGameState gameState, List<MRCharacter> characters) {
 		this.gameState = gameState;
+		this.characters = new HashMap<>();
 		for(MRCharacter c: characters) {
 			combatants.add(new Combatant(c));
+			this.characters.put(c.getCharacterType(), c);
 		}
 		multiRound();
 	}
@@ -63,7 +69,7 @@ public class Combat {
 		
 		// choose target
 		for(Combatant c: combatants) {
-			IClientService client = gameState.getClientService(c.getCharacter().getCharacterType());
+			IClientService client = gameState.getClientService(c.getCharacter());
 			Combatant[] attackers = c.getAttackers().toArray(new Combatant[0]);
 			Object obj = client.clientSelect(attackers, "Choose a target");
 			if(obj != null)
@@ -76,16 +82,18 @@ public class Combat {
 	 * executing attacks on targets
 	 */
 	public void melee() {
+
 		
 		// choose attack
 		for(Combatant c: combatants) {
+			MRCharacter character = characters.get(c.getCharacter());
 			if(c.getTarget() == null) {
 				continue;
 			}
-			IClientService client = gameState.getClientService(c.getCharacter().getCharacterType());
-			c.setFightChit((ActionChit) client.clientSelect(c.getCharacter().getFightChits().toArray(new ActionChit[0]), "Choose a fight chit"));
+			IClientService client = gameState.getClientService(c.getCharacter());
+			c.setFightChit((ActionChit) client.clientSelect(character.getFightChits().toArray(new ActionChit[0]), "Choose a fight chit"));
 			c.setAttackDirection((Protection) client.clientSelect(Protection.values(), "Choose an attack"));
-			c.setMoveChit((ActionChit) client.clientSelect(c.getCharacter().getMoveChits().toArray(new ActionChit[0]), "Choose a move chit"));
+			c.setMoveChit((ActionChit) client.clientSelect(character.getMoveChits().toArray(new ActionChit[0]), "Choose a move chit"));
 			c.setDefenseDirection((Protection) client.clientSelect(Protection.values(), "Choose a defense"));
 		}
 		
@@ -110,10 +118,11 @@ public class Combat {
 	public void fatigue() {
 		// fatigue 1 of the 2 chits
 		for(Combatant c: combatants) {
+			MRCharacter character = characters.get(c.getCharacter());
 			if(c.getFightChit() != null && c.getMoveChit() != null) {
-				IClientService client = gameState.getClientService(c.getCharacter().getCharacterType());
+				IClientService client = gameState.getClientService(character.getCharacterType());
 				ActionChit ac = (ActionChit) client.clientSelect(new ActionChit[]{c.getFightChit(), c.getMoveChit()}, "Choose a chit to fatigue");
-				c.getCharacter().fatigueChit(ac);
+				character.fatigueChit(ac);
 			}
 		}
 	}
@@ -131,14 +140,10 @@ public class Combat {
 	
 	public void attack(Combatant c) {
 		Combatant target = c.getTarget();
-		MRCharacter targetCharacter = target.getCharacter();
+		MRCharacter targetCharacter = characters.get(target.getCharacter());
 		
-		if(target == null) {
-			return;
-		}
-		
-		IClientService client = gameState.getClientService(c.getCharacter().getCharacterType());
-		Weight harm = c.getTotalHarm(false);
+		IClientService client = gameState.getClientService(c.getCharacter());
+		Weight harm = getTotalHarm(c, false);
 		Armor blockingArmor;
 		if(c.getAttackDirection() == target.getDefenseDirection()) {
 			blockingArmor = targetCharacter.getActiveArmor(Slot.SHIELD);
@@ -161,22 +166,23 @@ public class Combat {
 					blockingArmor.damaged();
 				}
 			}
-			harm = c.getTotalHarm(true);
+			harm = getTotalHarm(c, false);
 		}
 		
 		if(harm != Weight.NEGLIGIBLE) {
+			client.sendMessage("You harmed "+targetCharacter.getName());
 			ActionChit chit = (ActionChit) client.clientSelect(targetCharacter.getNonWoundedActionChits().toArray(new ActionChit[0]), "Select an action chit to wound");
 			targetCharacter.fatigueChit(chit);
 			targetCharacter.decreaseHealth(1);
 			if(targetCharacter.getHealth() == 0) {
+				client.sendMessage("You killed "+targetCharacter.getName());
 				dead.add(target);
 			}
-			client.sendMessage("You harmed "+target.getCharacter().getName());
-		}else if(harm.compareTo(target.getCharacter().getVulnerability()) > 0) {
+		}else if(harm.compareTo(targetCharacter.getVulnerability()) > 0) {
 			// TODO add following:
 			// handle dead character
 			// drop belongings
-			client.sendMessage("You killed "+target.getCharacter().getName());
+			client.sendMessage("You killed "+targetCharacter.getName());
 			dead.add(target);
 		} else {
 			client.sendMessage("Your attack did no harm");
@@ -202,19 +208,21 @@ public class Combat {
 	
 	public List<Combatant> getAttackers(Combatant attacker) {
 		List<Combatant> newList = new ArrayList<Combatant>();
-		MRCharacter character = attacker.getCharacter();
+		MRCharacter attackerCharacter = characters.get(attacker.getCharacter());
 		for(Combatant c: combatants) {
-			if((character.isHiddenEnemiesFound() || !c.getCharacter().isHidden()) && c != attacker)
+			MRCharacter character = characters.get(c.getCharacter());
+			if((attackerCharacter.isHiddenEnemiesFound() || !character.isHidden()) && c != attacker)
 				newList.add(c);
 		}
-		if(attacker.getCharacter().isHidden())
+		if(attackerCharacter.isHidden())
 			newList.add(null);
 		return newList;
 	}
 	
 	public void combatEndedMessage() {
 		for(Combatant c: combatants) {
-			IClientService client = gameState.getClientService(c.getCharacter().getCharacterType());
+			MRCharacter character = characters.get(c.getCharacter());
+			IClientService client = gameState.getClientService(character.getCharacterType());
 			client.sendMessage("Combat in you clearing has ended");
 		}
 	}
@@ -222,9 +230,25 @@ public class Combat {
 	public void showHealth() {
 
 		for(Combatant c: combatants) {
-			IClientService client = gameState.getClientService(c.getCharacter().getCharacterType());
-			client.sendMessage("You have "+c.getCharacter().getHealth()+" health");
+			MRCharacter character = characters.get(c.getCharacter());
+			IClientService client = gameState.getClientService(character.getCharacterType());
+			client.sendMessage("You have "+character.getHealth()+" health");
 		}
+	}
+	
+	public Weight getTotalHarm(Combatant character, boolean hitsArmor) {
+		
+		Weapon wep = characters.get(character.getCharacter()).getActiveWeapon();
+		Weight harm;
+		
+		if(hitsArmor)
+			harm = wep.getInflictedHarmThroughArmor();
+		else
+			harm = wep.getInflictedHarm();
+		
+		if(character.getFightChit().getStrength().compareTo(wep.getHarm()) > 0)
+			harm.increment(1);
+		return harm;
 	}
 
 }

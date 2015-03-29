@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Combat;
 import com.magicrealm.models.Placeable;
+import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
@@ -21,15 +23,17 @@ import com.magicrealm.utils.TileClearingLocation;
 
 public class EveningState extends ServerState {
 	
-	public Set<TileClearingLocation> relevantLocations = new HashSet<TileClearingLocation>();
+	// Clearings with combat
+	public Set<TileClearingLocation> combatLocations = new HashSet<TileClearingLocation>();
 	private final Log log = LogFactory.getLog(EveningState.class);
 	
 	public EveningState(ServerGameState instance) {
 		super(instance);
 		Set<MRCharacter> characters = getGameState().getCharacters();
 		Iterator<MRCharacter> it = characters.iterator();
+		MagicRealmHexEngineModel board = getGameState().getBoard();
 		while(it.hasNext()) {
-			relevantLocations.add(getGameState().getBoard().getChitLocation(it.next()));
+			combatLocations.add(board.getChitLocation(it.next()));
 		}
 	}
 	
@@ -44,7 +48,7 @@ public class EveningState extends ServerState {
 	
 	// Handles the combat phase for all clearings
 	public void runCombatPhase() {
-		List<TileClearingLocation> locations = new ArrayList<TileClearingLocation>(relevantLocations);
+		List<TileClearingLocation> locations = new ArrayList<TileClearingLocation>(combatLocations);
 		Collections.shuffle(locations);
 		
 		List<MRCharacter> characters = new ArrayList<MRCharacter>();
