@@ -1,14 +1,17 @@
 package com.magicrealm.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 
-import javax.swing.BoxLayout;
+import javax.swing.Box;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 
 import com.magicrealm.characters.Amazon;
-import com.magicrealm.characters.Captain;
 import com.magicrealm.characters.Swordsman;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.armors.Helmet;
@@ -19,14 +22,25 @@ import com.magicrealm.utils.TileClearingLocation;
 
 public class ClearingChitsPane extends JPanel {
 	
+	private Box box;
+	private JLabel clearingLabel;
+	
 	/**
 	 * Create the panel.
 	 */
 	public ClearingChitsPane() {
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(new BorderLayout());
+		
+		clearingLabel = new JLabel("", SwingConstants.CENTER);
+		add(clearingLabel, BorderLayout.NORTH);
+		
+		box = Box.createVerticalBox();
+		JScrollPane chitScrollPane = new JScrollPane(box);
+		add(chitScrollPane, BorderLayout.CENTER);
 	}
 
 	public static void main(String[] args) {
+		
 		final ClearingChitsPane clearingChitsPane = new ClearingChitsPane();
 		EventQueue.invokeLater(new Runnable() {
 			
@@ -59,7 +73,7 @@ public class ClearingChitsPane extends JPanel {
 	}
 
 	/**
-	 * Update the panel with the chits from the given clearing.
+	 * Update the panel with the chits from the clearing
 	 * @param location
 	 * @param closest
 	 */
@@ -68,21 +82,23 @@ public class ClearingChitsPane extends JPanel {
 		// remove all current chits from the panel
 		removeAllChits();
 		
+		// update the header text
+		clearingLabel.setText(location.getTileType() + " " + location.getClearingNumber());
+		
 		// add all chits from the given clearing
 		for (Placeable chit : closest.getChits()) {
-			add(ChitComponent.create(chit));
+			box.add(ChitComponent.create(chit));
 		}
 		validate();
 		repaint();
 	}
 
 	private void removeAllChits() {
-		removeAll();
+		box.removeAll();
 	}
 	
 	@Override
 	public Dimension getPreferredSize() {
-		// set preferred width for showing
-		return new Dimension(75, 100);
+		return new Dimension(125, 100);
 	}
 }
