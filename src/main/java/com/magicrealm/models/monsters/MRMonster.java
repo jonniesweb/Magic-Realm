@@ -1,4 +1,4 @@
-package monsters;
+package com.magicrealm.models.monsters;
 
 /* Java Standard APIs */
 import java.io.Serializable;
@@ -23,30 +23,89 @@ public abstract class MRMonster implements Serializable, Placeable {
 	/*			support identification and type of the object.				  */
 	/**************************************************************************/
 	private static	final long 	serialVersionUID = -56577940207485900L;
-	public	enum	monster { goblin, viper, ghost, demon };
+	public	enum	monster { goblin, viper, ghost, demon, giant };
 	public	monster	monsterType;
 
 
 	/* Control Related Attributes *********************************************/
 	/* PURPOSE: these are values related to the game's board state.           */
 	/**************************************************************************/
-	protected 	boolean attentionChit;	
+	private	boolean attentionChit;	
 	
 	/* Object Related Attributes **********************************************/
 	/* PURPOSE: these are variables that facilitate in-game interaction       */
 	/*			between the game's board, other denizens and this object      */
 	/*        	itself.												          */
 	/**************************************************************************/
-	protected String 				name;
-	protected String 				description;
-	protected Weight				vulnerability;
-	protected int 					fame;
-	protected int 					notoriety;
-	protected ArrayList	<Weapon>	weapons;			
-	protected ArrayList	<Armor>		armors;				
+	private String 					name;
+	private String 					description;
+	private Weight					vulnerability;
+	private int 					fame;
+	private int 					notoriety;
+	private ArrayList	<Weapon>	weapons;			
+	private ArrayList	<Armor>		armors;				
 		
 	/* Methods *//*************************************************************/
 	
+	/* CONTROL RELATED ATTRIBUTES - GET/SET ***********************************/
+	/* PURPOSE:	These are get and set functions for the basic Control Related */
+	/*			Attribute data-types.										  */
+	/**************************************************************************/
+	public boolean getAttentionChit ()
+	{
+		return attentionChit;
+	}
+	protected void setAttentionChit ( boolean aC )
+	{
+		attentionChit = aC;
+	}
+	/* END OF CONTROL RELATED ATTRIBUTES - GET/SET ****************************/
+	
+	/* OBJECT RELATED ATTRIBUTES - GET/SET ************************************/
+	/* PURPOSE:	These are get and set functions for the basic Object Related  */
+	/*			attribute data-types.										  */
+	/**************************************************************************/
+	public String getName ()
+	{
+		return name;
+	}
+	protected void setName ( String n )
+	{
+		name = n;
+	}
+	public String getDescription ()
+	{
+		return description;
+	}
+	protected void setDescription ( String d )
+	{
+		description = d;
+	}
+	public Weight getVulnerability ()
+	{
+		return vulnerability;
+	}
+	protected void setVulnerability ( Weight v )
+	{
+		vulnerability = v;
+	}
+	public int getFame ()
+	{
+		return fame;
+	}
+	protected void setFame ( int f )
+	{
+		fame = f;
+	}
+	public int getNotoriety ()
+	{
+		return notoriety;
+	}
+	protected void setNotoriety ( int n )
+	{
+		notoriety = n;
+	}
+	/* END OF OBJECT RELATED ATTRIBUTES - GET/SET *****************************/
 	
 	/* WEAPONS*****************************************************************/
 	/* PURPOSE:	Weapon related storage access methods. There are two types of */
@@ -204,11 +263,11 @@ public abstract class MRMonster implements Serializable, Placeable {
 	{
 		switch ( type )
 		{
-		/*	case goblin: 					*/
-		/*		return ( new goblin () ); 	*/
-		/* etc.							    */
-		default:
-			throw new RuntimeException ( "Invalid monster type" );
+			case giant:
+				return ( new Giant () );
+			
+			default:
+				throw new RuntimeException ( "Invalid monster type" );
 		}
 	}
 	/* END OF DYNAMIC INSTANTIATION *******************************************/

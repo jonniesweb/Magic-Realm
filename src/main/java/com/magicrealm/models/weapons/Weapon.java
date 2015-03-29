@@ -16,15 +16,21 @@ public abstract class Weapon extends Belonging {
 	protected boolean alerted;
 	protected int price;
 	
-	protected Weapon(String name, Attack attack, int length, int price, Weight weight) {
-		this.attack = attack;
-		this.price = price;
-		this.weight = weight;
-		this.harm = weight;
-		this.length = length;
-		this.name = name;
-		this.sharpness = 0;
-		this.speed = 0;
+	protected Weapon (	String 	name,
+						Attack 	attack,
+						int 	length, 
+						int 	price,
+						Weight 	weight ) 
+	{
+		this.attack 	= attack;
+		this.price 		= price;
+		this.weight 	= weight;
+		this.harm 		= weight;
+		this.length 	= length;
+		this.name 		= name;
+		this.sharpness 	= 0;
+		this.speed 		= 0;
+		
 		sleep();
 	}
 	
