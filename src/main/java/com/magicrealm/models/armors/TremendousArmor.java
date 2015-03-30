@@ -5,7 +5,7 @@ import com.magicrealm.models.Weight;
 public class TremendousArmor extends Armor {
 
 	protected TremendousArmor() {
-		super("Tremendous Armor", Slot.SUIT, Weight.TREMENDOUS, Protection.ALL);
+		super("Tremendous Armor", Slot.SUIT, Weight.TREMENDOUS, new Protection[]{Protection.SMASH, Protection.SWING, Protection.THRUST});
 		// TODO Auto-generated constructor stub
 	}
 

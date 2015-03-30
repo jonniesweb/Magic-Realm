@@ -5,7 +5,7 @@ import com.magicrealm.models.Weight;
 public class GoldHelmet extends Armor {
 
 	protected GoldHelmet() {
-		super("Gold Helmet", Slot.HELMET, Weight.HEAVY, Protection.SMASH);
+		super("Gold Helmet", Slot.HELMET, Weight.HEAVY, new Protection[]{Protection.SMASH});
 		// TODO Auto-generated constructor stub
 	}
 

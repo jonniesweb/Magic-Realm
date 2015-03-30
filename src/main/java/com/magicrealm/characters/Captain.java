@@ -12,7 +12,7 @@ import com.magicrealm.models.weapons.ShortSword;
 public class Captain extends MRCharacter {
 	
 	public Captain() {
-		super(character.captain);
+		super(CharacterType.captain);
 		name = "Captain";
 		vulnerability = Weight.MEDIUM;
 		weapons.add(new ShortSword());
@@ -31,17 +31,17 @@ public class Captain extends MRCharacter {
 	
 	public void setupActionChits() {
 		//fight chits
-		fightChits.add(new ActionChit(Weight.HEAVY, ActionChit.Action.FIGHT, 5, 3));
-		fightChits.add(new ActionChit(Weight.HEAVY, ActionChit.Action.FIGHT, 6, 0));
+		fightChits.add(new ActionChit(Weight.HEAVY, ActionChit.Action.FIGHT, 5, 3, 1));
+		fightChits.add(new ActionChit(Weight.HEAVY, ActionChit.Action.FIGHT, 6, 0, 0));
 		
-		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 3, 2));
-		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 4, 3));
-		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 5, 0));
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 3, 2, 2));
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 4, 3, 1));
+		fightChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.FIGHT, 5, 0, 0));
 		
 		//move chits
-		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 3, 2));
-		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 4, 5));
-		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 5, 0));
+		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 3, 2, 2));
+		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 4, 5, 1));
+		moveChits.add(new ActionChit(Weight.MEDIUM, ActionChit.Action.MOVE, 5, 0, 0));
 	}
 
 	@Override

@@ -3,7 +3,6 @@ package com.magicrealm.models.monsters;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.weapons.Claw;
 import com.magicrealm.models.weapons.Tooth;
-import com.magicrealm.models.weapons.Weapon;
 
 public class Ghost extends MRMonster {
 

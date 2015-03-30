@@ -5,7 +5,7 @@ import com.magicrealm.models.Weight;
 public class Helmet extends Armor {
 
 	public Helmet() {
-		super("Helmet", Slot.HELMET, Weight.MEDIUM, Protection.SMASH);
+		super("Helmet", Slot.HELMET, Weight.MEDIUM, new Protection[]{Protection.SMASH});
 		// TODO Auto-generated constructor stub
 	}
 

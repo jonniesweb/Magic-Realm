@@ -5,7 +5,7 @@ import com.magicrealm.models.Weight;
 public class Breastplate extends Armor {
 
 	public Breastplate() {
-		super("Breastplate", Slot.BREASTPLATE, Weight.MEDIUM, Protection.SWING);
+		super("Breastplate", Slot.BREASTPLATE, Weight.MEDIUM, new Protection[]{Protection.SWING, Protection.THRUST});
 		// TODO Auto-generated constructor stub
 	}
 

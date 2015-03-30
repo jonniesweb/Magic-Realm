@@ -27,24 +27,25 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	protected ArrayList<ActionChit> fightChits;
 	protected ArrayList<ActionChit> moveChits;
 	
-	public enum character { amazon, captain, swordsman };
-	public character characterType;
+	public enum CharacterType { amazon, captain, swordsman };
+	public CharacterType characterType;
 	
 	// give 10 to allow character to buy stuff
 	protected int gold = 10;
+	protected int health = 2;
 	private dwelling startingLocation;
 	protected boolean hidden = false;
 	protected boolean blocked;
 	protected ArrayList<Weapon> weapons;
 	protected ArrayList<Armor> armors;
 	protected ArrayList<Activity> activities;
-	
-	//	private Person tradingRelationships;
+
 	private ArrayList<Discoverable> discoveries;
 	private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
 	private boolean cheatModeEnabled = false;
+	private boolean hiddenEnemiesFound;
 	
-	public MRCharacter(character characterType) {
+	public MRCharacter(CharacterType characterType) {
 		this.characterType = characterType;
 		fightChits = new ArrayList<ActionChit>();
 		moveChits = new ArrayList<ActionChit>();
@@ -76,10 +77,6 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	
 	public void reveal() {
 		hidden = false;
-	}
-	
-	public boolean isHidden() {
-		return hidden;
 	}
 
 	public ArrayList<Activity> getActivities() {
@@ -134,6 +131,14 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		newArm.activate();
 	}
 
+	public ArrayList<Weapon> getWeapons() {
+		return weapons;
+	}
+
+	public ArrayList<Armor> getArmors() {
+		return armors;
+	}
+
 	public ArrayList<ActionChit> getFightChits() {
 		return fightChits;
 	}
@@ -149,6 +154,16 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		return all;
 	}
 	
+	public ArrayList<ActionChit> getNonWoundedActionChits() {
+		ArrayList<ActionChit> chits = new ArrayList<ActionChit>();
+		for(ActionChit c: getActionChits()) {
+			if(!c.isWounded()) {
+				chits.add(c);
+			}
+		}
+		return chits;
+	}
+	
 	public ActionChit[] getFatiguedChits() {
 		ArrayList<ActionChit> chits = new ArrayList<ActionChit>();
 		for(ActionChit c: getActionChits()) {
@@ -157,6 +172,10 @@ public abstract class MRCharacter implements Serializable, Placeable {
 			}
 		}
 		return chits.toArray(new ActionChit[0]);
+	}
+	
+	public void fatigueChit(ActionChit ac) {
+		getActionChits().get(getActionChits().indexOf(ac)).fatigue();
 	}
 	
 	public ArrayList<Discoverable> getDiscoveries() {
@@ -195,7 +214,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		this.cheatModeEnabled = cheatModeEnabled;
 	}
 	
-	public static MRCharacter createCharacter(character characterType) {
+	public static MRCharacter createCharacter(CharacterType characterType) {
 		switch (characterType) {
 		case amazon:
 			return new Amazon();
@@ -209,7 +228,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		}
 	}
 
-	public character getCharacterType() {
+	public CharacterType getCharacterType() {
 		return characterType;
 	}
 
@@ -230,4 +249,33 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		} else
 			return false;
 	}
+
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public boolean isHiddenEnemiesFound() {
+		return hiddenEnemiesFound;
+	}
+
+	public void setHiddenEnemiesFound(boolean hiddenEnemiesFound) {
+		this.hiddenEnemiesFound = hiddenEnemiesFound;
+	}
+
+	public Weight getVulnerability() {
+		return vulnerability;
+	}
+	
+	public int getHealth() {
+		return health;
+	}
+	
+	public void increaseHealth(int increase) {
+		this.health = Math.min(health + increase, 10);
+	}
+	
+	public void decreaseHealth(int decrease) {
+		this.health = Math.max(health - decrease, 0);
+	}
+
 }

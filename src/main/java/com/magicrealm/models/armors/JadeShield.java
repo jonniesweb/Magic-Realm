@@ -6,7 +6,7 @@ import com.magicrealm.models.Weight;
 public class JadeShield extends Armor {
 
 	protected JadeShield() {
-		super("Jade Shield", Slot.SHIELD, Weight.HEAVY, Protection.ONE);
+		super("Jade Shield", Slot.SHIELD, Weight.HEAVY, new Protection[]{Protection.ONE});
 		// TODO Auto-generated constructor stub
 	}
 	

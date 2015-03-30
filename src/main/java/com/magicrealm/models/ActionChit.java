@@ -7,12 +7,14 @@ public class ActionChit extends Belonging {
 	private int totalCharges; //extra effort in game rules
 	private int charges;
 	private int time;
+	private int cost;
 	private Weight strength;
 	private boolean wounded;
 	
-	public ActionChit(Weight s, Action a, int t, int e) {
+	public ActionChit(Weight s, Action a, int t, int e, int c) {
 		action = a;
 		totalCharges = e;
+		cost = c;
 		charges = totalCharges;
 		time = t;
 		strength = s;
@@ -20,17 +22,17 @@ public class ActionChit extends Belonging {
 	}
 	
 	public void fatigue() {
-		if(charges == 0)
+		if(charges == 0 || cost == 0)
 			wounded = true;
 		else
-			-- charges;
+			charges = Math.max(charges - cost, 0);
 	}
 	
 	public void restoreCharge() {
 		if(wounded)
 			wounded = false;
 		else
-			++ charges;
+			charges += cost;
 	}
 	
 	public Action getAction() {
@@ -61,6 +63,17 @@ public class ActionChit extends Belonging {
 		String s = this.action.name().charAt(0)+"";
 		s += this.time+"";
 		return s;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		ActionChit ac;
+		if(obj instanceof ActionChit)
+			ac = (ActionChit) obj;
+		else
+			return false;
+		return this.action == ac.action && this.strength == ac.strength && this.time == ac.time;
 	}
 
 }

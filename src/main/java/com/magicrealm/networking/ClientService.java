@@ -84,4 +84,10 @@ public class ClientService implements IClientService {
 	public void updateBoard(MagicRealmHexEngineModel board) {
 		gameState.setModel(board);
 	}
+
+	@Override
+	public void eveningStarted() {
+		// TODO Auto-generated method stub
+		sendMessage("Evening has begun");
+	}
 }

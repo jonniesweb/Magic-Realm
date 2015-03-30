@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.characters.MRCharacter.character;
+import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.models.Dwelling.dwelling;
 
 public class SelectCharacter extends JPanel {
@@ -31,11 +31,11 @@ public class SelectCharacter extends JPanel {
 		characterButtons = new JPanel();
 		characterButtons.setLayout(new GridLayout(1, 3));
 		
-		character[] characters = MRCharacter.character.values();
+		CharacterType[] characters = MRCharacter.CharacterType.values();
 		
 		CharacterButton cb;
 		cButtons = new ArrayList<CharacterButton>();
-		for(character c: characters) {
+		for(CharacterType c: characters) {
 			cb = new CharacterButton(MRCharacter.createCharacter(c));
 			cb.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

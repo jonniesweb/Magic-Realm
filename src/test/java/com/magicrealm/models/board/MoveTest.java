@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import com.magicrealm.activity.Move;
 import com.magicrealm.characters.Amazon;
-import com.magicrealm.characters.MRCharacter.character;
+import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
@@ -52,7 +52,7 @@ public class MoveTest extends AbstractMRTest {
 	 */
 	private void startGame() throws CharacterAlreadyTakenException,
 			GameAlreadyStartedException {
-		ClientGameState.getInstance().setCharacter(service.selectCharacter(character.amazon));
+		ClientGameState.getInstance().setCharacter(service.selectCharacter(CharacterType.amazon));
 		service.setStartingLocationForCharacter(dwelling.inn);
 		service.startGame();
 	}

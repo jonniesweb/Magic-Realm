@@ -9,7 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.characters.MRCharacter.character;
+import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.exceptions.InappropriateStateException;
@@ -70,7 +70,7 @@ class Net implements INet {
 	}
 
 	@Override
-	public MRCharacter selectCharacter(character characterType) throws CharacterAlreadyTakenException {
+	public MRCharacter selectCharacter(CharacterType characterType) throws CharacterAlreadyTakenException {
 		
 		if (!(getGameState().getState() instanceof PlayerConnectState)) {
 			throw new InappropriateStateException("select character", getGameState().getState().getClass());
