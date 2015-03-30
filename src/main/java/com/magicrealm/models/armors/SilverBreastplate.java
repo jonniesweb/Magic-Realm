@@ -1,7 +1,6 @@
 package com.magicrealm.models.armors;
 
 import com.magicrealm.models.Weight;
-import com.magicrealm.models.armors.Armor.Protection;
 
 public class SilverBreastplate extends Armor {
 

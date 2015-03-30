@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hamcrest.core.CombinableMatcher.CombinableEitherMatcher;
 
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.characters.MRCharacter.CharacterType;
@@ -19,7 +18,6 @@ import com.magicrealm.models.armors.Armor.State;
 import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.server.state.DaylightState;
 
 public class Combat {
 	

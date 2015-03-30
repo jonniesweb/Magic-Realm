@@ -2,15 +2,10 @@ package com.magicrealm.server.state;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
-import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.BirdsongActivities;
-import com.magicrealm.models.Dwelling.dwelling;
-import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.utils.TileClearingLocation;
 
 public class BirdsongState extends ServerState {
 	

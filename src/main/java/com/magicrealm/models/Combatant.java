@@ -6,8 +6,6 @@ import java.util.List;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.models.armors.Armor.Protection;
-import com.magicrealm.models.weapons.Weapon;
-import com.magicrealm.server.ServerGameState;
 
 public class Combatant implements Serializable {
 	private MRCharacter.CharacterType character;

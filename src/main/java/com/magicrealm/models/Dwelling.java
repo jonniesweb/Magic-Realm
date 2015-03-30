@@ -1,9 +1,6 @@
 package com.magicrealm.models;
 
-import java.awt.Image;
 import java.io.Serializable;
-
-import com.magicrealm.utils.ImageCache;
 
 
 public class Dwelling implements Serializable, Placeable {

@@ -9,9 +9,9 @@ import com.magicrealm.models.Placeable;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.armors.Armor.Slot;
-import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.models.weapons.Claw;
 import com.magicrealm.models.weapons.Tooth;
+import com.magicrealm.models.weapons.Weapon;
 
 
 public abstract class MRMonster implements Serializable, Placeable {
