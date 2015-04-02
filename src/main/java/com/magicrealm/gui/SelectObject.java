@@ -20,5 +20,9 @@ public class SelectObject extends JPanel {
 	public Object getSelected() {
 		return objBox.getSelectedItem();
 	}
+	
+	public void setSelected(Object newObj) {
+		objBox.setSelectedItem(newObj);
+	}
 
 }

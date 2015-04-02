@@ -1,7 +1,6 @@
 package com.magicrealm.models;
 
 import java.io.Serializable;
-import java.util.List;
 
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.characters.MRCharacter.CharacterType;
@@ -9,11 +8,10 @@ import com.magicrealm.models.armors.Armor.Protection;
 
 public class Combatant implements Serializable {
 	private MRCharacter.CharacterType character;
-	private List<Combatant> attackers;
 	private Combatant target;
-	private ActionChit fightChit;
+	private ActionChit mainActionChit;
 	private Protection attackDirection;
-	private ActionChit moveChit;
+	private ActionChit defenseChit;
 	private Protection defenseDirection;
 	
 	public Combatant(MRCharacter character) {
@@ -22,10 +20,6 @@ public class Combatant implements Serializable {
 	
 	public void setTarget(Combatant target) {
 		this.target = target;
-	}
-	
-	public void setAttackers(List<Combatant> attackers) {
-		this.attackers = attackers;
 	}
 	
 	@Override
@@ -47,12 +41,12 @@ public class Combatant implements Serializable {
 		this.character = character;
 	}
 
-	public ActionChit getFightChit() {
-		return fightChit;
+	public ActionChit getMainActionChit() {
+		return mainActionChit;
 	}
 
-	public void setFightChit(ActionChit fightChit) {
-		this.fightChit = fightChit;
+	public void setMainActionChit(ActionChit fightChit) {
+		this.mainActionChit = fightChit;
 	}
 
 	public Protection getAttackDirection() {
@@ -63,12 +57,12 @@ public class Combatant implements Serializable {
 		this.attackDirection = attackDirection;
 	}
 
-	public ActionChit getMoveChit() {
-		return moveChit;
+	public ActionChit getDefenseChit() {
+		return defenseChit;
 	}
 
-	public void setMoveChit(ActionChit moveChit) {
-		this.moveChit = moveChit;
+	public void setDefenseChit(ActionChit moveChit) {
+		this.defenseChit = moveChit;
 	}
 
 	public Protection getDefenseDirection() {
@@ -79,12 +73,14 @@ public class Combatant implements Serializable {
 		this.defenseDirection = defenseDirection;
 	}
 
-	public List<Combatant> getAttackers() {
-		return attackers;
-	}
-
 	public Combatant getTarget() {
 		return target;
+	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return character.name();
 	}
 
 }

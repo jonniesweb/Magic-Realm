@@ -6,6 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -44,7 +46,6 @@ public class Combat {
 	public void multiRound() {
 		while(true) {
 			setupRound();
-			setAllAttackers();
 			if(combatants.size() < 2) {
 				combatEndedMessage();
 				break;
@@ -55,22 +56,43 @@ public class Combat {
 				break;
 			}
 			melee();
-//			fatigue();
+			fatigue();
 			showHealth();
 		}
 	}
 	
 	/**
-	 * handles targeting and random assignment of remaining monsters 
+	 * handles targeting, running away and random assignment of remaining monsters 
 	 */
 	public void encounter() {
+		
+		Combatant combatant;
+		Iterator<Combatant> it = combatants.iterator();
+
+		while(it.hasNext()) {
+			combatant = (Combatant) it.next();
+			IClientService client = gameState.getClientService(combatant.getCharacter());
+			MRCharacter character = characters.get(combatant.getCharacter());
+			ActionChit[] chits = character.getNonWoundedMoveChits().toArray(new ActionChit[0]);
+			Object obj = client.clientSelect(chits, "Run away", JOptionPane.YES_NO_OPTION);
+			if(obj instanceof ActionChit) {
+				character.fatigueChit((ActionChit) obj);
+				it.remove();
+				client.sendMessage("You ran away");
+				// TODO reduce activities for this character by 1 next turn
+			}
+		}
+		
+		if(combatants.size() < 2) {
+			return;
+		}
 		
 		// choose target
 		for(Combatant c: combatants) {
 			IClientService client = gameState.getClientService(c.getCharacter());
-			Combatant[] attackers = c.getAttackers().toArray(new Combatant[0]);
+			Combatant[] attackers = getAttackers(c).toArray(new Combatant[0]);
 			Object obj = client.clientSelect(attackers, "Choose a target");
-			if(obj != null)
+			if(obj instanceof Combatant)
 				c.setTarget((Combatant) obj);
 		}
 	}
@@ -80,7 +102,6 @@ public class Combat {
 	 * executing attacks on targets
 	 */
 	public void melee() {
-
 		
 		// choose attack
 		for(Combatant c: combatants) {
@@ -89,9 +110,13 @@ public class Combat {
 				continue;
 			}
 			IClientService client = gameState.getClientService(c.getCharacter());
-			c.setFightChit((ActionChit) client.clientSelect(character.getFightChits().toArray(new ActionChit[0]), "Choose a fight chit"));
+			
+			ArrayList<ActionChit> nwFightChits = character.getNonWoundedFightChits();
+			ArrayList<ActionChit> nwMoveChits = character.getNonWoundedMoveChits();
+			
+			c.setMainActionChit((ActionChit) client.clientSelect(nwFightChits.toArray(new ActionChit[0]), "Choose a fight chit"));
 			c.setAttackDirection((Protection) client.clientSelect(Protection.values(), "Choose an attack"));
-			c.setMoveChit((ActionChit) client.clientSelect(character.getMoveChits().toArray(new ActionChit[0]), "Choose a move chit"));
+			c.setDefenseChit((ActionChit) client.clientSelect(nwMoveChits.toArray(new ActionChit[0]), "Choose a move chit"));
 			c.setDefenseDirection((Protection) client.clientSelect(Protection.values(), "Choose a defense"));
 		}
 		
@@ -117,9 +142,9 @@ public class Combat {
 		// fatigue 1 of the 2 chits
 		for(Combatant c: combatants) {
 			MRCharacter character = characters.get(c.getCharacter());
-			if(c.getFightChit() != null && c.getMoveChit() != null) {
+			if(c.getMainActionChit() != null && c.getDefenseChit() != null) {
 				IClientService client = gameState.getClientService(character.getCharacterType());
-				ActionChit ac = (ActionChit) client.clientSelect(new ActionChit[]{c.getFightChit(), c.getMoveChit()}, "Choose a chit to fatigue");
+				ActionChit ac = (ActionChit) client.clientSelect(new ActionChit[]{c.getMainActionChit(), c.getDefenseChit()}, "Choose a chit to fatigue");
 				character.fatigueChit(ac);
 			}
 		}
@@ -128,11 +153,10 @@ public class Combat {
 	public void setupRound() {
 		for(Combatant c: combatants) {
 			c.setTarget(null);
-			c.setFightChit(null);
-			c.setMoveChit(null);
+			c.setMainActionChit(null);
+			c.setDefenseChit(null);
 			c.setDefenseDirection(null);
 			c.setAttackDirection(null);
-			c.setAttackers(new ArrayList<Combatant>());
 		}
 	}
 	
@@ -187,12 +211,6 @@ public class Combat {
 		}
 	}
 	
-	public void setAllAttackers() {
-		for(Combatant c: combatants) {
-			c.setAttackers(getAttackers(c));
-		}
-	}
-	
 	public boolean isThereTarget() {
 		boolean b = false;
 		for(Combatant c: combatants) {
@@ -244,7 +262,7 @@ public class Combat {
 		else
 			harm = wep.getInflictedHarm();
 		
-		if(character.getFightChit().getStrength().compareTo(wep.getHarm()) > 0)
+		if(character.getMainActionChit().getStrength().compareTo(wep.getHarm()) > 0)
 			harm.increment(1);
 		return harm;
 	}
