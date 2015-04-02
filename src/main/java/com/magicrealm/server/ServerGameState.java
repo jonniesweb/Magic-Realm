@@ -7,8 +7,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -39,15 +37,6 @@ public class ServerGameState {
 	
 	public void setBoard(MagicRealmHexEngineModel board) {
 		this.board = board;
-		
-		board.addObserver(new Observer() {
-			@Override
-			public void update(Observable o, Object arg) {
-				for (IClientService clientService : getClientServices()) {
-					clientService.updateBoard(ServerGameState.this.board);
-				}
-			}
-		});
 	}
 	
 	public MagicRealmHexEngineModel getBoard() {

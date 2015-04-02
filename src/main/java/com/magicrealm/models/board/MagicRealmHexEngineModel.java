@@ -27,7 +27,7 @@ import com.magicrealm.utils.TileClearingLocation;
  * The model for the hexagonal gameboard of Magic Realm. Contains the tiles,
  * clearings, and any chits.
  */
-public class MagicRealmHexEngineModel extends Observable implements HexEngineModel<GameTile>, Serializable {
+public class MagicRealmHexEngineModel implements HexEngineModel<GameTile>, Serializable {
 	
 	private static final long serialVersionUID = -6176084011679757523L;
 
@@ -192,7 +192,6 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 	private void moveChitTo(TileType tile, int clearingNumber, Placeable placeable) {
 		removeChit(placeable);
 		placeChit(tile, clearingNumber, placeable);
-		this.updateUI();
 	}
 	
 	public GameTile getTile(TileType tile) {
@@ -312,11 +311,6 @@ public class MagicRealmHexEngineModel extends Observable implements HexEngineMod
 		return dwellingsMap;
 	}
 	
-	public void updateUI() {
-		setChanged();
-		notifyObservers();
-	}
-
 	public List<SiteChit> getAllSiteChits() {
 		ArrayList<SiteChit> list = new ArrayList<>();
 		
