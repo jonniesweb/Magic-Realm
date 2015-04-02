@@ -1,6 +1,7 @@
 package com.magicrealm.server;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -133,9 +134,9 @@ public class ServerGameState {
 		this.cheatMode = cheatMode;
 	}
 
-	private class User {
-		IClientService clientService;
-		MRCharacter character;
+	public class User {
+		public IClientService clientService;
+		public MRCharacter character;
 	}
 	
 	public int getNumberOfPlayers() {
@@ -149,6 +150,10 @@ public class ServerGameState {
 		ArrayList<String> list = new ArrayList<>(characters.keySet());
 		Collections.shuffle(list);
 		return list;
+	}
+	
+	public Collection<User> getAllUsers() {
+		return characters.values();
 	}
 	
 	/**

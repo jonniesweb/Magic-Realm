@@ -13,6 +13,7 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.tiles.TileClearing;
@@ -27,7 +28,9 @@ public class UIMediator {
 	private ClearingChitsPane clearingChitsPane;
 	private GameFrame gameFrame;
 	private ActivityView activityView;
-	private GoldPanel goldPanel;
+	private StatPanel goldPanel;
+	private StatPanel famePanel;
+	private StatPanel notorietyPanel;
 	private ConsoleLog consoleLog;
 	
 	/**
@@ -40,7 +43,17 @@ public class UIMediator {
 			@Override
 			public void propertyChange(PropertyChangeEvent paramPropertyChangeEvent) {
 				MagicRealmHexEngineModel model = (MagicRealmHexEngineModel) paramPropertyChangeEvent.getNewValue();
+				log.debug("update model");
 				updateModel(model);
+			}
+		});
+		
+		gameState.getPcs().addPropertyChangeListener("character", new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				MRCharacter character = (MRCharacter) evt.getNewValue();
+				log.debug("update character");
+				updateCharacter(character);
 			}
 		});
 	}
@@ -68,7 +81,9 @@ public class UIMediator {
 		gameFrame = new GameFrame();
 		newBoardComponent = new NewBoardComponent(this, model);
 		activityView = new ActivityView();
-		goldPanel = new GoldPanel();
+		goldPanel = new StatPanel("Gold: 0");
+		notorietyPanel = new StatPanel("Notoriety: 0");
+		famePanel = new StatPanel("Fame: 0");
 		consoleLog = new ConsoleLog();
 		
 		JPanel topPanel = new JPanel(new FlowLayout());
@@ -90,6 +105,8 @@ public class UIMediator {
 		
 		topPanel.add(activityView);
 		topPanel.add(goldPanel);
+		topPanel.add(notorietyPanel);
+		topPanel.add(famePanel);
 		gameFrame.add(topPanel, BorderLayout.NORTH);
 		
 		gameFrame.add(consoleLog, BorderLayout.SOUTH);
@@ -101,16 +118,30 @@ public class UIMediator {
 		gameFrame.repaint();
 	}
 	
-	public void widgetChanged() {
-		
-	}
-	
 	public void updateModel(MagicRealmHexEngineModel model) {
 		newBoardComponent.updateModel(model);
 	}
 	
-	public void updateGold(int goldAmount) {
-		goldPanel.updateGold(goldAmount);
+	private void updateGold(int amount) {
+		goldPanel.setText("Gold: " + amount);
+	}
+	
+	private void updateNotoriety(int amount) {
+		notorietyPanel.setText("Notoriety: " + amount);
+	}
+	
+	private void updateFame(int amount) {
+		famePanel.setText("Fame: " + amount);
+	}
+	
+	/**
+	 * Let the mediator update all elements when the character is updated.
+	 * @param character
+	 */
+	private void updateCharacter(MRCharacter character) {
+		updateGold(character.getGold());
+		updateNotoriety(character.getNotoriety());
+		updateFame(character.getFame());
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.magicrealm.networking;
 
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 
 
@@ -37,7 +38,7 @@ public interface IClientService {
 	 * Displays a message to the client
 	 * @param message
 	 */
-	void sendMessage(String message);
+	public void sendMessage(String message);
 	
 	/**
 	 * Prompts client to select an item
@@ -50,4 +51,6 @@ public interface IClientService {
 	public Object test(String string);
 
 	public void updateBoard(MagicRealmHexEngineModel board);
+
+	public void updateCharacter(MRCharacter character);
 }

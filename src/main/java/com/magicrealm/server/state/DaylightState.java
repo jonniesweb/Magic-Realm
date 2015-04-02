@@ -11,6 +11,7 @@ import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
+import com.magicrealm.server.ServerGameState.User;
 
 public class DaylightState extends ServerState {
 
@@ -44,7 +45,7 @@ public class DaylightState extends ServerState {
 			for (Activity activity : playerActivities.getQueuedActivities()) {
 				log.info("Executing activity " + activity);
 				activity.execute(getGameState(), clientId);
-				sendBoardToClients();
+				updateClients();
 			}
 		}
 		
@@ -54,10 +55,16 @@ public class DaylightState extends ServerState {
 		eveningState.init();
 	}
 
-	private void sendBoardToClients() {
+	/**
+	 * Update the board and characters for all connected players
+	 */
+	private void updateClients() {
 		MagicRealmHexEngineModel board = getGameState().getBoard();
-		for (IClientService clientService : getGameState().getClientServices()) {
+		
+		for (User user : getGameState().getAllUsers()) {
+			IClientService clientService = user.clientService;
 			clientService.updateBoard(board);
+			clientService.updateCharacter(user.character);
 		}
 	}
 	

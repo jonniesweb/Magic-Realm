@@ -2,6 +2,7 @@ package com.magicrealm.networking;
 
 import java.rmi.RemoteException;
 
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.gui.UIMediator;
@@ -90,5 +91,10 @@ public class ClientService implements IClientService {
 	public void eveningStarted() {
 		// TODO Auto-generated method stub
 		sendMessage("Evening has begun");
+	}
+	
+	@Override
+	public void updateCharacter(MRCharacter character) {
+		gameState.setCharacter(character);
 	}
 }
