@@ -89,7 +89,10 @@ public class Combat {
 				continue;
 			}
 			IClientService client = gameState.getClientService(c.getCharacter());
-			c.setFightChit((ActionChit) client.clientSelect(character.getFightChits().toArray(new ActionChit[0]), "Choose a fight chit"));
+			
+			ArrayList<ActionChit> chits = character.getActionChits();
+			
+			c.setFightChit((ActionChit) client.clientSelect(chits.toArray(new ActionChit[0]), "Choose a fight chit or run away"));
 			c.setAttackDirection((Protection) client.clientSelect(Protection.values(), "Choose an attack"));
 			c.setMoveChit((ActionChit) client.clientSelect(character.getMoveChits().toArray(new ActionChit[0]), "Choose a move chit"));
 			c.setDefenseDirection((Protection) client.clientSelect(Protection.values(), "Choose a defense"));
