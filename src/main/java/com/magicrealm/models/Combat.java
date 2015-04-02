@@ -46,7 +46,6 @@ public class Combat {
 	public void multiRound() {
 		while(true) {
 			setupRound();
-			setAllAttackers();
 			if(combatants.size() < 2) {
 				combatEndedMessage();
 				break;
@@ -57,34 +56,43 @@ public class Combat {
 				break;
 			}
 			melee();
-//			fatigue();
+			fatigue();
 			showHealth();
 		}
 	}
 	
 	/**
-	 * handles targeting and random assignment of remaining monsters 
+	 * handles targeting, running away and random assignment of remaining monsters 
 	 */
 	public void encounter() {
 		
-		for(Combatant c: combatants) {
-			IClientService client = gameState.getClientService(c.getCharacter());
-			MRCharacter character = characters.get(c.getCharacter());
+		Combatant combatant;
+		Iterator<Combatant> it = combatants.iterator();
+
+		while(it.hasNext()) {
+			combatant = (Combatant) it.next();
+			IClientService client = gameState.getClientService(combatant.getCharacter());
+			MRCharacter character = characters.get(combatant.getCharacter());
 			ActionChit[] chits = character.getNonWoundedMoveChits().toArray(new ActionChit[0]);
 			Object obj = client.clientSelect(chits, "Run away", JOptionPane.YES_NO_OPTION);
-			if(obj != null) {
-				// TODO
-				// Run away
-				// fatigue chit
+			if(obj instanceof ActionChit) {
+				character.fatigueChit((ActionChit) obj);
+				it.remove();
+				client.sendMessage("You ran away");
+				// TODO reduce activities for this character by 1 next turn
 			}
+		}
+		
+		if(combatants.size() < 2) {
+			return;
 		}
 		
 		// choose target
 		for(Combatant c: combatants) {
 			IClientService client = gameState.getClientService(c.getCharacter());
-			Combatant[] attackers = c.getAttackers().toArray(new Combatant[0]);
+			Combatant[] attackers = getAttackers(c).toArray(new Combatant[0]);
 			Object obj = client.clientSelect(attackers, "Choose a target");
-			if(obj != null)
+			if(obj instanceof Combatant)
 				c.setTarget((Combatant) obj);
 		}
 	}
@@ -149,7 +157,6 @@ public class Combat {
 			c.setDefenseChit(null);
 			c.setDefenseDirection(null);
 			c.setAttackDirection(null);
-			c.setAttackers(new ArrayList<Combatant>());
 		}
 	}
 	
@@ -201,12 +208,6 @@ public class Combat {
 			dead.add(target);
 		} else {
 			client.sendMessage("Your attack did no harm");
-		}
-	}
-	
-	public void setAllAttackers() {
-		for(Combatant c: combatants) {
-			c.setAttackers(getAttackers(c));
 		}
 	}
 	

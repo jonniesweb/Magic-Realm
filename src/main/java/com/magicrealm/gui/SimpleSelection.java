@@ -1,7 +1,6 @@
 package com.magicrealm.gui;
 
 import javax.swing.JOptionPane;
-import javax.xml.transform.OutputKeys;
 
 public class SimpleSelection {
 	
