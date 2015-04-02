@@ -14,6 +14,8 @@ public class TreasureChit implements Serializable {
 	
 	private treasure treasureType;
 	private int gold;
+	private int fame;
+	private int notoriety;
 
 	/**
 	 * @param treasureType
@@ -37,4 +39,21 @@ public class TreasureChit implements Serializable {
 	public void setGold(int gold) {
 		this.gold = gold;
 	}
+
+	public int getFame() {
+		return fame;
+	}
+
+	public void setFame(int fame) {
+		this.fame = fame;
+	}
+
+	public int getNotoriety() {
+		return notoriety;
+	}
+
+	public void setNotoriety(int notoriety) {
+		this.notoriety = notoriety;
+	}
+	
 }

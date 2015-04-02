@@ -6,6 +6,7 @@ import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Discoverable;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.treasure.TreasureChit;
+import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
 
 public class Loot extends Table {
@@ -77,14 +78,22 @@ public class Loot extends Table {
 		TreasureChit treasure = null;
 		if (i > treasures.size()) {
 			treasure = treasures.remove(treasures.size() - 1);
-			character.setGold(character.getGold() + treasure.getGold());
-			
+			updateCharacter(character, treasure);
 		} else {
 			treasure = treasures.remove(i);
-			character.setGold(character.getGold() + treasure.getGold());
+			updateCharacter(character, treasure);
 		}
 		
-		getGameState().getClientService(getClientId()).sendMessage("Looted " + treasure.getGold() + " gold");
+		IClientService client = getGameState().getClientService(getClientId());
+		client.sendMessage("Looted " + treasure.getGold() + " gold\n"
+						+ "Gained " + treasure.getFame() + " fame\n"
+						+ "Gained" + treasure.getNotoriety() + " notoriety.");
+	}
+	
+	public void updateCharacter(MRCharacter character, TreasureChit treasure) {
+		character.setGold(character.getGold() + treasure.getGold());
+		character.setFame(character.getFame() + treasure.getFame());
+		character.setNotoriety(character.getNotoriety() + treasure.getNotoriety());
 	}
 	
 }

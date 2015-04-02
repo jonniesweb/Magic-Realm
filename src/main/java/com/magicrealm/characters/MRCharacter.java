@@ -278,4 +278,20 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		this.health = Math.max(health - decrease, 0);
 	}
 
+	public int getFame() {
+		return fame;
+	}
+
+	public void setFame(int fame) {
+		this.fame = fame;
+	}
+
+	public int getNotoriety() {
+		return notoriety;
+	}
+
+	public void setNotoriety(int notoriety) {
+		this.notoriety = notoriety;
+	}
+
 }
