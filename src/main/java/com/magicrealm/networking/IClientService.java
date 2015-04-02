@@ -47,6 +47,7 @@ public interface IClientService {
 	 * @return selected item from array
 	 */
 	public Object clientSelect(Object[] objArray, String message);
+	public Object clientSelect(Object[] objArray, String message, int type);
 
 	public Object test(String string);
 

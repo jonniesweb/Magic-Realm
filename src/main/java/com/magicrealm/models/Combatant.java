@@ -11,9 +11,9 @@ public class Combatant implements Serializable {
 	private MRCharacter.CharacterType character;
 	private List<Combatant> attackers;
 	private Combatant target;
-	private ActionChit fightChit;
+	private ActionChit mainActionChit;
 	private Protection attackDirection;
-	private ActionChit moveChit;
+	private ActionChit defenseChit;
 	private Protection defenseDirection;
 	
 	public Combatant(MRCharacter character) {
@@ -47,12 +47,12 @@ public class Combatant implements Serializable {
 		this.character = character;
 	}
 
-	public ActionChit getFightChit() {
-		return fightChit;
+	public ActionChit getMainActionChit() {
+		return mainActionChit;
 	}
 
-	public void setFightChit(ActionChit fightChit) {
-		this.fightChit = fightChit;
+	public void setMainActionChit(ActionChit fightChit) {
+		this.mainActionChit = fightChit;
 	}
 
 	public Protection getAttackDirection() {
@@ -63,12 +63,12 @@ public class Combatant implements Serializable {
 		this.attackDirection = attackDirection;
 	}
 
-	public ActionChit getMoveChit() {
-		return moveChit;
+	public ActionChit getDefenseChit() {
+		return defenseChit;
 	}
 
-	public void setMoveChit(ActionChit moveChit) {
-		this.moveChit = moveChit;
+	public void setDefenseChit(ActionChit moveChit) {
+		this.defenseChit = moveChit;
 	}
 
 	public Protection getDefenseDirection() {

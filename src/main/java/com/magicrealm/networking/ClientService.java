@@ -97,4 +97,10 @@ public class ClientService implements IClientService {
 	public void updateCharacter(MRCharacter character) {
 		gameState.setCharacter(character);
 	}
+	
+	@Override
+	public Object clientSelect(Object[] objArray, String message, int type) {
+		SimpleSelection selectObj = new SimpleSelection(objArray, message, type);
+		return selectObj.getSelected();
+	}
 }

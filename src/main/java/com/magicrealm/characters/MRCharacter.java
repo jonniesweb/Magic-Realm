@@ -164,6 +164,26 @@ public abstract class MRCharacter implements Serializable, Placeable {
 		return chits;
 	}
 	
+	public ArrayList<ActionChit> getNonWoundedFightChits() {
+		ArrayList<ActionChit> chits = new ArrayList<ActionChit>();
+		for(ActionChit c: getFightChits()) {
+			if(!c.isWounded()) {
+				chits.add(c);
+			}
+		}
+		return chits;
+	}
+	
+	public ArrayList<ActionChit> getNonWoundedMoveChits() {
+		ArrayList<ActionChit> chits = new ArrayList<ActionChit>();
+		for(ActionChit c: getMoveChits()) {
+			if(!c.isWounded()) {
+				chits.add(c);
+			}
+		}
+		return chits;
+	}
+	
 	public ActionChit[] getFatiguedChits() {
 		ArrayList<ActionChit> chits = new ArrayList<ActionChit>();
 		for(ActionChit c: getActionChits()) {
