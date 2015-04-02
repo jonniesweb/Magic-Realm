@@ -63,12 +63,16 @@ public class BasicTreasaurePlacementStrategy extends
 		for (int i = 0; i < small; i++) {
 			TreasureChit treasureChit = new TreasureChit(treasure.small);
 			treasureChit.setGold((r.nextInt(3) + 1) * 10);
+			treasureChit.setFame((r.nextInt(3) + 1) * 5);
+			treasureChit.setNotoriety((r.nextInt(5) + 1) * 2);
 			chit.addTreasure(treasureChit);
 		}
 		
 		for (int i = 0; i < large; i++) {
 			TreasureChit treasureChit = new TreasureChit(treasure.large);
 			treasureChit.setGold((r.nextInt(2) + 4) * 10);
+			treasureChit.setFame((r.nextInt(3) + 4) * 5);
+			treasureChit.setNotoriety((r.nextInt(5) + 6) * 2);
 			chit.addTreasure(treasureChit);
 		}
 	}
