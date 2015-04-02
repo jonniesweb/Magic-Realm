@@ -43,8 +43,6 @@ public class ClientService implements IClientService {
 		gameState.setModel(model);
 		setView(model);
 
-		// initialize the birdsong activities
-		getGameState().setActivities(new BirdsongActivities(model.getChitLocation(getGameState().getCharacter())));
 	}
 
 	protected void setView(MagicRealmHexEngineModel model) {
@@ -56,6 +54,9 @@ public class ClientService implements IClientService {
 	@Override
 	public void birdsongStarted(MagicRealmHexEngineModel model) {
 		gameState.setModel(model);
+		
+		// initialize the birdsong activities
+		getGameState().setActivities(new BirdsongActivities(model.getChitLocation(getGameState().getCharacter())));
 		sendMessage("Birdsong has begun");
 	}
 

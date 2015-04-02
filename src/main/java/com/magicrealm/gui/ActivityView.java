@@ -49,9 +49,7 @@ public class ActivityView extends JPanel {
 				new Thread(new Runnable() {
 					public void run() {
 						instance.getService().setActivities(
-								instance.getActivities());
-						// for the future if needed
-						//				ClientGameState.getInstance().setActivities(null);
+								instance.getActivities());		
 						clearActivities();
 					}
 				}).start();
