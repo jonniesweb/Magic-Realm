@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import com.magicrealm.activity.Activity;
 import com.magicrealm.activity.Move;
 import com.magicrealm.client.ClientGameState;
+import com.magicrealm.utils.GameLog;
 
 public class ActivityView extends JPanel {
 		
@@ -35,11 +36,14 @@ public class ActivityView extends JPanel {
 				
 				if(option == JOptionPane.OK_OPTION) {
 					Activity a = Activity.buildActivity(activity.getActivityType(), activity);
-					if(a instanceof Move) {
-						instance.getActivities().setClearing(((Move) a).getLocation());
+					
+					boolean result = instance.getActivities().addActivity(a);
+					if(result) {
+						update(instance.getActivities().getQueuedActivities());
+					} else {
+						GameLog.log("Not enough slots for that activity");
 					}
-					instance.getActivities().getQueuedActivities().add(a);
-					update(instance.getActivities().getQueuedActivities());
+					
 				}
 			}
 		});

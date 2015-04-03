@@ -8,7 +8,10 @@ import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.gui.UIMediator;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.models.tiles.TileClearing.ClearingType;
 import com.magicrealm.utils.GameLog;
+import com.magicrealm.utils.TileClearingLocation;
 
 /**
  * Implementation of {@link IClientService} for client-side actions that are
@@ -57,7 +60,10 @@ public class ClientService implements IClientService {
 		gameState.setModel(model);
 		
 		// initialize the birdsong activities
-		getGameState().setActivities(new BirdsongActivities(model.getChitLocation(getGameState().getCharacter())));
+		TileClearingLocation loc = model.getChitLocation(getGameState().getCharacter());
+		ClearingType type = model.getClearing(loc).getClearingType();
+		
+		getGameState().setActivities(new BirdsongActivities(loc, (type == ClearingType.CAVE)));
 		sendMessage("Birdsong has begun");
 	}
 
