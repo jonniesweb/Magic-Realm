@@ -42,7 +42,7 @@ public class MoveTest extends AbstractMRTest {
 	}
 
 	private void moveCharacterOnce(TileClearingLocation currentLocation) {
-		BirdsongActivities activities = new BirdsongActivities(currentLocation);
+		BirdsongActivities activities = new BirdsongActivities(currentLocation, false);
 		activities.getQueuedActivities().add(new Move(new TileClearingLocation(TileType.B, 1)));
 		service.setActivities(activities);
 	}
