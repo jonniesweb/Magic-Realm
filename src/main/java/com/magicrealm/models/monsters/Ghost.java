@@ -51,6 +51,6 @@ public class Ghost extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		return "ghost";
 	}
 }

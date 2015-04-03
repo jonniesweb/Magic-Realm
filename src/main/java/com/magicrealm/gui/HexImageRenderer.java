@@ -20,7 +20,6 @@ import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.tiles.GameTile;
-import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.ImageCache;
 
@@ -47,12 +46,6 @@ public final class HexImageRenderer extends ColorHexRender {
 		
 		// draw the tile onto the gameboard
 		graphic.drawImage(image, (int) x, (int) y, (int) engine.getCellWidth(), (int) engine.getCellHeight(), null);
-		
-		if (tile.getTileType() == TileType.EV) {
-			// show 2 ghosts on 5
-			drawImageFromString(graphic, x, y, getX(engine, image, 143f), getY(engine, image, 143f), "ghost");
-			drawImageFromString(graphic, x, y, getX(engine, image, 133f), getY(engine, image, 133f), "ghost");
-		}
 		
 		// draw all chits from the clearings
 		drawClearings(engine, graphic, x, y, tile);
