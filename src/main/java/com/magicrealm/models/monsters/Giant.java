@@ -29,7 +29,7 @@ public class Giant extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		return "giant";
 	}
 
 }

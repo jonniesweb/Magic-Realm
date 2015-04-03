@@ -50,6 +50,6 @@ public class Wolf extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		return "wolf";
 	}
 }
