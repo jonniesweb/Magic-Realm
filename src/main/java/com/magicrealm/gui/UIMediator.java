@@ -138,7 +138,7 @@ public class UIMediator {
 	 * Let the mediator update all elements when the character is updated.
 	 * @param character
 	 */
-	private void updateCharacter(MRCharacter character) {
+	public void updateCharacter(MRCharacter character) {
 		updateGold(character.getGold());
 		updateNotoriety(character.getNotoriety());
 		updateFame(character.getFame());

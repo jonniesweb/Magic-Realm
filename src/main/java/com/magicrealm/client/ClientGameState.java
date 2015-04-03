@@ -49,9 +49,20 @@ private static ClientGameState instance;
 	}
 	
 	public void setCharacter(MRCharacter character) {
-		MRCharacter old = this.character;
+//		MRCharacter old = this.character;
 		this.character = character;
-		pcs.firePropertyChange("character", old, character);
+//		pcs.firePropertyChange("character", old, character);
+		
+		/*
+		 * update the character by calling the UIMediator directly instead of a
+		 * observer. old code above. superhack.
+		 * 
+		 * PCS didn't want to cooperate whereas model did. No idea why.
+		 */
+		if (uiMediator != null) {
+			uiMediator.updateCharacter(character);
+		}
+		
 	}
 	
 
