@@ -26,7 +26,7 @@ public abstract class MRMonster implements Serializable, Placeable {
 	/**************************************************************************/
 	private static	final long 	serialVersionUID = -56577940207485900L;
 	public	enum	monster { 	giant, wolf, ogre, ghost, heavySpider,
-								heavyBat								};
+								heavyBat, goblinwAxe					};
 	public	monster	monsterType;
 
 
