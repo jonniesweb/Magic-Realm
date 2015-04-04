@@ -39,9 +39,17 @@ public class TileClearing implements Serializable, Discoverable {
 	 */
 	private TileClearing secretPath = null;
 
+	/*
+	 * Y position of the center of the clearing in relation to the 497px x 431px
+	 * hex game tile image.
+	 */
 	private int ypos;
 
-	private int xpos;;
+	/*
+	 * X position of the center of the clearing in relation to the 497px x 431px
+	 * hex game tile image.
+	 */
+	private int xpos;
 	
 	/**
 	 * Create a clearing, defaulting to type <code>ClearingType.WOODS</code>
@@ -114,7 +122,7 @@ public class TileClearing implements Serializable, Discoverable {
 	}
 	
 	public void setXPosition(int xpos) {
-		this.xpos =xpos;
+		this.xpos = xpos;
 	}
 	
 	public int getXPosition() {

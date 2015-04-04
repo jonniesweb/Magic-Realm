@@ -74,6 +74,7 @@ public class SiteChit extends ClearingMapChit {
 			StringBuilder sb  = new StringBuilder("SiteChit: " + siteType + " contains: ");
 			for (MapChit mapChit : extraChits) {
 				sb.append(mapChit);
+				sb.append(" ");
 			}
 			return sb.toString();
 		}

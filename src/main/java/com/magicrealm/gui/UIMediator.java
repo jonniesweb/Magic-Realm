@@ -79,7 +79,7 @@ public class UIMediator {
 	public void createWidgets(MagicRealmHexEngineModel model) {
 		clearingChitsPane = new ClearingChitsPane();
 		gameFrame = new GameFrame();
-		newBoardComponent = new NewBoardComponent(this, model);
+		newBoardComponent = new NewBoardComponent(model);
 		activityView = new ActivityView();
 		goldPanel = new StatPanel("Gold: 0");
 		notorietyPanel = new StatPanel("Notoriety: 0");
@@ -87,6 +87,17 @@ public class UIMediator {
 		consoleLog = new ConsoleLog();
 		
 		JPanel topPanel = new JPanel(new FlowLayout());
+		
+		/*
+		 * add HexTileClickEvents to the NewBoardComponent
+		 */
+		newBoardComponent.addHexTileClickEvent(new ClearingClickedListener(this));
+		
+		// when cheat mode is enabled, log info about the tile
+		if (gameState.getCharacter().isCheatModeEnabled()) {
+			newBoardComponent.addHexTileClickEvent(new LogHexTileInformation());
+		}
+		
 		
 		/*
 		 * assemble widgets in the gameFrame
