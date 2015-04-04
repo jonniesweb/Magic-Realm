@@ -3,16 +3,16 @@ package com.magicrealm.models.monsters;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.weapons.Axe;
 
-public class GoblinwAxe extends MRMonster {
+public class GoblinAxe extends MRMonster {
 
-	public GoblinwAxe ()
+	public GoblinAxe ()
 	{
-		super ( monster.goblinwAxe );
+		super ( monster.goblinAxe );
 		
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "goblinwAxe" );
+		setName 		 ( "Goblin With Axe" );
 		setDescription 	 ( "This is a dangerous enemy, being of a size lower" +
 						   " than your waist, these tricky vermin always"     +
 						   " operate below the belt. Be even more wary, as"   +
@@ -30,6 +30,6 @@ public class GoblinwAxe extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		return "goblin_axe";
 	}
 }

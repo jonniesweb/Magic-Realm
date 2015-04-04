@@ -14,7 +14,7 @@ public class Wolf extends MRMonster {
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "wolf" );
+		setName 		 ( "Wolf" );
 		setDescription 	 ( "This is a wolf. He likes red meat and red capes." +
 							" Watch out Little Red Riding Hood." );
 		setVulnerability ( Weight.MEDIUM );

@@ -9,12 +9,12 @@ public class HeavyBat extends MRMonster {
 	public HeavyBat ()
 	{
 		/* Call inherited constructor *****************************************/
-		super ( monster.heavyBat );
+		super ( monster.bat );
 		
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "HeavyBat" );
+		setName 		 ( "Bat" );
 		setDescription 	 ( "The Bloods first of only two recourses, when" +
 						   " referring to fat kats");
 		setVulnerability ( Weight.MEDIUM );

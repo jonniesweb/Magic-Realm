@@ -25,10 +25,11 @@ public abstract class MRMonster implements Serializable, Placeable {
 	/*			support identification and type of the object.				  */
 	/**************************************************************************/
 	private static	final long 	serialVersionUID = -56577940207485900L;
-	public	enum	monster { 	giant, wolf, ogre, ghost, heavySpider,
-								heavyBat, goblinwAxe, goblinwGreatSword,
-								goblinwSpear 								};
-	public	monster	monsterType;
+	public enum monster {
+		giant, wolf, ogre, ghost, spider, bat, goblinAxe, goblinSword, goblinSpear
+	};
+	
+	private monster monsterType;
 
 
 	/* Control Related Attributes *********************************************/
@@ -294,21 +295,29 @@ public abstract class MRMonster implements Serializable, Placeable {
 	/* PURPOSE:	these methods are responsible for instantiating  monster      */
 	/*			types.														  */
 	/**************************************************************************/
-	public static MRMonster createMonster (monster type)
-	{
-		switch ( type )
-		{
-			case giant:
-				return ( new Giant () );
-			case wolf:
-				return ( new Wolf  () );
-			case ogre:
-				return ( new Ogre  () );
-			case ghost:
-				return ( new Ghost () );
-				
-			default:
-				throw new RuntimeException ( "Invalid monster type" );
+	public static MRMonster createMonster(monster type) {
+		switch (type) {
+		case giant:
+			return new Giant();
+		case wolf:
+			return new Wolf();
+		case ogre:
+			return new Ogre();
+		case ghost:
+			return new Ghost();
+		case bat:
+			return new HeavyBat();
+		case spider:
+			return new HeavySpider();
+		case goblinAxe:
+			return new GoblinAxe();
+		case goblinSpear:
+			return new GoblinSpear();
+		case goblinSword:
+			return new GoblinGreatSword();
+			
+		default:
+			throw new RuntimeException("Invalid monster type");
 		}
 	}
 	/* END OF DYNAMIC INSTANTIATION *******************************************/

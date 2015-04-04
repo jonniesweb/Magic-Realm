@@ -3,16 +3,16 @@ package com.magicrealm.models.monsters;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.weapons.Spear;
 
-public class GoblinwSpear extends MRMonster {
+public class GoblinSpear extends MRMonster {
 
-	public GoblinwSpear ()
+	public GoblinSpear ()
 	{
-		super ( monster.goblinwSpear );
+		super ( monster.goblinSpear );
 		
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "goblinwSpear" );
+		setName 		 ( "Goblin With Spear" );
 		setDescription 	 ( "This feller will gut you like a fish!!!" 		+
 						   " Watch out, this crazed offshoot of gangrene" 	+
 						   " utilizes many different types of spears." );
@@ -28,6 +28,6 @@ public class GoblinwSpear extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		return "goblin_spear";
 	}
 }

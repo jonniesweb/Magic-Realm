@@ -3,16 +3,16 @@ package com.magicrealm.models.monsters;
 import com.magicrealm.models.Weight;
 import com.magicrealm.models.weapons.GreatSword;
 
-public class GoblinwGreatSword extends MRMonster {
+public class GoblinGreatSword extends MRMonster {
 	
-	public GoblinwGreatSword ()
+	public GoblinGreatSword ()
 	{
-		super ( monster.goblinwGreatSword );
+		super ( monster.goblinSword );
 		
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "goblinwGreatSword" );
+		setName 		 ( "Goblin With Sword" );
 		setDescription 	 ( "This peon is a little bit more manageable than" +
 						   " it's pesky axe weilding brother. As his sword" +
 				           " pretty much compensates for both his wit and"  +
@@ -32,7 +32,7 @@ public class GoblinwGreatSword extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		return "goblin_sword";
 	}
 
 }

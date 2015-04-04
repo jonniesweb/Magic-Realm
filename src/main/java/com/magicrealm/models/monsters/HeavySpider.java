@@ -9,12 +9,12 @@ public class HeavySpider extends MRMonster {
 	public HeavySpider ()
 	{
 		/* Call inherited constructor *****************************************/
-		super ( monster.heavySpider );
+		super ( monster.spider );
 		
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "heavySpider" );
+		setName 		 ( "Spider" );
 		setDescription 	 ( "You kill a spider, you have bad luck for a year" +
 						   " You die from a spider, you have bad luck for "  +
 						   " the rest of your life...");
@@ -53,6 +53,6 @@ public class HeavySpider extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		return "spider";
 	}
 }

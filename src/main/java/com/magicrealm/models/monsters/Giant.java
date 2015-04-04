@@ -13,7 +13,7 @@ public class Giant extends MRMonster {
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "giant" );
+		setName 		 ( "Giant" );
 		setDescription 	 ( "This is a giant. He is tremendous. But he took" +
 						   " an arrow to the knee. Don't worry the adoring" +
 						   " fan has your back. I'm on crack." );

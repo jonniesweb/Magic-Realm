@@ -14,7 +14,7 @@ public class Ogre extends MRMonster {
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "ogre" );
+		setName 		 ( "Ogre" );
 		setDescription 	 ( "This is a ogre. He is very ugly and smells"      +
 						   " particullarly bad. They possess great strength" +
 						   " although they maintain little intelligence."    +

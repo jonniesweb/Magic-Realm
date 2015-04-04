@@ -14,7 +14,7 @@ public class Ghost extends MRMonster {
 		setAttentionChit ( true );
 		
 		/* Set Object Related Attributes **************************************/
-		setName 		 ( "ghost" );
+		setName 		 ( "Ghost" );
 		setDescription 	 ( "This is a ghost. Ooooooo run away!" );
 		setVulnerability ( Weight.MEDIUM );
 		setFame			 ( 0 );
