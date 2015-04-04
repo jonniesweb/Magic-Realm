@@ -52,6 +52,6 @@ public class HeavyBat extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		return "bat";
 	}
 }

@@ -55,7 +55,8 @@ public class Ogre extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameOfThisImageFile";
+		// strangely its the same image as the giant
+		return "giant";
 	}
 	
 }
