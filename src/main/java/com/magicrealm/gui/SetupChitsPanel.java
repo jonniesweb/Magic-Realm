@@ -105,9 +105,9 @@ public class SetupChitsPanel extends JPanel {
 	private static String getSiteChitsDescription() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<html>Avaliable Site chits: ");
-		for (site site : site.values()) {
+		for (site s : site.values()) {
 			sb.append("<br>");
-			sb.append(site);
+			sb.append(s);
 		}
 		sb.append("</html>");
 		return sb.toString();
@@ -116,9 +116,9 @@ public class SetupChitsPanel extends JPanel {
 	private static String getSoundChitsDescription() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<html>Avaliable Sound chits: ");
-		for (sound sound : sound.values()) {
+		for (sound s : sound.values()) {
 			sb.append("<br>");
-			sb.append(sound);
+			sb.append(s);
 		}
 		sb.append("</html>");
 		return sb.toString();
@@ -127,9 +127,9 @@ public class SetupChitsPanel extends JPanel {
 	private static String getWarningChitsDescription() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<html>Avaliable Warning chits: ");
-		for (warning warning : warning.values()) {
+		for (warning w : warning.values()) {
 			sb.append("<br>");
-			sb.append(warning);
+			sb.append(w);
 		}
 		sb.append("</html>");
 		return sb.toString();
