@@ -7,6 +7,8 @@ import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
+import com.magicrealm.utils.ProbabilityCalculator;
+import com.magicrealm.utils.ProbabilityCalculator.Result;
 
 public class BirdsongState extends ServerState {
 	
@@ -41,6 +43,32 @@ public class BirdsongState extends ServerState {
 			DaylightState state = new DaylightState(getGameState(), this.activities);
 			getGameState().setState(state);
 			state.init();
+		}
+	}
+	
+	public void summonMonsters() {
+		Result roll = ProbabilityCalculator.getResult();
+		switch (roll) {
+		case ONE:
+			
+			break;
+		case TWO:
+			
+			break;
+		case THREE:
+			
+			break;
+		case FOUR:
+			
+			break;
+		case FIVE:
+			
+			break;
+		case SIX:
+			
+			break;
+		default:
+			break;
 		}
 	}
 	
