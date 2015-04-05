@@ -7,6 +7,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.magicrealm.activity.Activity;
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.IClientService;
@@ -41,6 +42,12 @@ public class DaylightState extends ServerState {
 		// run activities
 		for (String clientId : playerOrder) {
 			log.info("Running activities for clientId: " + clientId);
+			
+			// unalert weapon and unhide character for next day
+			MRCharacter character = getGameState().getCharacter(clientId);
+			character.reveal();
+			character.getActiveWeapon().sleep();
+			
 			BirdsongActivities playerActivities = activities.get(clientId);
 			for (Activity activity : playerActivities.getQueuedActivities()) {
 				log.info("Executing activity " + activity);

@@ -21,12 +21,6 @@ public class BirdsongState extends ServerState {
 		for (IClientService service : getGameState().getClientServices()) {
 			service.birdsongStarted(getGameState().getBoard());
 		}
-		
-		// unalert weapon and unhide character for next day
-		for (MRCharacter character: getGameState().getCharacters()) {
-			character.getActiveWeapon().sleep();
-			character.reveal();
-		}
 	}
 	
 	/**
