@@ -2,6 +2,7 @@ package com.magicrealm.utils;
 
 import java.util.Random;
 
+import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.gui.SimpleSelection;
 import com.magicrealm.server.ServerGameState;
 
@@ -23,7 +24,8 @@ public abstract class ProbabilityCalculator {
 	}
 	
 	public static Result getResult(String clientId) {
-		if(ServerGameState.getInstance().getCharacter(clientId).isCheatModeEnabled()) {
+		MRCharacter character = ServerGameState.getInstance().getCharacter(clientId);
+		if(character != null && character.isCheatModeEnabled()) {
 			Result[] choices = Result.values();
 			SimpleSelection selectResult = new SimpleSelection(choices, "Select A Result");
 			return (Result) selectResult.getSelected();
@@ -43,6 +45,10 @@ public abstract class ProbabilityCalculator {
 		} else {
 			return Result.SIX;
 		}
+	}
+	
+	public static Result getResult() {
+		return getResult("");
 	}
 	
 	public static boolean findTreasure() {
