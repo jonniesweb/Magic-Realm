@@ -33,6 +33,11 @@ public class GameTile implements Serializable {
 		AV, BV, CV, DV, EV, LW, MW, NW, OW, PW, B, CN, CS, HP, R, CF, CG, DW, L, M
 	};
 	
+	public static final TileType[] VALLEYS = new TileType[]{ TileType.AV, TileType.BV, TileType.CV, TileType.DV, TileType.EV};
+	public static final TileType[] WOODS = new TileType[]{ TileType.LW, TileType.MW, TileType.NW, TileType.OW, TileType.PW };
+	public static final TileType[] CAVES = new TileType[]{ TileType.B, TileType.CN, TileType.CS, TileType.HP, TileType.R };
+	public static final TileType[] MOUNTAINS = new TileType[]{ TileType.CF, TileType.CG, TileType.DW, TileType.L, TileType.M };
+	
 	public static final int MAX_X = 497;
 	public static final int MAX_Y = 431;
 
