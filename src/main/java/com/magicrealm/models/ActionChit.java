@@ -61,6 +61,7 @@ public class ActionChit extends Belonging {
 	
 	public String toString() {
 		String s = this.action.name().charAt(0)+"";
+		s += this.strength.name().charAt(0)+"";
 		s += this.time+"";
 		return s;
 	}

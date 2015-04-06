@@ -2,43 +2,18 @@ package com.magicrealm.models;
 
 import java.io.Serializable;
 
-import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.models.armors.Armor.Protection;
 
-public class Combatant implements Serializable {
-	private MRCharacter.CharacterType character;
-	private Combatant target;
-	private ActionChit mainActionChit;
-	private Protection attackDirection;
-	private ActionChit defenseChit;
-	private Protection defenseDirection;
+public abstract class Combatant implements Serializable {
 	
-	public Combatant(MRCharacter character) {
-		this.character = character.getCharacterType();
-	}
+	private Combatant target = null;
+	private ActionChit mainActionChit = null;
+	private Protection attackDirection = null;
+	private ActionChit defenseChit = null;
+	private Protection defenseDirection = null;
 	
 	public void setTarget(Combatant target) {
 		this.target = target;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		Combatant charObj;
-		if(obj instanceof Combatant) {
-			charObj = (Combatant) obj;
-		} else
-			return false;
-		return character.equals(charObj.getCharacter());
-	}
-
-	public CharacterType getCharacter() {
-		return character;
-	}
-
-	public void setCharacter(CharacterType character) {
-		this.character = character;
 	}
 
 	public ActionChit getMainActionChit() {
@@ -75,12 +50,6 @@ public class Combatant implements Serializable {
 
 	public Combatant getTarget() {
 		return target;
-	}
-	
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return character.name();
 	}
 
 }
