@@ -10,6 +10,7 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.chits.ClearingMapChit;
+import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.chits.SiteChit.site;
 import com.magicrealm.models.monsters.GoblinAxe;
@@ -91,7 +92,7 @@ public class BirdsongState extends ServerState {
 		}
 	}
 	
-	public void summonSiteMonsters(site site, MRMonster monster) {
+	public void summonSiteMonsters(site site1, MRMonster monster) {
 		for(TileType tt: TileType.values()) {
 			GameTile tile = getGameState().getBoard().getTile(tt);
 			ClearingMapChit chit = tile.getSiteSoundChit();
@@ -102,12 +103,27 @@ public class BirdsongState extends ServerState {
 				continue;
 			}
 			
-			if(chit != null && siteChit.getSiteType() == site) {
-				getGameState().getBoard().placeChit(tt, chit.getClearing(), monster);
+			if(siteChit != null && (siteChit.getSiteType() == site.lost_castle || siteChit.getSiteType() == site.lost_city)) {
+				for(MapChit c: siteChit.getExtraChits()) {
+					SiteChit siteChit2 = null;
+					if(c instanceof SiteChit) {
+						 siteChit2 = (SiteChit) c;
+					}
+					if(siteChit2 != null && siteChit2.getSiteType() == site1) {
+						getGameState().getBoard().placeChit(tt, siteChit2.getClearing(), monster);
+						
+						// notify clients of monsters
+						for (IClientService service : getGameState().getClientServices()) {
+							service.sendMessage("Monsters were summoned at " + site1.name());
+						}
+					}
+				}
+			} else if(siteChit != null && siteChit.getSiteType() == site1) {
+				getGameState().getBoard().placeChit(tt, siteChit.getClearing(), monster);
 				
 				// notify clients of monsters
 				for (IClientService service : getGameState().getClientServices()) {
-					service.sendMessage("Monsters were summoned at " + site.name());
+					service.sendMessage("Monsters were summoned at " + site1.name());
 				}
 			}
 		}
