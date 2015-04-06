@@ -27,9 +27,10 @@ public abstract class MRMonster implements Serializable, Placeable {
 	private static	final long 	serialVersionUID = -56577940207485900L;
 	
 	public enum monster {
-		giant, wolf, ogre, ghost, spider, bat, goblinAxe, goblinSword, goblinSpear, octopus
+		giant, wolf, ogre, ghost, spider, bat, goblinAxe, goblinSword,
+		goblinSpear, octopus, viper, dragon, serpent, troll, demon, imp
 	};
-	
+
 	private monster monsterType;
 
 
@@ -318,6 +319,18 @@ public abstract class MRMonster implements Serializable, Placeable {
 			return new GoblinGreatSword();
 		case octopus:
 			return new Octopus();
+		case demon:
+			return new Demon();
+		case imp:
+			return new Imp();
+		case dragon:
+			return new Dragon();
+		case viper:
+			return new Viper();
+		case serpent:
+			return new Serpent();
+		case troll:
+			return new Troll();
 			
 		default:
 			throw new RuntimeException("Invalid monster type");
