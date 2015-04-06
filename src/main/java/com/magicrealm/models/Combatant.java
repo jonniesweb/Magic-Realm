@@ -2,10 +2,7 @@ package com.magicrealm.models;
 
 import java.io.Serializable;
 
-import com.magicrealm.characters.MRCharacter;
-import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.models.armors.Armor.Protection;
-import com.magicrealm.models.monsters.MRMonster;
 
 public abstract class Combatant implements Serializable {
 	
