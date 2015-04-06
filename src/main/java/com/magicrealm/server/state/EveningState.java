@@ -81,9 +81,9 @@ public class EveningState extends ServerState {
 	
 	public void changePhase() {
 		// switch state to birdsong
-		BirdsongState birdsongState = new BirdsongState(getGameState());
-		getGameState().setState(birdsongState);
-		birdsongState.init();
+		MidnightState midnightState = new MidnightState(getGameState());
+		getGameState().setState(midnightState);
+		midnightState.init();
 	}
 
 }

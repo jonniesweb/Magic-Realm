@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -17,6 +18,7 @@ import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
+import com.magicrealm.models.monsters.MRMonster;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
@@ -363,6 +365,26 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile>, Seria
 	
 	public TileClearingLocation getTileClearingLocation(TileClearing clearing) {
 		return new TileClearingLocation(getTileFromClearing(clearing).getTileType(), clearing.getClearingNumber());
+	}
+	
+	public void resetMonsters() {
+		for(GameTile t: array) {
+			if(t == null)
+				continue;
+			for(TileClearing c: t.getClearings()) {
+				if(c == null) {
+					continue;
+				} else {
+					Iterator<Placeable> it = c.getChits().iterator();
+					while(it.hasNext()) {
+						Placeable p = it.next();
+						if(p instanceof MRMonster) {
+							it.remove();
+						}
+					}
+				}
+			}
+		}
 	}
 	
 }

@@ -37,9 +37,10 @@ public class BirdsongState extends ServerState {
 	}
 
 	public void init() {
+		incrementDay();
 		// notify clients of birdsong
 		for (IClientService service : getGameState().getClientServices()) {
-			service.birdsongStarted(getGameState().getBoard());
+			service.birdsongStarted(getGameState().getBoard(), getDay());
 		}		
 		summonMonsters();
 	}

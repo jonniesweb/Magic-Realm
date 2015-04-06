@@ -21,8 +21,9 @@ public interface IClientService {
 	/**
 	 * Notify the client that the birdsong stage has started
 	 * @param model 
+	 * @param day 
 	 */
-	public void birdsongStarted(MagicRealmHexEngineModel model);
+	public void birdsongStarted(MagicRealmHexEngineModel model, int day);
 
 	/**
 	 * Notify the client that the daylight stage has started
@@ -33,6 +34,11 @@ public interface IClientService {
 	 * Notify the client that the evening stage has started
 	 */
 	public void eveningStarted();
+	
+	/**
+	 * Notify the client that the midnight stage has started
+	 */
+	public void midnightStarted();
 
 	/**
 	 * Displays a message to the client
