@@ -23,6 +23,7 @@ public class GoblinGreatSword extends MRMonster {
 		setVulnerability ( Weight.LIGHT );
 		setFame			 ( 1 );
 		setNotoriety	 ( 1 );
+		setMovementSpeed ( 3 );
 		
 		GreatSword greatSword = new GreatSword ();
 		addWeapon 	   ( greatSword );

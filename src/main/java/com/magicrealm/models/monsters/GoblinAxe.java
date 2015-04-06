@@ -21,6 +21,7 @@ public class GoblinAxe extends MRMonster {
 		setVulnerability ( Weight.LIGHT );
 		setFame			 ( 1 );
 		setNotoriety	 ( 1 );
+		setMovementSpeed ( 3 );
 		
 		Axe axe = new Axe ();
 		addWeapon 	   ( axe );

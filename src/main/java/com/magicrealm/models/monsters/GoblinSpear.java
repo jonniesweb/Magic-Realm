@@ -19,6 +19,7 @@ public class GoblinSpear extends MRMonster {
 		setVulnerability ( Weight.LIGHT );
 		setFame			 ( 1 );
 		setNotoriety	 ( 1 );
+		setMovementSpeed ( 3 );
 		
 		Spear spear = new Spear ();
 		addWeapon 	   ( spear );

@@ -18,15 +18,15 @@ public class Octopus extends MRMonster {
 		setName 		 ( "octopus" );
 		setDescription 	 ( "Beware the water, ye' landlubber!" );
 		setVulnerability ( Weight.MEDIUM );
-		setFame			 ( 0 );
-		setNotoriety	 ( 7 );
-		setMovementSpeed ( 7 );
+		setFame			 ( 8 );
+		setNotoriety	 ( 8 );
+		setMovementSpeed ( 2 );
 		
 		/* Configure Custom Claw **********************************************/
 		Claw claw = ( Claw ) getFirstWeaponOfClass ( Claw.class );
 		
 		/* Configure the custom update variables */
-		claw.setCustomWeightS ( Weight.HEAVY );
+		claw.setCustomWeightS ( Weight.LIGHT );
 		claw.setCustomSpeedS  ( 4 );
 		claw.setCustomWeightA ( Weight.LIGHT );
 		claw.setCustomSpeedA  ( 2 );
@@ -38,7 +38,7 @@ public class Octopus extends MRMonster {
 		Tooth tooth = ( Tooth ) getFirstWeaponOfClass ( Tooth.class );
 		
 		/* Configure the custom update variables */
-		tooth.setCustomWeightS ( Weight.HEAVY );
+		tooth.setCustomWeightS ( Weight.LIGHT );
 		tooth.setCustomSpeedS  ( 4 );
 		tooth.setCustomWeightA ( Weight.LIGHT );
 		tooth.setCustomSpeedA  ( 2 );

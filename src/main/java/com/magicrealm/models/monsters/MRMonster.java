@@ -316,6 +316,8 @@ public abstract class MRMonster implements Serializable, Placeable {
 			return new GoblinSpear();
 		case goblinSword:
 			return new GoblinGreatSword();
+		case octopus:
+			return new Octopus();
 			
 		default:
 			throw new RuntimeException("Invalid monster type");
