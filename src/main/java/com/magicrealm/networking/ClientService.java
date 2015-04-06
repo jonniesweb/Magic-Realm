@@ -56,7 +56,7 @@ public class ClientService implements IClientService {
 	}
 
 	@Override
-	public void birdsongStarted(MagicRealmHexEngineModel model) {
+	public void birdsongStarted(MagicRealmHexEngineModel model, int day) {
 		gameState.setModel(model);
 		
 		// initialize the birdsong activities
@@ -64,7 +64,7 @@ public class ClientService implements IClientService {
 		ClearingType type = model.getClearing(loc).getClearingType();
 		
 		getGameState().setActivities(new BirdsongActivities(loc, (type == ClearingType.CAVE)));
-		sendMessage("Birdsong has begun");
+		sendMessage("Day " + day + " Birdsong has begun");
 	}
 
 	@Override
@@ -108,5 +108,11 @@ public class ClientService implements IClientService {
 	public Object clientSelect(Object[] objArray, String message, int type) {
 		SimpleSelection selectObj = new SimpleSelection(objArray, message, type);
 		return selectObj.getSelected();
+	}
+
+	@Override
+	public void midnightStarted() {
+		// TODO Auto-generated method stub
+		sendMessage("Midnight has begun");
 	}
 }
