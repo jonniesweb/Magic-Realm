@@ -23,8 +23,7 @@ public abstract class ProbabilityCalculator {
 		return getResult(clientId) != Result.SIX;
 	}
 	
-	public static Result getResult(String clientId) {
-		MRCharacter character = ServerGameState.getInstance().getCharacter(clientId);
+	public static Result getResult(MRCharacter character) {
 		if(character != null && character.isCheatModeEnabled()) {
 			Result[] choices = Result.values();
 			SimpleSelection selectResult = new SimpleSelection(choices, "Select A Result");
@@ -47,8 +46,8 @@ public abstract class ProbabilityCalculator {
 		}
 	}
 	
-	public static Result getResult() {
-		return getResult("");
+	public static Result getResult(String clientId) {
+		return getResult(ServerGameState.getInstance().getCharacter(clientId));
 	}
 	
 	public static boolean findTreasure() {
