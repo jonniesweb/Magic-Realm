@@ -14,6 +14,7 @@ import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Combat;
 import com.magicrealm.models.Placeable;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.monsters.MRMonster;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
@@ -50,6 +51,7 @@ public class EveningState extends ServerState {
 		Collections.shuffle(locations);
 		
 		List<MRCharacter> characters = new ArrayList<MRCharacter>();
+		List<MRMonster> monsters = new ArrayList<MRMonster>();
 		
 		Iterator it = locations.iterator();
 		
@@ -60,15 +62,17 @@ public class EveningState extends ServerState {
 			for(Placeable p: chits) {
 				if(p instanceof MRCharacter) {
 					characters.add((MRCharacter) p);
+				} else if(p instanceof MRMonster) {
+					monsters.add((MRMonster) p);
 				}
 			}
 			
-			if(characters.size() > 1) {
+			if(characters.size() + monsters.size() > 1) {
 				for(MRCharacter c: characters) {
 					IClientService client = getGameState().getClientService(c.getCharacterType());
 					client.sendMessage("You have entered combat!");
 				}
-				new Combat(getGameState(), characters);
+				new Combat(getGameState(), characters, monsters);
 			}
 			characters.clear();
 		}
