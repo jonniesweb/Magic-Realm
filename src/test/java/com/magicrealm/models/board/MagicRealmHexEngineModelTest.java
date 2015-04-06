@@ -1,6 +1,6 @@
 package com.magicrealm.models.board;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -8,6 +8,7 @@ import com.igormaznitsa.jhexed.engine.misc.HexPosition;
 import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
+import com.magicrealm.server.state.BoardFactory;
 
 public class MagicRealmHexEngineModelTest {
 	
@@ -15,7 +16,7 @@ public class MagicRealmHexEngineModelTest {
 	@Test
 	public void testGetLocationOfTile() {
 		
-		MagicRealmHexEngineModel model = new DefaultMagicRealmHexEngineModel(0, 0);
+		MagicRealmHexEngineModel model = new BoardFactory().create();
 		
 		HexPosition location = model.getLocation(model.getTile(TileType.B));
 		assertEquals(4, location.getColumn());
@@ -43,7 +44,7 @@ public class MagicRealmHexEngineModelTest {
 	
 	@Test
 	public void testGetAdjacentTile() {
-		MagicRealmHexEngineModel model = new DefaultMagicRealmHexEngineModel(0, 0);
+		MagicRealmHexEngineModel model = new BoardFactory().create();
 		
 		GameTile badValley = model.getTile(TileType.BV);
 		assertEquals(model.getTile(TileType.MW), model.getTileAdjacentToEdge(badValley, 0));
@@ -64,7 +65,7 @@ public class MagicRealmHexEngineModelTest {
 	
 	@Test
 	public void testGetAdjacentClearing() {
-		DefaultMagicRealmHexEngineModel model = new DefaultMagicRealmHexEngineModel(0, 0);
+		MagicRealmHexEngineModel model = new BoardFactory().create();
 		
 		GameTile bv = model.getTile(TileType.CN);
 		GameTile adjacentTile = model.getTileAdjacentToEdge(bv, 4);

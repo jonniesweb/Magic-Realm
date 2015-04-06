@@ -5,13 +5,19 @@ import java.util.Set;
 
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.Dwelling.dwelling;
-import com.magicrealm.models.board.DefaultMagicRealmHexEngineModel;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.chits.ClearingMapChit;
+import com.magicrealm.models.chits.WarningChit;
+import com.magicrealm.models.tiles.CheatModeMapChitPlacementStrategy;
+import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
 import com.magicrealm.utils.TileClearingLocation;
 
 public class PlayerConnectState extends ServerState {
+
+	private Map<TileType, ClearingMapChit> clearingChits;
+	private Map<TileType, WarningChit> warningChits;
 
 	public PlayerConnectState(ServerGameState instance) {
 		super(instance);
@@ -23,7 +29,7 @@ public class PlayerConnectState extends ServerState {
 	 */
 	public void startGame() {
 		// init the board
-		getGameState().setBoard(new DefaultMagicRealmHexEngineModel(0, 0));
+		getGameState().setBoard(getGameBoard());
 		
 		// place the characters
 		Set<MRCharacter> characters = getGameState().getCharacters();
@@ -42,6 +48,31 @@ public class PlayerConnectState extends ServerState {
 			clientService.gameStarted(getGameState().getBoard());
 		}
 		state.init();
+	}
+
+	private MagicRealmHexEngineModel getGameBoard() {
+		BoardFactory factory = new BoardFactory();
+		
+		// if clearing map chits were specified, give it to the factory
+		if (clearingChits != null) {
+			CheatModeMapChitPlacementStrategy chitPlacementStrategy = new CheatModeMapChitPlacementStrategy(
+					clearingChits, warningChits);
+			factory.setMapChitPlacementStrategy(chitPlacementStrategy);
+		}
+			
+		return factory.create();
+	}
+
+	/**
+	 * Specify the map chits to be placed on the board. Used in cheat mode.
+	 * @param clearingChits
+	 * @param warningChits
+	 */
+	public void setupChits(Map<TileType, ClearingMapChit> clearingChits,
+			Map<TileType, WarningChit> warningChits) {
+				this.clearingChits = clearingChits;
+				this.warningChits = warningChits;
+		
 	}
 	
 }

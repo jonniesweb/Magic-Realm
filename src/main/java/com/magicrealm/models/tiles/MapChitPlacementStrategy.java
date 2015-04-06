@@ -12,15 +12,20 @@ import com.magicrealm.models.chits.SoundChit.sound;
 import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.chits.WarningChit.warning;
 
+/**
+ * A strategy for placing all of the map chits on a board (site, sound and
+ * warning chits)
+ */
 public abstract class MapChitPlacementStrategy {
 	
-	private MagicRealmHexEngineModel model;
-
-	public MapChitPlacementStrategy(MagicRealmHexEngineModel model) {
-		this.setModel(model);
+	public MapChitPlacementStrategy() {
 	}
 	
-	public abstract void placeMapChits();
+	/**
+	 * Place the map chits using the given strategy
+	 * @param model
+	 */
+	public abstract void placeMapChits(MagicRealmHexEngineModel model);
 	
 	public static List<WarningChit> getCWarningChits() {
 		return getWarningChits();
@@ -75,13 +80,5 @@ public abstract class MapChitPlacementStrategy {
 		}
 		
 		return list;
-	}
-
-	public MagicRealmHexEngineModel getModel() {
-		return model;
-	}
-
-	public void setModel(MagicRealmHexEngineModel model) {
-		this.model = model;
 	}
 }

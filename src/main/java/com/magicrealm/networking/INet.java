@@ -1,5 +1,7 @@
 package com.magicrealm.networking;
 
+import java.util.Map;
+
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.characters.MRCharacter.CharacterType;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
@@ -7,6 +9,9 @@ import com.magicrealm.exceptions.GameAlreadyStartedException;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.chits.ClearingMapChit;
+import com.magicrealm.models.chits.WarningChit;
+import com.magicrealm.models.tiles.GameTile.TileType;
 
 
 public interface INet {
@@ -38,5 +43,7 @@ public interface INet {
 	public MRCharacter setStartingLocationForCharacter(dwelling dwellingType);
 	public void setClientService(RMIService service);
 	public void setActivities(BirdsongActivities activities);
+	public void setupChits(Map<TileType, ClearingMapChit> clearingChits,
+			Map<TileType, WarningChit> warningChits);
 	
 }

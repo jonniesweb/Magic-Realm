@@ -2,6 +2,8 @@ package com.magicrealm.gui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -23,10 +25,10 @@ import org.apache.commons.logging.LogFactory;
 
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.SiteChit;
-import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.chits.SiteChit.site;
 import com.magicrealm.models.chits.SoundChit;
 import com.magicrealm.models.chits.SoundChit.sound;
+import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.chits.WarningChit.warning;
 import com.magicrealm.models.tiles.GameTile.TileType;
 
@@ -44,11 +46,14 @@ public class SetupChitsPanel extends JPanel {
 	private final JLabel warningChitDescriptionLabel = new JLabel(getWarningChitsDescription());
 	private final JPanel descriptionLabelPanel = new JPanel();
 	private final JButton btnSubmit = new JButton("Submit");
+
+	private UIMediator mediator;
 	
 	/**
 	 * Create the panel.
 	 */
-	public SetupChitsPanel() {
+	public SetupChitsPanel(UIMediator mediator) {
+		this.mediator = mediator;
 		/*
 		 * Setup ui components
 		 */
@@ -100,6 +105,14 @@ public class SetupChitsPanel extends JPanel {
 		
 		// add a submit button
 		add(btnSubmit, "cell 2 1,alignx right,aligny bottom");
+		btnSubmit.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent paramActionEvent) {
+				SetupChitsPanel.this.mediator.setupChits(getClearingChits(), getWarningChits());
+				
+			}
+		});
 	}
 	
 	private static String getSiteChitsDescription() {
@@ -185,7 +198,31 @@ public class SetupChitsPanel extends JPanel {
 				}
 			}
 		}
+		// add chits for lost castle and lost city to their respective chits
+		addExtraChits(chitMap, site.lost_castle, getLostCastleChits());
+		addExtraChits(chitMap, site.lost_city, getLostCityChits());
+		
 		return chitMap;
+	}
+
+	/**
+	 * Add the extra chits specified for lost castle and lost city to its
+	 * respective chit.
+	 * 
+	 * @param chitMap
+	 * @param lostCastle
+	 * @param extraChits
+	 */
+	private static void addExtraChits(EnumMap<TileType, ClearingMapChit> chitMap,
+			site lostCastle, List<ClearingMapChit> extraChits) {
+		for (TileType tileType : chitMap.keySet()) {
+			ClearingMapChit chit = chitMap.get(tileType);
+			
+			if (chit instanceof SiteChit && lostCastle.equals(chit)) {
+				SiteChit siteChit = (SiteChit) chit;
+				siteChit.getExtraChits().addAll(extraChits);
+			}
+		}
 	}
 	
 	public List<ClearingMapChit> getLostCityChits() {
@@ -233,16 +270,21 @@ public class SetupChitsPanel extends JPanel {
 	}
 	
 	public static void main(String[] args) {
+		final SetupChitsPanel setupChitsPanel = new SetupChitsPanel(new UIMediator());
+		
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
 				JFrame frame = new JFrame();
-				frame.getContentPane().add(new SetupChitsPanel());
+				frame.getContentPane().add(setupChitsPanel);
 				frame.setVisible(true);
 				frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				frame.pack();
 			}
 		});
+		
+		setupChitsPanel.getClearingChits();
+		setupChitsPanel.getWarningChits();
 		
 	}
 	

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
 import java.util.Set;
 
 import com.igormaznitsa.jhexed.engine.HexEngine;
@@ -47,6 +46,8 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile>, Seria
 	private final int rows;
 	
 	private Set<Dwelling> dwellings = new HashSet<Dwelling>();
+
+	private boolean thingsConnected = false;
 	
 	private static final int[][][] directions = new int[][][] {
 			{ { 0, 1 }, { -1, 0 }, { -1, -1 }, { 0, -1 }, { 1, -1 }, { 1, 0 } },
@@ -273,6 +274,10 @@ public class MagicRealmHexEngineModel implements HexEngineModel<GameTile>, Seria
 	 * Connect all exiting paths of the tiles with its adjacent tile's exit.
 	 */
 	protected void connectAllTheThings() {
+		if (thingsConnected)
+			return;
+		else
+			thingsConnected = true;
 		
 		// iterate over each tile on the board
 		for (GameTile gameTile : array) {

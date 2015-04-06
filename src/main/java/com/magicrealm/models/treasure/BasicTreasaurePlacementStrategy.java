@@ -16,12 +16,11 @@ import com.magicrealm.models.treasure.TreasureChit.treasure;
 public class BasicTreasaurePlacementStrategy extends
 		TreasurePlacementStrategy {
 	
-	public BasicTreasaurePlacementStrategy(MagicRealmHexEngineModel model) {
-		super(model);
+	public BasicTreasaurePlacementStrategy() {
 	}
 
 	@Override
-	public void placeTreasure() {
+	public void placeTreasure(MagicRealmHexEngineModel model) {
 		List<SiteChit> chits = model.getAllSiteChits();
 		
 		for (SiteChit chit : chits) {

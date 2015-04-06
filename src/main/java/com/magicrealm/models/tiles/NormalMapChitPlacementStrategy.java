@@ -21,26 +21,25 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 	
 	private static final Log log = LogFactory.getLog(NormalMapChitPlacementStrategy.class);
 	
-	public NormalMapChitPlacementStrategy(MagicRealmHexEngineModel model) {
-		super(model);
+	public NormalMapChitPlacementStrategy() {
 	}
 
 	@Override
-	public void placeMapChits() {
+	public void placeMapChits(MagicRealmHexEngineModel model) {
 
-		GameTile[] valleys = new GameTile[] { get(TileType.AV),
-				get(TileType.BV), get(TileType.CV), get(TileType.DV),
-				get(TileType.EV) };
+		GameTile[] valleys = new GameTile[] { model.getTile(TileType.AV),
+				model.getTile(TileType.BV), model.getTile(TileType.CV), model.getTile(TileType.DV),
+				model.getTile(TileType.EV) };
 		
-		GameTile[] woods = new GameTile[] { get(TileType.LW), get(TileType.MW),
-				get(TileType.NW), get(TileType.OW), get(TileType.PW) };
+		GameTile[] woods = new GameTile[] { model.getTile(TileType.LW), model.getTile(TileType.MW),
+				model.getTile(TileType.NW), model.getTile(TileType.OW), model.getTile(TileType.PW) };
 		
-		GameTile[] caves = new GameTile[] { get(TileType.B), get(TileType.CN),
-				get(TileType.CS), get(TileType.HP), get(TileType.R) };
+		GameTile[] caves = new GameTile[] { model.getTile(TileType.B), model.getTile(TileType.CN),
+				model.getTile(TileType.CS), model.getTile(TileType.HP), model.getTile(TileType.R) };
 		
-		GameTile[] mountains = new GameTile[] { get(TileType.CF),
-				get(TileType.CG), get(TileType.DW), get(TileType.L),
-				get(TileType.M) };
+		GameTile[] mountains = new GameTile[] { model.getTile(TileType.CF),
+				model.getTile(TileType.CG), model.getTile(TileType.DW), model.getTile(TileType.L),
+				model.getTile(TileType.M) };
 		
 		// add all warning chits
 		addChitsToTiles(valleys, getVWarningChits());
@@ -96,10 +95,6 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 			
 			log.debug("Adding " + chits.get(i) + " to " + tiles[i]);
 		}
-	}
-	
-	private GameTile get(TileType type) {
-		return getModel().getTile(type);
 	}
 	
 }

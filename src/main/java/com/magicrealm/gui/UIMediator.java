@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -16,6 +17,9 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.chits.ClearingMapChit;
+import com.magicrealm.models.chits.WarningChit;
+import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.utils.TileClearingLocation;
 
@@ -153,6 +157,12 @@ public class UIMediator {
 		updateGold(character.getGold());
 		updateNotoriety(character.getNotoriety());
 		updateFame(character.getFame());
+	}
+
+	public void setupChits(Map<TileType, ClearingMapChit> clearingChits,
+			Map<TileType, WarningChit> warningChits) {
+		gameState.getService().setupChits(clearingChits, warningChits);
+		
 	}
 	
 }

@@ -3,6 +3,7 @@ package com.magicrealm.networking;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -16,6 +17,9 @@ import com.magicrealm.exceptions.InappropriateStateException;
 import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.chits.ClearingMapChit;
+import com.magicrealm.models.chits.WarningChit;
+import com.magicrealm.models.tiles.GameTile.TileType;
 import com.magicrealm.server.ServerGameState;
 import com.magicrealm.server.state.BirdsongState;
 import com.magicrealm.server.state.PlayerConnectState;
@@ -161,5 +165,20 @@ class Net implements INet {
 			state.addActivities(clientId, activities);
 		} else
 			throw new RuntimeException("Invalid state to set activities");
+	}
+
+	@Override
+	public void setupChits(Map<TileType, ClearingMapChit> clearingChits,
+			Map<TileType, WarningChit> warningChits) {
+		
+		/*
+		 * only allow setting map chits in PlayerConnectState since the board is
+		 * created in PlayerConnectState#startGame();
+		 */
+		
+		if (getGameState().getState() instanceof PlayerConnectState) {
+			PlayerConnectState connectState = (PlayerConnectState) getGameState().getState();
+			connectState.setupChits(clearingChits, warningChits);
+		}
 	}
 }
