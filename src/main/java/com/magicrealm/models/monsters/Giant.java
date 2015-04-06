@@ -20,6 +20,7 @@ public class Giant extends MRMonster {
 		setVulnerability ( Weight.TREMENDOUS );
 		setFame			 ( 8 );
 		setNotoriety	 ( 8 );
+		setMovementSpeed ( 5 );
 		
 		Club club = new Club ();
 		addWeapon 	   ( club );
