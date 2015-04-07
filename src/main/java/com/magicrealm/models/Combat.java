@@ -20,9 +20,11 @@ import com.magicrealm.models.armors.Armor.Slot;
 import com.magicrealm.models.armors.Armor.State;
 import com.magicrealm.models.monsters.MRMonster;
 import com.magicrealm.models.monsters.MRMonster.monster;
+import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.weapons.Weapon;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
+import com.magicrealm.utils.TileClearingLocation;
 
 public class Combat {
 	
@@ -34,8 +36,10 @@ public class Combat {
 	List<Combatant> dead = new ArrayList<Combatant>();
 	Map<monster, MRMonster> monsters;
 	ServerGameState gameState;
+	TileClearingLocation location;
+	TileClearing clearing;
 	
-	public Combat(ServerGameState gameState, List<MRCharacter> characters, List<MRMonster> monsters) {
+	public Combat(ServerGameState gameState, List<MRCharacter> characters, List<MRMonster> monsters, TileClearingLocation location) {
 		this.gameState = gameState;
 		this.characters = new HashMap<>();
 		this.monsters = new HashMap<>();
@@ -48,6 +52,8 @@ public class Combat {
 			monsterCombatants.add(new MonsterCombatant(c));
 			this.monsters.put(c.getMonsterType(), c);
 		}
+		this.location = location;
+		this.clearing = gameState.getBoard().getClearing(location);
 		
 		multiRound();
 	}
@@ -170,6 +176,7 @@ public class Combat {
 		while(it1.hasNext()) {
 			MonsterCombatant c = it1.next();
 			if(dead.contains(c)) {
+				dead.remove(c);
 				it1.remove();
 			} else {
 				attack(c);
@@ -335,6 +342,13 @@ public class Combat {
 	}
 	
 	public void died(Combatant target) {
+		MRMonster monster;
+		if(target instanceof MonsterCombatant) {
+			monster = monsters.get(((MonsterCombatant) target).getMonster());
+			this.clearing.getChits().remove(monster);
+		} else if(target instanceof CharacterCombatant) {
+			
+		}
 		// TODO add following:
 		// handle dead character
 		// drop belongings

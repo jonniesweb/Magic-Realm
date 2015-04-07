@@ -53,10 +53,11 @@ public class EveningState extends ServerState {
 		List<MRCharacter> characters = new ArrayList<MRCharacter>();
 		List<MRMonster> monsters = new ArrayList<MRMonster>();
 		
-		Iterator it = locations.iterator();
+		Iterator<TileClearingLocation> it = locations.iterator();
 		
-		while(it.hasNext()) {			
-			TileClearing clearing = getGameState().getBoard().getClearing((TileClearingLocation) it.next());
+		while(it.hasNext()) {
+			TileClearingLocation location = it.next();
+			TileClearing clearing = getGameState().getBoard().getClearing(location);
 			List<Placeable> chits = clearing.getChits();
 			
 			for(Placeable p: chits) {
@@ -72,7 +73,7 @@ public class EveningState extends ServerState {
 					IClientService client = getGameState().getClientService(c.getCharacterType());
 					client.sendMessage("You have entered combat!");
 				}
-				new Combat(getGameState(), characters, monsters);
+				new Combat(getGameState(), characters, monsters, location);
 			}
 			characters.clear();
 		}

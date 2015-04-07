@@ -32,7 +32,7 @@ public abstract class MRCharacter implements Serializable, Placeable {
 	
 	// give 10 to allow character to buy stuff
 	protected int gold = 10;
-	protected int health = 2;
+	protected int health = 10;
 	private dwelling startingLocation;
 	protected boolean hidden = false;
 	protected boolean blocked;

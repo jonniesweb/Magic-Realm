@@ -27,7 +27,7 @@ public class MidnightState extends ServerState {
 		if(getDay() % 7 == 0) {
 			regenerateMonsters();
 		}
-		if(getDay() >= 5) {
+		if(getDay() >= 28) {
 			endGame();
 		}
 		
