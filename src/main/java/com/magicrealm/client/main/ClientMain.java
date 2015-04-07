@@ -1,6 +1,8 @@
 package com.magicrealm.client.main;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,6 +11,7 @@ import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.gui.SelectCharacter;
+import com.magicrealm.gui.SetupChitsPanel;
 import com.magicrealm.gui.StartGameFrame;
 import com.magicrealm.networking.RMIClient;
 
@@ -27,6 +30,25 @@ public class ClientMain {
 		if(option == JOptionPane.YES_OPTION) {
 			cheatMode = true;
 		}
+		
+		// if cheat mode enabled, ask if they want to setup the chits
+		if (cheatMode) {
+			int mapChitResult = JOptionPane.showConfirmDialog(null, "Specify map chits?", "Mode", JOptionPane.YES_NO_OPTION);
+			if (mapChitResult == JOptionPane.YES_OPTION) {
+				SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						SetupChitsPanel panel = new SetupChitsPanel(null);
+						JFrame frame = new JFrame(
+								"Specify map chits for the game board");
+						frame.getContentPane().add(panel);
+						frame.pack();
+						frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+						frame.setVisible(true);
+					}
+				});
+			}
+		}
+		
 		SelectCharacter selectCharacter = new SelectCharacter();
 		JOptionPane.showConfirmDialog(null, selectCharacter, "Select a Character", JOptionPane.OK_OPTION);
 		instance.setCharacter(selectCharacter.getSelectedCharacter());

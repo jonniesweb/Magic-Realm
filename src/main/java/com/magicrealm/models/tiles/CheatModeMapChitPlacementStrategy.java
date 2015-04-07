@@ -44,7 +44,7 @@ public class CheatModeMapChitPlacementStrategy extends MapChitPlacementStrategy 
 		if (clearingChits != null) {
 			for (TileType tileType : clearingChits.keySet()) {
 				GameTile tile = model.getTile(tileType);
-				ClearingMapChit mapChit = clearingChits.get(tile);
+				ClearingMapChit mapChit = clearingChits.get(tileType);
 				tile.setSiteSoundChit(mapChit);
 				log.debug("set map chit in tile " + tile.getTileType() + " to " + mapChit);
 			}

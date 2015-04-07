@@ -2,6 +2,7 @@ package com.magicrealm.gui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ import net.miginfocom.swing.MigLayout;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.chits.SiteChit.site;
@@ -109,8 +111,17 @@ public class SetupChitsPanel extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent paramActionEvent) {
-				SetupChitsPanel.this.mediator.setupChits(getClearingChits(), getWarningChits());
+				if (SetupChitsPanel.this.mediator != null) {
+					SetupChitsPanel.this.mediator.setupChits(
+							getClearingChits(), getWarningChits());
+				} else {
+					// hack to handle if mediator isn't instantiated
+					ClientGameState.getInstance().getService()
+							.setupChits(getClearingChits(), getWarningChits());
+				}
 				
+				setVisible(false);
+				((Window) getRootPane().getParent()).dispose();
 			}
 		});
 	}
@@ -210,15 +221,15 @@ public class SetupChitsPanel extends JPanel {
 	 * respective chit.
 	 * 
 	 * @param chitMap
-	 * @param lostCastle
+	 * @param lostChit
 	 * @param extraChits
 	 */
 	private static void addExtraChits(EnumMap<TileType, ClearingMapChit> chitMap,
-			site lostCastle, List<ClearingMapChit> extraChits) {
+			site lostChit, List<ClearingMapChit> extraChits) {
 		for (TileType tileType : chitMap.keySet()) {
 			ClearingMapChit chit = chitMap.get(tileType);
 			
-			if (chit instanceof SiteChit && lostCastle.equals(chit)) {
+			if (chit instanceof SiteChit && lostChit.equals(((SiteChit) chit).getSiteType())) {
 				SiteChit siteChit = (SiteChit) chit;
 				siteChit.getExtraChits().addAll(extraChits);
 			}
