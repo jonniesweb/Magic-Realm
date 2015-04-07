@@ -93,7 +93,7 @@ public class BirdsongState extends ServerState {
 		}
 	}
 	
-	public void summonSiteMonsters(site site1, MRMonster monster) {
+	private void summonSiteMonsters(site site1, MRMonster monster) {
 		for(TileType tt: TileType.values()) {
 			GameTile tile = getGameState().getBoard().getTile(tt);
 			ClearingMapChit chit = tile.getSiteSoundChit();
@@ -120,7 +120,12 @@ public class BirdsongState extends ServerState {
 					}
 				}
 			} else if(siteChit != null && siteChit.getSiteType() == site1) {
-				getGameState().getBoard().placeChit(tt, siteChit.getClearing(), monster);
+				try {
+					getGameState().getBoard().placeChit(tt, siteChit.getClearing(), monster);
+				} catch (NullPointerException e) {
+					// hack to catch NPE when no clearing exists in that tile
+					log.error("no clearing exists to place this monster in", e);
+				}
 				
 				// notify clients of monsters
 				for (IClientService service : getGameState().getClientServices()) {

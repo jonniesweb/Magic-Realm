@@ -515,7 +515,12 @@ public class GameTile implements Serializable {
 	}
 	
 	public void addToClearing(int clearingNumber, Placeable clearingable) {
-		getClearing(clearingNumber).addChit(clearingable);
+		TileClearing clearing = getClearing(clearingNumber);
+		
+		if (clearing != null)
+			clearing.addChit(clearingable);
+		else
+			throw new NullPointerException("no clearing with that number " + clearingNumber + " exists for tile " + getTileType());
 	}
 	
 	/**
