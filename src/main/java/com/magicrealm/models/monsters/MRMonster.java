@@ -50,6 +50,7 @@ public abstract class MRMonster implements Serializable, Placeable {
 	private int 					fame;
 	private int 					notoriety;
 	private int						movementSpeed;
+	private int						gold = 2;
 	private ArrayList	<Weapon>	weapons;			
 	private ArrayList	<Armor>		armors;				
 		
@@ -121,8 +122,14 @@ public abstract class MRMonster implements Serializable, Placeable {
 	{
 		movementSpeed = mSpeed;
 	}
-	/* END OF OBJECT RELATED ATTRIBUTES - GET/SET *****************************/
+	public int getGold() {
+		return gold;
+	}
+	public void setGold(int gold) {
+		this.gold = gold;
+	}
 	
+	/* END OF OBJECT RELATED ATTRIBUTES - GET/SET *****************************/
 	/* WEAPONS*****************************************************************/
 	/* PURPOSE:	Weapon related storage access methods. There are two types of */
 	/*			storage access methods: core functions and manipulators.      */

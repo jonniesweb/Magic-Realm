@@ -263,11 +263,9 @@ public class Combat {
 		
 		if(targetCharacter != null) {
 			if(blockingArmor == null && harm.compareTo(targetCharacter.getVulnerability()) > 0) {
-				// TODO add following:
-				// handle dead character
-				// drop belongings
-				client.sendMessage("You killed "+targetCharacter.getName());
+				lootCharacter(c.getCharacter(), targetCharacter);
 				dead.add(target);
+				client.sendMessage("You killed "+targetCharacter.getName());
 			} else if(harm != Weight.NEGLIGIBLE) {
 				client.sendMessage("You harmed "+targetCharacter.getName());
 				ActionChit chit = (ActionChit) client.clientSelect(targetCharacter.getNonWoundedActionChits().toArray(new ActionChit[0]), "Select an action chit to wound");
@@ -282,6 +280,7 @@ public class Combat {
 			}
 		} else if(targetMonster != null) {
 			if(harm.compareTo(targetMonster.getVulnerability()) >= 0) {
+				lootMonster(c.getCharacter(), targetMonster);
 				died(target);
 				client.sendMessage("You killed "+targetMonster.getName());
 			} else {
@@ -341,6 +340,20 @@ public class Combat {
 		}
 	}
 	
+	public void lootMonster(CharacterType looter, MRMonster lootee) {
+		MRCharacter character = characters.get(looter);
+		character.setFame(character.getFame() + lootee.getFame());
+		character.setNotoriety(character.getNotoriety() + lootee.getNotoriety());
+		character.setGold(character.getGold() + lootee.getGold());
+	}
+	
+	public void lootCharacter(CharacterType looter, MRCharacter lootee) {
+		MRCharacter character = characters.get(looter);
+		character.setFame(character.getFame() + 20);
+		character.setNotoriety(character.getNotoriety() + 30);
+		character.setGold(character.getGold() + lootee.getGold());
+	}
+	
 	public void died(Combatant target) {
 		MRMonster monster;
 		if(target instanceof MonsterCombatant) {
@@ -351,7 +364,6 @@ public class Combat {
 		}
 		// TODO add following:
 		// handle dead character
-		// drop belongings
 		dead.add(target);
 	}
 	
