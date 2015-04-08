@@ -75,31 +75,43 @@ public class BirdsongState extends ServerState {
 		switch (roll) {
 		case ONE:
 			summonSiteMonsters(Site.hoard, new Giant());
-			summonSiteMonsters(Site.lair, new GoblinGreatSword());
+			summonSiteMonsters(Site.lair, new Giant());
+			summonSiteMonsters(Site.shrine, new Giant());
 			break;
 		case TWO:
-			summonSiteMonsters(Site.shrine, new GoblinAxe());
-			summonSiteMonsters(Site.altair, new GoblinSpear());
+			summonSiteMonsters(Site.shrine, new GoblinGreatSword(), 3);
+			summonSiteMonsters(Site.altair, new GoblinSpear(), 3);
+			summonSiteMonsters(Site.vault, new GoblinAxe(), 3);
 			break;
 		case THREE:
-			summonSiteMonsters(Site.pool, new Octopus());
+			summonSiteMonsters(Site.pool, new Octopus(), 2);
+			summonSiteMonsters(Site.lair, new Ogre(), 2);
+			summonSiteMonsters(Site.hoard, new Ogre(), 2);
 			break;
 		case FOUR:
 			summonSiteMonsters(Site.vault, new Ogre());
+			summonSiteMonsters(Site.cairns, new Wolf(), 3);
+			summonSiteMonsters(Site.statue, new Wolf(), 2);
 			break;
 		case FIVE:
-			summonSiteMonsters(Site.cairns, new HeavySpider());
-			summonSiteMonsters(Site.statue, new Wolf());
+			summonSiteMonsters(Site.cairns, new HeavySpider(), 3);
+			summonSiteMonsters(Site.statue, new Wolf(), 2);
 			break;
 		case SIX:
-			summonSiteMonsters(Site.vault, new HeavyBat());
+			summonSiteMonsters(Site.vault, new HeavyBat(), 2);
+			summonSiteMonsters(Site.altair, new HeavyBat());
+			summonSiteMonsters(Site.shrine, new HeavyBat());
 			break;
 		default:
 			break;
 		}
 	}
 	
-	private void summonSiteMonsters(Site site1, MRMonster monster) {
+	private void summonSiteMonsters(Site site, MRMonster monster) {
+		summonSiteMonsters(site, monster, 1);
+	}
+	
+	private void summonSiteMonsters(Site site1, MRMonster monster, int count) {
 		for(TileType tt: TileType.values()) {
 			GameTile tile = getGameState().getBoard().getTile(tt);
 			ClearingMapChit chit = tile.getSiteSoundChit();
@@ -117,7 +129,13 @@ public class BirdsongState extends ServerState {
 						 siteChit2 = (SiteChit) c;
 					}
 					if(siteChit2 != null && siteChit2.getSiteType() == site1) {
-						getGameState().getBoard().placeChit(tt, siteChit2.getClearing(), monster);
+						try {
+							for(int i = 0; i < count; i++) {								
+								getGameState().getBoard().placeChit(tt, siteChit2.getClearing(), monster);
+							}
+						} catch (Exception e) {
+							log.error("no clearing exists to place this monster in", e);
+						}
 						
 						// notify clients of monsters
 						for (IClientService service : getGameState().getClientServices()) {
@@ -127,7 +145,9 @@ public class BirdsongState extends ServerState {
 				}
 			} else if(siteChit != null && siteChit.getSiteType() == site1) {
 				try {
-					getGameState().getBoard().placeChit(tt, siteChit.getClearing(), monster);
+					for(int i = 0; i < count; i++) {
+						getGameState().getBoard().placeChit(tt, siteChit.getClearing(), monster);
+					}
 				} catch (NullPointerException e) {
 					// hack to catch NPE when no clearing exists in that tile
 					log.error("no clearing exists to place this monster in", e);
