@@ -29,6 +29,8 @@ public class MidnightState extends ServerState {
 		}
 		if(getDay() >= 28) {
 			endGame();
+			System.exit(0);
+			
 		}
 		
 		changePhase();
@@ -54,6 +56,7 @@ public class MidnightState extends ServerState {
 			for(PointHolder ph: pointholders) {
 				clientService.sendMessage(ph.type.toString() + " has " + ph.points + " points");
 			}
+			clientService.sendMessage("Server shutting down");
 		}
 		
 		// TODO still need to actually end the game
