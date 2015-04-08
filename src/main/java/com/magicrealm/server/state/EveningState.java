@@ -43,6 +43,8 @@ public class EveningState extends ServerState {
 		
 		runCombatPhase();
 		changePhase();
+		
+		updateClients();
 	}
 	
 	// Handles the combat phase for all clearings
