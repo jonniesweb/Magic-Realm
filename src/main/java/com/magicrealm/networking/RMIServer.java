@@ -50,8 +50,9 @@ public class RMIServer {
 
 	public Integer getPort() {
 		if (port == null) {
-			return Config.getInteger("rmiServerPort", ClientMain.RMI_PORT);
+			port = Config.getInteger("rmiServerPort", ClientMain.RMI_PORT);
 		}
+		log.info("Server using port: " + port);
 		return port;
 	}
 

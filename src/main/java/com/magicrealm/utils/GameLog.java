@@ -1,5 +1,7 @@
 package com.magicrealm.utils;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +18,7 @@ public class GameLog {
 	
 	private static final Document document = new DefaultStyledDocument();
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("H:mm:ss");
+	private static PropertyChangeSupport pcs = new PropertyChangeSupport(GameLog.class);
 	
 	private GameLog() {
 		// prevent instantiation
@@ -35,6 +38,7 @@ public class GameLog {
 			String date = dateFormat.format(new Date());
 			
 			document.insertString(document.getLength(), "\n" + date + ": " + s, null);
+			pcs.firePropertyChange("changed", true, false);
 		} catch (BadLocationException e) {
 			e.printStackTrace();
 		}
@@ -52,5 +56,9 @@ public class GameLog {
 
 	public static Document getDocument() {
 		return document;
+	}
+	
+	public static void addPropertyChangeListener(PropertyChangeListener listener) {
+		pcs.addPropertyChangeListener(listener);
 	}
 }

@@ -2,8 +2,8 @@ package com.magicrealm.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,12 +32,19 @@ public class ConsoleLog extends JPanel {
 		
 		add(scrollPane, BorderLayout.CENTER);
 		
-		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+		GameLog.addPropertyChangeListener(new PropertyChangeListener() {
 			@Override
-			public void adjustmentValueChanged(AdjustmentEvent e) {
-				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+			public void propertyChange(PropertyChangeEvent evt) {
+//				scrollPane.scrollRectToVisible(textPane.getBounds());
 			}
 		});
+		
+//		scrollPane.getVerticalScrollBar().addAdjustmentListener(new AdjustmentListener() {
+//			@Override
+//			public void adjustmentValueChanged(AdjustmentEvent e) {
+//				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+//			}
+//		});
 	}
 	
 	@Override
