@@ -78,10 +78,10 @@ public abstract class Table implements TableMethods {
 			SiteChit site = (SiteChit) chit;
 			if(site.getSiteType() == Site.lost_castle || site.getSiteType() == Site.lost_city) {
 				for(MapChit c: site.getExtraChits()) {
-					if(c instanceof ClearingMapChit) {
-						ClearingMapChit cmc = (ClearingMapChit) c;
-						if(cmc.getClearing() == getClearing().getClearingNumber()) {
-							return cmc;
+					if(c instanceof SiteChit) {
+						SiteChit sc = (SiteChit) c;
+						if(sc.getClearing() == getClearing().getClearingNumber()) {
+							return sc;
 						}
 					}
 				}
