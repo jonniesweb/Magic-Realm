@@ -54,8 +54,10 @@ public class NormalMapChitPlacementStrategy extends MapChitPlacementStrategy {
 		// combine all sights and sounds
 		List<MapChit> mapChits = getSiteChits();
 		mapChits.addAll(getSoundChits());
-		mapChits.addAll(getSoundChits()); // add it twice
 		Collections.shuffle(mapChits);
+		
+		System.out.println(mapChits);
+		System.out.println(mapChits.size());
 		
 		// add cave site/sound chits
 		ArrayList<MapChit> caveSoundSiteChits = new ArrayList<>(mapChits.subList(0, 4));
