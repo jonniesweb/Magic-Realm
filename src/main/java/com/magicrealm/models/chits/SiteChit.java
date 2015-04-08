@@ -7,11 +7,11 @@ import com.magicrealm.models.treasure.TreasureChit;
 
 public class SiteChit extends ClearingMapChit {
 	
-	public enum site {
+	public enum Site {
 		altair, cairns, hoard, lair, pool, shrine, statue, vault, lost_castle, lost_city
 	}
 	
-	private site siteType;
+	private Site siteType;
 	private List<TreasureChit> treasures = new ArrayList<TreasureChit>();
 	
 	/**
@@ -19,10 +19,10 @@ public class SiteChit extends ClearingMapChit {
 	 */
 	private List<MapChit> extraChits;
 	
-	public SiteChit(site s) {
+	public SiteChit(Site s) {
 		super(s.toString());
 		this.setSiteType(s);
-		if (s == site.lost_castle || s == site.lost_city) {
+		if (s == Site.lost_castle || s == Site.lost_city) {
 			extraChits = new ArrayList<>();
 		}
 	}
@@ -52,11 +52,11 @@ public class SiteChit extends ClearingMapChit {
 		}
 	}
 	
-	public site getSiteType() {
+	public Site getSiteType() {
 		return siteType;
 	}
 	
-	public void setSiteType(site siteType) {
+	public void setSiteType(Site siteType) {
 		this.siteType = siteType;
 	}
 
@@ -70,7 +70,7 @@ public class SiteChit extends ClearingMapChit {
 
 	@Override
 	public String toString() {
-		if (siteType == site.lost_castle || siteType == site.lost_city) {
+		if (siteType == Site.lost_castle || siteType == Site.lost_city) {
 			StringBuilder sb  = new StringBuilder("SiteChit: " + siteType + " contains: ");
 			for (MapChit mapChit : extraChits) {
 				sb.append(mapChit);

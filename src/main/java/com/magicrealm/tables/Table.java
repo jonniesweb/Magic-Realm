@@ -2,6 +2,9 @@ package com.magicrealm.tables;
 
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.chits.ClearingMapChit;
+import com.magicrealm.models.chits.MapChit;
+import com.magicrealm.models.chits.SiteChit;
+import com.magicrealm.models.chits.SiteChit.Site;
 import com.magicrealm.models.tiles.TileClearing;
 import com.magicrealm.models.tiles.TileClearing.ClearingType;
 import com.magicrealm.server.ServerGameState;
@@ -69,6 +72,26 @@ public abstract class Table implements TableMethods {
 	public ClearingMapChit getChitAtLocation() {
 		MRCharacter character = getGameState().getCharacter(getClientId());
 		ClearingMapChit chit = getGameState().getBoard().getChitTile(character).getSiteSoundChit();
+		if(chit == null) {
+			return null;
+		} else if(chit instanceof SiteChit) {
+			SiteChit site = (SiteChit) chit;
+			if(site.getSiteType() == Site.lost_castle || site.getSiteType() == Site.lost_city) {
+				for(MapChit c: site.getExtraChits()) {
+					if(c instanceof ClearingMapChit) {
+						ClearingMapChit cmc = (ClearingMapChit) c;
+						if(cmc.getClearing() == getClearing().getClearingNumber()) {
+							return cmc;
+						}
+					}
+				}
+			} else {
+				if(site.getClearing() == getClearing().getClearingNumber()) {
+					return site;
+				}
+			}
+		}
+		
 		if(chit != null && chit.getClearing() == getClearing().getClearingNumber()) {			
 			return chit;
 		}

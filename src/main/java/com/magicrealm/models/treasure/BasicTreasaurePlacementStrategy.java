@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
+import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.treasure.TreasureChit.treasure;
 
@@ -24,35 +25,51 @@ public class BasicTreasaurePlacementStrategy extends
 		List<SiteChit> chits = model.getAllSiteChits();
 		
 		for (SiteChit chit : chits) {
-			
-			switch (chit.getSiteType()) {
-			case altair:
-				addGold(chit, 0, 4);
-				break;
-			case cairns:
-				addGold(chit, 6, 1);
-				break;
-			case hoard:
-				addGold(chit, 4, 5);
-				break;
-			case lair:
-				addGold(chit, 4, 3);
-				break;
-			case pool:
-				addGold(chit, 6, 3);
-				break;
-			case shrine:
-				addGold(chit, 2, 2);
-				break;
-			case statue:
-				addGold(chit, 2, 1);
-				break;
-			case vault:
-				addGold(chit, 0, 5);
-				break;
-			default:
-				break;
-			}
+			setupTreasure(chit);
+		}
+	}
+	
+	private static void setupTreasure(SiteChit chit) {
+		switch (chit.getSiteType()) {
+		case altair:
+			addGold(chit, 0, 4);
+			break;
+		case cairns:
+			addGold(chit, 6, 1);
+			break;
+		case hoard:
+			addGold(chit, 4, 5);
+			break;
+		case lair:
+			addGold(chit, 4, 3);
+			break;
+		case pool:
+			addGold(chit, 6, 3);
+			break;
+		case shrine:
+			addGold(chit, 2, 2);
+			break;
+		case statue:
+			addGold(chit, 2, 1);
+			break;
+		case vault:
+			addGold(chit, 0, 5);
+			break;
+		case lost_castle:
+			addGoldToLostSite(chit);
+			break;
+		case lost_city:
+			addGoldToLostSite(chit);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private static void addGoldToLostSite(SiteChit lostSite) {
+		for(MapChit chit: lostSite.getExtraChits()) {
+			if(chit instanceof SiteChit)
+				setupTreasure((SiteChit) chit);
 		}
 	}
 
