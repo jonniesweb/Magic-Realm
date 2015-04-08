@@ -12,7 +12,7 @@ import com.magicrealm.models.BirdsongActivities;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
-import com.magicrealm.models.chits.SiteChit.site;
+import com.magicrealm.models.chits.SiteChit.Site;
 import com.magicrealm.models.monsters.Giant;
 import com.magicrealm.models.monsters.GoblinAxe;
 import com.magicrealm.models.monsters.GoblinGreatSword;
@@ -74,32 +74,32 @@ public class BirdsongState extends ServerState {
 		Result roll = ProbabilityCalculator.getResult(it.next());
 		switch (roll) {
 		case ONE:
-			summonSiteMonsters(site.hoard, new Giant());
-			summonSiteMonsters(site.lair, new GoblinGreatSword());
+			summonSiteMonsters(Site.hoard, new Giant());
+			summonSiteMonsters(Site.lair, new GoblinGreatSword());
 			break;
 		case TWO:
-			summonSiteMonsters(site.shrine, new GoblinAxe());
-			summonSiteMonsters(site.altair, new GoblinSpear());
+			summonSiteMonsters(Site.shrine, new GoblinAxe());
+			summonSiteMonsters(Site.altair, new GoblinSpear());
 			break;
 		case THREE:
-			summonSiteMonsters(site.pool, new Octopus());
+			summonSiteMonsters(Site.pool, new Octopus());
 			break;
 		case FOUR:
-			summonSiteMonsters(site.vault, new Ogre());
+			summonSiteMonsters(Site.vault, new Ogre());
 			break;
 		case FIVE:
-			summonSiteMonsters(site.cairns, new HeavySpider());
-			summonSiteMonsters(site.statue, new Wolf());
+			summonSiteMonsters(Site.cairns, new HeavySpider());
+			summonSiteMonsters(Site.statue, new Wolf());
 			break;
 		case SIX:
-			summonSiteMonsters(site.vault, new HeavyBat());
+			summonSiteMonsters(Site.vault, new HeavyBat());
 			break;
 		default:
 			break;
 		}
 	}
 	
-	private void summonSiteMonsters(site site1, MRMonster monster) {
+	private void summonSiteMonsters(Site site1, MRMonster monster) {
 		for(TileType tt: TileType.values()) {
 			GameTile tile = getGameState().getBoard().getTile(tt);
 			ClearingMapChit chit = tile.getSiteSoundChit();
@@ -110,7 +110,7 @@ public class BirdsongState extends ServerState {
 				continue;
 			}
 			
-			if(siteChit != null && (siteChit.getSiteType() == site.lost_castle || siteChit.getSiteType() == site.lost_city)) {
+			if(siteChit != null && (siteChit.getSiteType() == Site.lost_castle || siteChit.getSiteType() == Site.lost_city)) {
 				for(MapChit c: siteChit.getExtraChits()) {
 					SiteChit siteChit2 = null;
 					if(c instanceof SiteChit) {

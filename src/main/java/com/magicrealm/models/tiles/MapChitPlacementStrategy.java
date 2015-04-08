@@ -6,14 +6,14 @@ import java.util.List;
 import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
-import com.magicrealm.models.chits.SiteChit.site;
+import com.magicrealm.models.chits.SiteChit.Site;
 import com.magicrealm.models.chits.SoundChit;
 import com.magicrealm.models.chits.SoundChit.sound;
 import com.magicrealm.models.chits.WarningChit;
 import com.magicrealm.models.chits.WarningChit.warning;
 
 /**
- * A strategy for placing all of the map chits on a board (site, sound and
+ * A strategy for placing all of the map chits on a board (Site, sound and
  * warning chits)
  */
 public abstract class MapChitPlacementStrategy {
@@ -52,19 +52,19 @@ public abstract class MapChitPlacementStrategy {
 	}
 	
 	public static SiteChit getLostCityChit() {
-		return new SiteChit(site.lost_city);
+		return new SiteChit(Site.lost_city);
 	}
 	
 	public static SiteChit getLostCastleChit() {
-		return new SiteChit(site.lost_castle);
+		return new SiteChit(Site.lost_castle);
 	}
 	
 	public static List<MapChit> getSiteChits() {
-		site[] s = new site[] { site.altair, site.cairns, site.hoard,
-				site.lair, site.pool, site.shrine, site.statue, site.vault };
+		Site[] s = new Site[] { Site.altair, Site.cairns, Site.hoard,
+				Site.lair, Site.pool, Site.shrine, Site.statue, Site.vault };
 		
 		ArrayList<MapChit> list = new ArrayList<MapChit>();
-		for (site site2 : s) {
+		for (Site site2 : s) {
 			list.add(new SiteChit(site2));
 		}
 		

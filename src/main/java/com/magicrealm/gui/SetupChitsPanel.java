@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.SiteChit;
-import com.magicrealm.models.chits.SiteChit.site;
+import com.magicrealm.models.chits.SiteChit.Site;
 import com.magicrealm.models.chits.SoundChit;
 import com.magicrealm.models.chits.SoundChit.sound;
 import com.magicrealm.models.chits.WarningChit;
@@ -43,7 +43,7 @@ public class SetupChitsPanel extends JPanel {
 	private List<TileRow> tileRows = new ArrayList<>();
 	private List<JTextField> lostCastleRows = new ArrayList<>();
 	private List<JTextField> lostCityRows = new ArrayList<>();
-	private final JLabel siteChitDescriptionLabel = new JLabel(getSiteChitsDescription());
+	private final JLabel SiteChitDescriptionLabel = new JLabel(getSiteChitsDescription());
 	private final JLabel soundChitDescriptionLabel = new JLabel(getSoundChitsDescription());
 	private final JLabel warningChitDescriptionLabel = new JLabel(getWarningChitsDescription());
 	private final JPanel descriptionLabelPanel = new JPanel();
@@ -61,12 +61,12 @@ public class SetupChitsPanel extends JPanel {
 		 */
 		setLayout(new MigLayout("", "[300px,grow][100px,grow][grow]", "[][]"));
 		
-		// setup tile site, sound and warming chit input
+		// setup tile Site, sound and warming chit input
 		add(tileListPanel, "cell 0 0 1 2,grow");
 		tileListPanel.setLayout(new BoxLayout(tileListPanel, BoxLayout.Y_AXIS));
 		tileListPanel.setBorder(new LineBorder(Color.BLACK));
 		
-		tileListPanel.add(new JLabel("site/sound chit       warning Chit"));
+		tileListPanel.add(new JLabel("Site/sound chit       warning Chit"));
 		for (TileType tile : TileType.values()) {
 			TileRow tileRow = new TileRow(tile);
 			tileRows.add(tileRow);
@@ -78,7 +78,7 @@ public class SetupChitsPanel extends JPanel {
 		lostCityCastlePanel.setLayout(new BoxLayout(lostCityCastlePanel, BoxLayout.Y_AXIS));
 		tileListPanel.setBorder(new LineBorder(Color.BLACK));
 		
-		lostCityCastlePanel.add(new JLabel("Lost City site/sound chit"));
+		lostCityCastlePanel.add(new JLabel("Lost City Site/sound chit"));
 		for (int i = 0; i < 5; i++) {
 			JTextField textField = new JTextField();
 			textField.setColumns(10);
@@ -86,7 +86,7 @@ public class SetupChitsPanel extends JPanel {
 			lostCityRows.add(textField);
 		}
 		
-		lostCityCastlePanel.add(new JLabel("Lost Castle site/sound chit"));
+		lostCityCastlePanel.add(new JLabel("Lost Castle Site/sound chit"));
 		for (int i = 0; i < 5; i++) {
 			JTextField textField = new JTextField();
 			textField.setColumns(10);
@@ -94,14 +94,14 @@ public class SetupChitsPanel extends JPanel {
 			lostCastleRows.add(textField);
 		}
 		lostCityCastlePanel.add(new JLabel("<html>The Lost City and Lost Castle"
-				+ " site/sound chits specified above will be added to the tile"
-				+ " that has the lost_city and lost_castle site chit assigned"
+				+ " Site/sound chits specified above will be added to the tile"
+				+ " that has the lost_city and lost_castle Site chit assigned"
 				+ " to it, respectively.</html>"));
 		
 		// add description labels for the chit inputs
 		add(descriptionLabelPanel, "cell 2 0,growx,aligny top");
 		descriptionLabelPanel.setLayout(new MigLayout("", "[grow]", "[][][grow]"));
-		descriptionLabelPanel.add(siteChitDescriptionLabel, "cell 0 0");
+		descriptionLabelPanel.add(SiteChitDescriptionLabel, "cell 0 0");
 		descriptionLabelPanel.add(soundChitDescriptionLabel, "cell 0 1");
 		descriptionLabelPanel.add(warningChitDescriptionLabel, "cell 0 2");
 		
@@ -129,7 +129,7 @@ public class SetupChitsPanel extends JPanel {
 	private static String getSiteChitsDescription() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<html>Avaliable Site chits: ");
-		for (site s : site.values()) {
+		for (Site s : Site.values()) {
 			sb.append("<br>");
 			sb.append(s);
 		}
@@ -182,7 +182,7 @@ public class SetupChitsPanel extends JPanel {
 	}
 	
 	/**
-	 * Get all site and sound chits assigned to the tiles
+	 * Get all Site and sound chits assigned to the tiles
 	 * @return
 	 */
 	public Map<TileType, ClearingMapChit> getClearingChits() {
@@ -194,9 +194,9 @@ public class SetupChitsPanel extends JPanel {
 			if (chitText.isEmpty())
 				continue;
 			
-			// try parsing a site chit
+			// try parsing a Site chit
 			try {
-				chitMap.put(row.getTileType(), new SiteChit(site.valueOf(chitText)));
+				chitMap.put(row.getTileType(), new SiteChit(Site.valueOf(chitText)));
 			} catch (IllegalArgumentException e) {
 				
 				// try parsing a sound chit
@@ -205,13 +205,13 @@ public class SetupChitsPanel extends JPanel {
 				} catch (IllegalArgumentException e1) {
 					
 					// no luck
-					log.warn("unable to parse sound or site chit from input: " + chitText);
+					log.warn("unable to parse sound or Site chit from input: " + chitText);
 				}
 			}
 		}
 		// add chits for lost castle and lost city to their respective chits
-		addExtraChits(chitMap, site.lost_castle, getLostCastleChits());
-		addExtraChits(chitMap, site.lost_city, getLostCityChits());
+		addExtraChits(chitMap, Site.lost_castle, getLostCastleChits());
+		addExtraChits(chitMap, Site.lost_city, getLostCityChits());
 		
 		return chitMap;
 	}
@@ -225,13 +225,13 @@ public class SetupChitsPanel extends JPanel {
 	 * @param extraChits
 	 */
 	private static void addExtraChits(EnumMap<TileType, ClearingMapChit> chitMap,
-			site lostChit, List<ClearingMapChit> extraChits) {
+			Site lostChit, List<ClearingMapChit> extraChits) {
 		for (TileType tileType : chitMap.keySet()) {
 			ClearingMapChit chit = chitMap.get(tileType);
 			
 			if (chit instanceof SiteChit && lostChit.equals(((SiteChit) chit).getSiteType())) {
-				SiteChit siteChit = (SiteChit) chit;
-				siteChit.getExtraChits().addAll(extraChits);
+				SiteChit SiteChit = (SiteChit) chit;
+				SiteChit.getExtraChits().addAll(extraChits);
 			}
 		}
 	}
@@ -261,9 +261,9 @@ public class SetupChitsPanel extends JPanel {
 			if (text.isEmpty())
 				continue;
 			
-			// try parsing it as a site chit
+			// try parsing it as a Site chit
 			try {
-				list.add(new SiteChit(site.valueOf(text)));
+				list.add(new SiteChit(Site.valueOf(text)));
 			} catch (IllegalArgumentException e) {
 				
 				// try parsing it as a sound chit
@@ -272,7 +272,7 @@ public class SetupChitsPanel extends JPanel {
 				} catch (IllegalArgumentException e1) {
 					
 					// no dice
-					log.error("unable to parse a site or sound chit from the string: " + text);
+					log.error("unable to parse a Site or sound chit from the string: " + text);
 				}
 			}
 		}
