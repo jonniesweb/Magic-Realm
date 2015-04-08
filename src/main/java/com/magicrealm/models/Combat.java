@@ -226,14 +226,17 @@ public class Combat {
 		Combatant target = c.getTarget();
 		MRCharacter targetCharacter = null;
 		MRMonster targetMonster = null;
+		IClientService targetClient = null;
 		
 		if(target instanceof CharacterCombatant) {			
 			targetCharacter = characters.get(((CharacterCombatant) target).getCharacter());
+			targetClient = gameState.getClientService(targetCharacter.getCharacterType());
 		} else if(target instanceof MonsterCombatant) {
 			targetMonster = monsters.get(((MonsterCombatant) target).getMonster());
 		}
 		
 		IClientService client = gameState.getClientService(c.getCharacter());
+		
 		Weight harm = getTotalHarm(c, false);
 		Armor blockingArmor = null;
 		if(targetCharacter != null) {
@@ -275,6 +278,7 @@ public class Combat {
 				if(targetCharacter.getHealth() == 0) {
 					died(target);
 					client.sendMessage("You killed "+targetCharacter.getName());
+					targetClient.sendMessage("You were killed by "+c.getCharacter());
 				}
 			} else {
 				client.sendMessage("Your attack did no harm");

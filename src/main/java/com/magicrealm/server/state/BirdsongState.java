@@ -18,6 +18,7 @@ import com.magicrealm.models.monsters.GoblinGreatSword;
 import com.magicrealm.models.monsters.GoblinSpear;
 import com.magicrealm.models.monsters.HeavySpider;
 import com.magicrealm.models.monsters.MRMonster;
+import com.magicrealm.models.monsters.Octopus;
 import com.magicrealm.models.monsters.Ogre;
 import com.magicrealm.models.monsters.Wolf;
 import com.magicrealm.models.tiles.GameTile;
@@ -79,7 +80,7 @@ public class BirdsongState extends ServerState {
 			summonSiteMonsters(site.altair, new GoblinSpear());
 			break;
 		case THREE:
-//			summonSiteMonsters(site.pool, new Octupus());
+			summonSiteMonsters(site.pool, new Octopus());
 			break;
 		case FOUR:
 			summonSiteMonsters(site.vault, new Ogre());

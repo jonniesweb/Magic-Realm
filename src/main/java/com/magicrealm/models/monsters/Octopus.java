@@ -53,6 +53,6 @@ public class Octopus extends MRMonster {
 	@Override
 	public String getImageName ()
 	{
-		return "theNameofThisImageFile";
+		return "octopus";
 	}
 }
