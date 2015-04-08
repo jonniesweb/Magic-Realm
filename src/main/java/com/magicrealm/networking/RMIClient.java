@@ -3,6 +3,7 @@ package com.magicrealm.networking;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.rmi.UnknownHostException;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -134,7 +135,8 @@ public class RMIClient {
 					try {
 						connectToServer();
 					} catch (RemoteException | NotBoundException e) {
-						log.fatal("Unable to connect to remote server", e);
+						log.fatal("Unable to connect to remote server. Quitting.", e);
+						System.exit(1);
 					}
 					
 				}

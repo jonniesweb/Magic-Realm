@@ -1,5 +1,8 @@
 package com.magicrealm.client.main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -11,6 +14,7 @@ import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.client.ClientGameState;
 import com.magicrealm.exceptions.CharacterAlreadyTakenException;
 import com.magicrealm.gui.SelectCharacter;
+import com.magicrealm.gui.ServerConnectPane;
 import com.magicrealm.gui.SetupChitsPanel;
 import com.magicrealm.gui.StartGameFrame;
 import com.magicrealm.networking.RMIClient;
@@ -20,11 +24,47 @@ public class ClientMain {
 	private static final Log log = LogFactory.getLog(ClientMain.class);
 	
 	public static void main(String[] args) {
-		ClientGameState instance = ClientGameState.getInstance();
-		RMIClient rmiClient = new RMIClient("localhost", 1099);
-		rmiClient.start();
-		instance.setService(rmiClient.getService());
+		final ClientGameState instance = ClientGameState.getInstance();
 		
+		final ServerConnectPane serverConnectPane = new ServerConnectPane();
+		final JFrame jFrame = new JFrame("Connect to the server");
+		jFrame.add(serverConnectPane);
+		jFrame.pack();
+		jFrame.setVisible(true);
+		
+		// add action for connect button to get the specified ip address to connect to
+		serverConnectPane.setConnectAction(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				log.info("connecting to: " + serverConnectPane.getIpAddress());
+				RMIClient rmiClient = new RMIClient(serverConnectPane.getIpAddress(), 1099);
+				rmiClient.start();
+				instance.setService(rmiClient.getService());
+				jFrame.dispose();
+				
+				start(instance);
+			}
+		});
+		
+		// add action for the connect locally button to connect to the local server
+		serverConnectPane.setConnectLocallyButton(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				log.info("connecting to localhost");
+				RMIClient rmiClient = new RMIClient("localhost", 1099);
+				rmiClient.start();
+				instance.setService(rmiClient.getService());
+				jFrame.dispose();
+				
+				start(instance);
+			}
+		});
+		
+		
+		
+	}
+
+	private static void start(ClientGameState instance) {
 		boolean cheatMode = false;
 		int option = JOptionPane.showConfirmDialog(null, "Enable cheat mode?", "Mode", JOptionPane.YES_NO_OPTION);
 		if(option == JOptionPane.YES_OPTION) {
@@ -72,6 +112,5 @@ public class ClientMain {
 		StartGameFrame startGameFrame = new StartGameFrame(instance);
 		instance.setStartGameFrame(startGameFrame);
 		startGameFrame.setVisible(true);
-		
 	}
 }
