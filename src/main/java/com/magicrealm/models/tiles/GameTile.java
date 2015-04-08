@@ -342,6 +342,7 @@ public class GameTile implements Serializable {
 			addPath(2, 5);
 			addPath(5, 3);
 			addPath(3, 6);
+			addPath(6, 4);
 			addPath(4, 1);
 			addSecretPath(2, 3);
 			addSecretPath(1, 6);
@@ -350,7 +351,8 @@ public class GameTile implements Serializable {
 			setPosition(2, 84, 248);
 			setPosition(3, 174, 171);
 			setPosition(4, 288, 320);
-			setPosition(5, 282, 164);
+			setPosition(5, 174, 324);
+			setPosition(6, 282, 164);
 			setWarningChitPosition(82, 218);
 			setSiteSoundChitPosition(415, 216);
 			break;
