@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
@@ -14,6 +15,7 @@ import javax.swing.JToggleButton;
 
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.characters.MRCharacter.CharacterType;
+import com.magicrealm.client.ClientGameState;
 import com.magicrealm.models.Dwelling.dwelling;
 
 public class SelectCharacter extends JPanel {
@@ -31,7 +33,7 @@ public class SelectCharacter extends JPanel {
 		characterButtons = new JPanel();
 		characterButtons.setLayout(new GridLayout(1, 3));
 		
-		CharacterType[] characters = MRCharacter.CharacterType.values();
+		List<CharacterType> characters = ClientGameState.getInstance().getService().getAvaliableCharacters();
 		
 		CharacterButton cb;
 		cButtons = new ArrayList<CharacterButton>();
