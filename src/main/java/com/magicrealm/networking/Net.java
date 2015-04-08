@@ -3,6 +3,9 @@ package com.magicrealm.networking;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -182,5 +185,18 @@ class Net implements INet {
 			connectState.setupChits(clearingChits, warningChits);
 		} else
 			throw new RuntimeException("invalid state to setup map chits");
+	}
+
+	@Override
+	public List<CharacterType> getAvaliableCharacters() {
+		if (! (gameState.getState() instanceof PlayerConnectState))
+			throw new RuntimeException("Invalid state to get avaliable characters");
+		
+		ArrayList<CharacterType> list = new ArrayList<>(Arrays.asList(MRCharacter.CharacterType.values()));
+		Set<MRCharacter> characters = gameState.getCharacters();
+		for (MRCharacter mrCharacter : characters) {
+			list.remove(mrCharacter.getCharacterType());
+		}
+		return list;
 	}
 }

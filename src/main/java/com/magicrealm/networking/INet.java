@@ -1,5 +1,6 @@
 package com.magicrealm.networking;
 
+import java.util.List;
 import java.util.Map;
 
 import com.magicrealm.characters.MRCharacter;
@@ -45,5 +46,6 @@ public interface INet {
 	public void setActivities(BirdsongActivities activities);
 	public void setupChits(Map<TileType, ClearingMapChit> clearingChits,
 			Map<TileType, WarningChit> warningChits);
+	public List<CharacterType> getAvaliableCharacters();
 	
 }
