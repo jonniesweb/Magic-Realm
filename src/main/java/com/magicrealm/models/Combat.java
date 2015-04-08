@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.characters.MRCharacter.CharacterType;
+import com.magicrealm.models.Dwelling.dwelling;
 import com.magicrealm.models.armors.Armor;
 import com.magicrealm.models.armors.Armor.Protection;
 import com.magicrealm.models.armors.Armor.Slot;
@@ -354,16 +355,24 @@ public class Combat {
 		character.setGold(character.getGold() + lootee.getGold());
 	}
 	
+	/**
+	 * make deaths persistent out of combat
+	 * @param target
+	 */
 	public void died(Combatant target) {
 		MRMonster monster;
+		MRCharacter character;
 		if(target instanceof MonsterCombatant) {
 			monster = monsters.get(((MonsterCombatant) target).getMonster());
 			this.clearing.getChits().remove(monster);
 		} else if(target instanceof CharacterCombatant) {
-			
+			character = characters.get(((CharacterCombatant) target).getCharacter());
+			character.setGold(5);
+			character.setFame(0);
+			character.setNotoriety(0);
+			Map<dwelling, TileClearingLocation> dwellingLocations = gameState.getBoard().getDwellingLocations();
+			gameState.getBoard().moveChitTo(dwellingLocations.get(character.getStartingLocation()), character);
 		}
-		// TODO add following:
-		// handle dead character
 		dead.add(target);
 	}
 	
