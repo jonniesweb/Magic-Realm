@@ -9,10 +9,8 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.activity.Activity;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.BirdsongActivities;
-import com.magicrealm.models.board.MagicRealmHexEngineModel;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
-import com.magicrealm.server.ServerGameState.User;
 
 public class DaylightState extends ServerState {
 
@@ -60,19 +58,6 @@ public class DaylightState extends ServerState {
 		EveningState eveningState = new EveningState(getGameState());
 		getGameState().setState(eveningState);
 		eveningState.init();
-	}
-
-	/**
-	 * Update the board and characters for all connected players
-	 */
-	private void updateClients() {
-		MagicRealmHexEngineModel board = getGameState().getBoard();
-		
-		for (User user : getGameState().getAllUsers()) {
-			IClientService clientService = user.clientService;
-			clientService.updateBoard(board);
-			clientService.updateCharacter(user.character);
-		}
 	}
 	
 }

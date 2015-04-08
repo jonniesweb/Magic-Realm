@@ -32,6 +32,8 @@ public class MidnightState extends ServerState {
 		}
 		
 		changePhase();
+		
+		updateClients();
 	}
 	
 	public void endGame() {

@@ -44,8 +44,10 @@ public class BirdsongState extends ServerState {
 		// notify clients of birdsong
 		for (IClientService service : getGameState().getClientServices()) {
 			service.birdsongStarted(getGameState().getBoard(), getDay());
-		}		
+		}
 		summonMonsters();
+		
+		updateClients();
 	}
 	
 	/**
