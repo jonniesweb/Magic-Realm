@@ -13,9 +13,11 @@ import com.magicrealm.models.chits.ClearingMapChit;
 import com.magicrealm.models.chits.MapChit;
 import com.magicrealm.models.chits.SiteChit;
 import com.magicrealm.models.chits.SiteChit.site;
+import com.magicrealm.models.monsters.Giant;
 import com.magicrealm.models.monsters.GoblinAxe;
 import com.magicrealm.models.monsters.GoblinGreatSword;
 import com.magicrealm.models.monsters.GoblinSpear;
+import com.magicrealm.models.monsters.HeavyBat;
 import com.magicrealm.models.monsters.HeavySpider;
 import com.magicrealm.models.monsters.MRMonster;
 import com.magicrealm.models.monsters.Octopus;
@@ -72,7 +74,7 @@ public class BirdsongState extends ServerState {
 		Result roll = ProbabilityCalculator.getResult(it.next());
 		switch (roll) {
 		case ONE:
-			summonSiteMonsters(site.hoard, new GoblinGreatSword());
+			summonSiteMonsters(site.hoard, new Giant());
 			summonSiteMonsters(site.lair, new GoblinGreatSword());
 			break;
 		case TWO:
@@ -88,6 +90,9 @@ public class BirdsongState extends ServerState {
 		case FIVE:
 			summonSiteMonsters(site.cairns, new HeavySpider());
 			summonSiteMonsters(site.statue, new Wolf());
+			break;
+		case SIX:
+			summonSiteMonsters(site.vault, new HeavyBat());
 			break;
 		default:
 			break;
