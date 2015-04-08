@@ -138,6 +138,7 @@ class Net implements INet {
 	 */
 	@Override
 	public void setClientService(final RMIService service) {
+		log.info("setClientService called from : " + clientId);
 		
 		// create a handler that proxies calls from ClientService through
 		// the passed RMIService

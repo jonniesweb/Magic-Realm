@@ -21,6 +21,7 @@ import com.magicrealm.networking.RMIClient;
 
 public class ClientMain {
 	
+	public static final int RMI_PORT = 65001;
 	private static final Log log = LogFactory.getLog(ClientMain.class);
 	
 	public static void main(String[] args) {
@@ -37,7 +38,7 @@ public class ClientMain {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				log.info("connecting to: " + serverConnectPane.getIpAddress());
-				RMIClient rmiClient = new RMIClient(serverConnectPane.getIpAddress(), 1099);
+				RMIClient rmiClient = new RMIClient(serverConnectPane.getIpAddress(), RMI_PORT);
 				rmiClient.start();
 				instance.setService(rmiClient.getService());
 				jFrame.dispose();
@@ -51,7 +52,7 @@ public class ClientMain {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				log.info("connecting to localhost");
-				RMIClient rmiClient = new RMIClient("localhost", 1099);
+				RMIClient rmiClient = new RMIClient("localhost", RMI_PORT);
 				rmiClient.start();
 				instance.setService(rmiClient.getService());
 				jFrame.dispose();

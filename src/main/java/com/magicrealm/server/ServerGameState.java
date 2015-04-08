@@ -109,6 +109,7 @@ public class ServerGameState {
 	}
 
 	public void addClientService(String clientId, IClientService service) {
+		log.debug("adding client service for clientId: " + clientId);
 		if (characters.get(clientId) == null) {
 			characters.put(clientId, new User());
 		}

@@ -7,6 +7,7 @@ import java.rmi.registry.Registry;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import com.magicrealm.client.main.ClientMain;
 import com.magicrealm.utils.Config;
 
 public class RMIServer {
@@ -49,7 +50,7 @@ public class RMIServer {
 
 	public Integer getPort() {
 		if (port == null) {
-			return Config.getInteger("rmiServerPort", 1099);
+			return Config.getInteger("rmiServerPort", ClientMain.RMI_PORT);
 		}
 		return port;
 	}
