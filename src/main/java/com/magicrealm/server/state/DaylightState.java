@@ -9,8 +9,12 @@ import org.apache.commons.logging.LogFactory;
 import com.magicrealm.activity.Activity;
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.models.BirdsongActivities;
+import com.magicrealm.models.chits.SoundChit;
+import com.magicrealm.models.chits.WarningChit;
+import com.magicrealm.models.tiles.GameTile;
 import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
+import com.magicrealm.utils.TileClearingLocation;
 
 public class DaylightState extends ServerState {
 
@@ -46,11 +50,30 @@ public class DaylightState extends ServerState {
 			character.reveal();
 			character.getActiveWeapon().sleep();
 			
+			TileClearingLocation loc0 = getGameState().getBoard().getChitLocation(character);
+			GameTile tile0 = getGameState().getBoard().getTile(loc0.getTileType());
+			
 			BirdsongActivities playerActivities = activities.get(clientId);
 			for (Activity activity : playerActivities.getQueuedActivities()) {
 				log.info("Executing activity " + activity);
 				activity.execute(getGameState(), clientId);
 				updateClients();
+			}
+			
+			TileClearingLocation loc = getGameState().getBoard().getChitLocation(character);
+			GameTile tile = getGameState().getBoard().getTile(loc.getTileType());
+			
+			if(tile0 != tile) {
+			IClientService service = getGameState().getClientService(clientId);
+			
+			WarningChit wc = tile.getWarningChit();
+				if(wc != null)
+					service.sendMessage("Warning! "+wc.getWarningTile().name());
+				if(tile.getSiteSoundChit() instanceof SoundChit) {
+					String sound = ((SoundChit) tile.getSiteSoundChit()).getSoundType().name();
+					sound = sound.substring(0, sound.length() - 1);
+					service.sendMessage("Scary sounds of "+sound);
+				}
 			}
 		}
 		
