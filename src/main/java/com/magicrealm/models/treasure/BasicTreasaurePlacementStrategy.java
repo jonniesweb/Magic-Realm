@@ -59,18 +59,26 @@ public class BasicTreasaurePlacementStrategy extends
 	private static void addGold(SiteChit chit, int small, int large) {
 		Random r = new Random();
 		
+		// small treasures
 		for (int i = 0; i < small; i++) {
 			TreasureChit treasureChit = new TreasureChit(treasure.small);
+			// gold: 10, 20, 30
 			treasureChit.setGold((r.nextInt(3) + 1) * 10);
+			// fame: 5, 10, 15
 			treasureChit.setFame((r.nextInt(3) + 1) * 5);
+			// notoriety: 2, 4, 6, 8, 10
 			treasureChit.setNotoriety((r.nextInt(5) + 1) * 2);
 			chit.addTreasure(treasureChit);
 		}
 		
+		// large treasures
 		for (int i = 0; i < large; i++) {
 			TreasureChit treasureChit = new TreasureChit(treasure.large);
+			// gold: 40, 50
 			treasureChit.setGold((r.nextInt(2) + 4) * 10);
+			// fame: 20, 25, 30
 			treasureChit.setFame((r.nextInt(3) + 4) * 5);
+			// notoriety: 12, 14, 16, 18, 20
 			treasureChit.setNotoriety((r.nextInt(5) + 6) * 2);
 			chit.addTreasure(treasureChit);
 		}

@@ -179,6 +179,7 @@ class Net implements INet {
 		if (getGameState().getState() instanceof PlayerConnectState) {
 			PlayerConnectState connectState = (PlayerConnectState) getGameState().getState();
 			connectState.setupChits(clearingChits, warningChits);
-		}
+		} else
+			throw new RuntimeException("invalid state to setup map chits");
 	}
 }
