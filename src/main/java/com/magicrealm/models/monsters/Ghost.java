@@ -5,52 +5,48 @@ import com.magicrealm.models.weapons.Claw;
 import com.magicrealm.models.weapons.Tooth;
 
 public class Ghost extends MRMonster {
-
-	public Ghost ()
-	{
-		/* Call inherited constructor *****************************************/
-		super ( monster.ghost );
+	
+	public Ghost() {
+		super(monster.ghost);
 		
-		setAttentionChit ( true );
+		setAttentionChit(true);
 		
-		/* Set Object Related Attributes **************************************/
-		setName 		 ( "Ghost" );
-		setDescription 	 ( "This is a ghost. Ooooooo run away!" );
-		setVulnerability ( Weight.MEDIUM );
-		setFame			 ( 0 );
-		setNotoriety	 ( 2 );
-		setMovementSpeed ( 4 );
+		setName("Ghost");
+		setDescription("This is a ghost. Ooooooo run away!");
+		setVulnerability(Weight.MEDIUM);
+		setFame(0);
+		setNotoriety(2);
+		setMovementSpeed(4);
 		
-		/* Configure Custom Claw **********************************************/
-		Claw claw = ( Claw ) getFirstWeaponOfClass ( Claw.class );
+		// Configure Custom Claw
+		Claw claw = (Claw) getFirstWeaponOfClass(Claw.class);
 		
-		/* Configure the custom update variables */
-		claw.setCustomWeightS ( Weight.HEAVY );
-		claw.setCustomSpeedS  ( 4 );
-		claw.setCustomWeightA ( Weight.LIGHT );
-		claw.setCustomSpeedA  ( 2 );
+		// Configure the custom update variables
+		claw.setCustomWeightS(Weight.HEAVY);
+		claw.setCustomSpeedS(4);
+		claw.setCustomWeightA(Weight.LIGHT);
+		claw.setCustomSpeedA(2);
 		
-		/* Update the default weapon values */
-		claw.setSleepStats ();
-
-		/* Configure Custom Tooth *********************************************/
-		Tooth tooth = ( Tooth ) getFirstWeaponOfClass ( Tooth.class );
+		// Update the default weapon values
+		claw.setSleepStats();
 		
-		/* Configure the custom update variables */
-		tooth.setCustomWeightS ( Weight.HEAVY );
-		tooth.setCustomSpeedS  ( 4 );
-		tooth.setCustomWeightA ( Weight.LIGHT );
-		tooth.setCustomSpeedA  ( 2 );
+		// Configure Custom Tooth
+		Tooth tooth = (Tooth) getFirstWeaponOfClass(Tooth.class);
 		
-		/* Update the default weapon values */
-		tooth.setSleepStats ();
+		// Configure the custom update variables
+		tooth.setCustomWeightS(Weight.HEAVY);
+		tooth.setCustomSpeedS(4);
+		tooth.setCustomWeightA(Weight.LIGHT);
+		tooth.setCustomSpeedA(2);
 		
-		activateWeapon ( getFirstWeaponOfClass ( Claw.class ) );
+		// Update the default weapon values
+		tooth.setSleepStats();
+		
+		activateWeapon(getFirstWeaponOfClass(Claw.class));
 	}
 	
 	@Override
-	public String getImageName ()
-	{
+	public String getImageName() {
 		return "ghost";
 	}
 }

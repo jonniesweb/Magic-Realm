@@ -3,14 +3,9 @@ package com.magicrealm.models.weapons;
 import com.magicrealm.models.Weight;
 
 public class Claw extends MonsterUnarmed {
-
-	public Claw ()
-	{
-		super (	"Claw",				/* Name		*/
-				Attack.STRIKING,	/* Attack	*/
-				0,					/* Length	*/
-				1,					/* Price	*/
-				Weight.MEDIUM );	/* Weight	*/
+	
+	public Claw() {
+		super("Claw", Attack.STRIKING, 0, 1, Weight.MEDIUM);
 	}
 	
 }

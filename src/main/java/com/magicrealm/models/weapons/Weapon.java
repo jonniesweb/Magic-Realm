@@ -20,6 +20,13 @@ public abstract class Weapon extends Belonging {
 	protected boolean alerted;
 	protected int price;
 
+	/**
+	 * @param name
+	 * @param attack
+	 * @param length
+	 * @param price
+	 * @param weight
+	 */
 	protected Weapon(String name, Attack attack, int length, int price,
 			Weight weight) {
 		this.attack = attack;
@@ -112,5 +119,5 @@ public abstract class Weapon extends Belonging {
 	public abstract void setAlertStats();
 
 	public abstract void setSleepStats();
-
+	
 }
