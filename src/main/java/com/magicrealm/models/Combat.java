@@ -110,10 +110,11 @@ public class Combat {
 		for(CharacterCombatant c: characterCombatants) {
 			IClientService client = gameState.getClientService(c.getCharacter());
 			Combatant[] attackers = getAttackers(c).toArray(new Combatant[0]);
-			Object obj = client.clientSelect(attackers, "Choose a target");
+			Object obj = client.clientSelect(attackers, "Choose a target", JOptionPane.YES_NO_OPTION);
 			if(obj instanceof MonsterCombatant) {
 				// monsters retaliate if attacked
 				monsterCombatants.get(monsterCombatants.indexOf(obj)).setTarget(c);
+				characters.get(c.getCharacter()).reveal();
 			}
 			c.setTarget((Combatant) obj);
 		}
