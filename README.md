@@ -15,11 +15,16 @@ Go to src directory and open files in an editor/viewer of your choice
 
 Note: source in com.igormaznitsa.* is a dependency from https://code.google.com/p/jhexed/
 
-### Staring the game
+### Starting the server
 
-Execute the jar file with the following command (requires JRE 7)
+Execute the jar file with the following command (requires JRE 7+)
 
-	 java -jar magicrealm-0.0.1-SNAPSHOT-jar-with-dependencies.jar
+	 java -jar magicrealm-server.jar
+	 
+### Starting the client
+Execute the jar file with the following command (requires JRE 7+). Each player should launch a client.
+
+	java -jar magicrealm-client.jar
 
 
 ### Building
@@ -28,6 +33,6 @@ Execute the jar file with the following command (requires JRE 7)
 - Install Maven 3
 - in the root directory (directory of pom.xml) run the following command to generate the jar
 
-	mvn clean compile assembly:single
+	mvn clean package
 
-This will download the dependencies and compile the code
+This will download the dependencies and compile the code. It will output the client and server jars in the target/ directory.
