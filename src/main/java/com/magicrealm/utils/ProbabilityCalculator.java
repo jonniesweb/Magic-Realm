@@ -4,6 +4,7 @@ import java.util.Random;
 
 import com.magicrealm.characters.MRCharacter;
 import com.magicrealm.gui.SimpleSelection;
+import com.magicrealm.networking.IClientService;
 import com.magicrealm.server.ServerGameState;
 
 public abstract class ProbabilityCalculator {
@@ -20,14 +21,18 @@ public abstract class ProbabilityCalculator {
 	public static final int FIVE_PROBABILITY = 24;
 	
 	public static boolean calculateHide(String clientId) {
-		return getResult(clientId) != Result.SIX;
+		return getResult(clientId, "Select hide roll") != Result.SIX;
 	}
 	
 	public static Result getResult(MRCharacter character) {
+		return getResult(character, "Select a Result");
+	}
+	
+	public static Result getResult(MRCharacter character, String message){
 		if(character != null && character.isCheatModeEnabled()) {
 			Result[] choices = Result.values();
-			SimpleSelection selectResult = new SimpleSelection(choices, "Select A Result");
-			return (Result) selectResult.getSelected();
+			IClientService service = ServerGameState.getInstance().getClientService(character.getCharacterType());
+			return (Result) service.clientSelect(choices, message);
 		}
 		int num;
 		num = getRandom();
@@ -48,6 +53,10 @@ public abstract class ProbabilityCalculator {
 	
 	public static Result getResult(String clientId) {
 		return getResult(ServerGameState.getInstance().getCharacter(clientId));
+	}
+	
+	public static Result getResult(String clientId, String message) {
+		return getResult(ServerGameState.getInstance().getCharacter(clientId), message);
 	}
 	
 	public static boolean findTreasure() {

@@ -73,7 +73,7 @@ public class BirdsongState extends ServerState {
 	
 	public void summonMonsters() {
 		Iterator<MRCharacter> it = getGameState().getCharacters().iterator();
-		Result roll = ProbabilityCalculator.getResult(it.next());
+		Result roll = ProbabilityCalculator.getResult(it.next(), "Select monster roll");
 		switch (roll) {
 		case ONE:
 			summonSiteMonsters(Site.hoard, new Giant());

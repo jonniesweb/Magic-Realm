@@ -25,11 +25,11 @@ public class Search extends Activity {
 
 		search selectedSearch = (search) clientService.clientSelect(search.values(), "Select a search method");
 		Table table = getTableFromSearchType(selectedSearch, gameState, clientId);
-		Result result = ProbabilityCalculator.getResult(clientId);
+		Result result = ProbabilityCalculator.getResult(clientId, "Select search roll");
 		
 		if(result == Result.ONE && !(table instanceof Loot)) {
 			Result[] choices = (table instanceof Loot) ? Result.values() : ProbabilityCalculator.getResultChoices();
-			Result selectResult = (Result) clientService.clientSelect(choices, "Select which one to loot");
+			Result selectResult = (Result) clientService.clientSelect(choices, "Select search roll");
 			table.execute(selectResult);
 		} else {
 			table.execute(result);
