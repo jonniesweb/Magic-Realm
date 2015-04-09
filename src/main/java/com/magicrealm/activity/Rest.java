@@ -24,6 +24,7 @@ public class Rest extends Activity {
 //			int option = JOptionPane.showConfirmDialog(null, restChit, "Select A Chit To Restore", JOptionPane.OK_CANCEL_OPTION);
 //			if(option == JOptionPane.OK_OPTION) {
 			character.rest(restChit);
+			character.increaseHealth(1);
 //			}
 		} else {
 			clientService.sendMessage("No action chits to rest");

@@ -78,6 +78,7 @@ public class EveningState extends ServerState {
 				new Combat(getGameState(), characters, monsters, location);
 			}
 			characters.clear();
+			monsters.clear();
 		}
 		
 	}
